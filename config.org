@@ -660,7 +660,7 @@ Cliplink allows instantly capturing from the clipboard and fetching the URL titl
 					        ))))))
 	  ((org-agenda-tag-filter-preset '("-@work" "-gifts"))))
 	 ("pw" "private week"
-	  ((agenda "" ((org-agenda-span 14)))
+	  ((agenda "" ((org-agenda-span 7)))
 	   (todo "" ((org-agenda-overriding-header "")
                  (org-super-agenda-groups
                   (append common-todo-groups
