@@ -801,7 +801,7 @@ This really bugs me...
 (use-package kdl-mode
   :mode ("\\.kdl\\'"))
 #+end_src
-* web-mode
+** web-mode
 #+begin_src emacs-lisp
 (use-package web-mode
   :defer t
