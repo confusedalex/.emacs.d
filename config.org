@@ -16,11 +16,11 @@
 #+begin_src emacs-lisp
 (use-package emacs
   :init
-  (tool-bar-mode -1)           ;; Disable the tool bar
-  (menu-bar-mode -1)           ;; Disable the menu bar 
-  (scroll-bar-mode -1)         ;; Disable the scroll bar
+  (tool-bar-mode -1)                              ;; Disable the tool bar
+  (menu-bar-mode -1)                              ;; Disable the menu bar 
+  (scroll-bar-mode -1)                            ;; Disable the scroll bar
 
-  :custom
+  :custom                      
   (auto-save-default nil)                         ;; Disable automatic saving of buffers.
   (make-backup-files nil)                         ;; Don't create backup files!
   (delete-by-moving-to-trash t)                   ;; Move deleted files to the trash instead of permanently deleting them.
@@ -28,7 +28,7 @@
   (inhibit-startup-message t)                     ;; Disable the startup message when Emacs launches.
   (tab-always-indent 'complete)                   ;; Make the TAB key complete text instead of just indenting.
   
-  (display-line-numbers-type 'visual)           ;; Use relative line numbering in programming modes.
+  (display-line-numbers-type 'visual)             ;; Use relative line numbering in programming modes.
   (global-display-line-numbers-mode 1)            ;; display line numbers
   (gc-cons-threshold 100000000 t)                 ;; increase performance
   (use-short-answers t)                           ;; y/n instead of yes/no
