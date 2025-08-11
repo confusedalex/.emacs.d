@@ -58,8 +58,7 @@
 #+end_src
 First we gonne install some nice themes
 #+begin_src emacs-lisp
-(use-package ef-themes)
-(load-theme 'ef-bio t)
+(load-theme 'modus-vivendi-tinted t)
 #+end_src
 ** doom-modeline
 #+begin_src emacs-lisp
