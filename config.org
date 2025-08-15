@@ -712,14 +712,6 @@ Cliplink allows instantly capturing from the clipboard and fetching the URL titl
    )
   )
 #+end_src
-*** org-superstar
-Transforms the * into nice symbols
-#+begin_src emacs-lisp
-(use-package org-superstar
-  :after org
-  :hook (org-mode . org-superstar-mode)
-  )
-#+end_src
 *** org-toc
 #+BEGIN_SRC emacs-lisp
 (use-package toc-org
