@@ -826,19 +826,7 @@ This really bugs me...
     (kbd "RET") nil ; unset RET to use with org-return-follows-link
     (kbd "SPC") spc-prefix-map
     )
-
-  (evil-define-key 'normal 'global (kbd "gcc")
-    (lambda ()
-      (interactive)
-      (if (not (use-region-p))
-	  (comment-or-uncomment-region (line-beginning-position) (line-end-position)))))
   
-  (evil-define-key 'visual 'global (kbd "gc")
-    (lambda ()
-      (interactive)
-      (if (use-region-p)
-	  (comment-or-uncomment-region (region-beginning) (region-end)))))
-
   (global-unset-key (kbd "M-H"))
   )
 
@@ -851,6 +839,11 @@ This really bugs me...
   :after evil-collection
   :config
   (global-evil-surround-mode 1))
+
+(use-package evil-commentary
+  :after (evil org)
+  :config (evil-commentary-mode 1)
+  )
 
 (use-package evil-matchit
   :after evil-collection
