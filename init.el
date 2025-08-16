@@ -383,9 +383,6 @@
          (magit-post-refresh . diff-hl-magit-post-refresh))
   :init (global-diff-hl-mode))
 
-(use-package pg :vc (:url "https://github.com/emarsden/pg-el/"))
-(use-package pgmacs :vc (:url "https://github.com/emarsden/pgmacs/"))
-
 (use-package org
   :defer t        ;; Defer loading Org-mode until it's needed.
   :hook
@@ -435,8 +432,6 @@
   (org-export-with-toc nil)
   
   (org-hide-leading-stars t)
-  (org-pretty-entities t)
-
   (org-refile-targets
    '((nil :maxlevel . 5)
      (org-agenda-files :maxlevel . 5)) ;; add all agenda files as refile targets
@@ -713,6 +708,12 @@
    ("\\.vue\\'" . web-mode)
    ("\\.djhtml\\'" . web-mode)))
 
+(use-package yaml-mode
+  :defer t
+  :mode (
+         ("\\.yml\\'" . yaml-mode))
+  )
+
 (use-package evil
   :hook (after-init . evil-mode)
   :custom
@@ -766,37 +767,3 @@
   (bind-key "C-c m" empv-map)
   :custom
   (empv-radio-channels '(("Deutschlandfunk Nova" . "https://st03.sslstream.dlf.de/dlf/03/high/aac/stream.aac"))))
-
-(use-package emms
-  :config
-  (require 'emms-setup)
-  (require 'emms-volume)
-  (require 'emms-mpris)
-  (require 'emms-dbus)
-  (emms-all)
-  (emms-default-players)
-  (emms-mpris-enable)
-  (emms-dbus-enable)
-  :custom
-  (emms-player-list '(emms-player-mpv))
-  (emms-info-functions '(emms-info-native))
-  
-  (emms-browser-covers #'emms-browser-cache-thumbnail-async)
-  (emms-browser-thumbnail-small-size 64)
-  (emms-browser-thumbnail-medium-size 128)
-  )
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages nil)
- '(package-vc-selected-packages
-   '((pgmacs :url "https://github.com/emarsden/pgmacs/")
-     (pg :url "https://github.com/emarsden/pg-el/"))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

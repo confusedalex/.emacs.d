@@ -808,6 +808,14 @@ This really bugs me...
    ("\\.vue\\'" . web-mode)
    ("\\.djhtml\\'" . web-mode)))
 #+end_src
+** yaml-mode
+#+begin_src emacs-lisp
+(use-package yaml-mode
+  :defer t
+  :mode (
+         ("\\.yml\\'" . yaml-mode))
+  )
+#+end_src
 * evil Mode
 #+BEGIN_SRC emacs-lisp
 (use-package evil
