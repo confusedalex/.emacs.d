@@ -816,6 +816,14 @@ This really bugs me...
          ("\\.yml\\'" . yaml-mode))
   )
 #+end_src
+** fish-mode
+#+begin_src emacs-lisp
+(use-package fish-mode
+  :defer t
+  :mode (
+         ("\\.fish\\'" . fish-mode))
+  )
+#+end_src
 * evil Mode
 #+BEGIN_SRC emacs-lisp
 (use-package evil

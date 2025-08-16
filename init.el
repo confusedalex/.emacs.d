@@ -714,6 +714,12 @@
          ("\\.yml\\'" . yaml-mode))
   )
 
+(use-package fish-mode
+  :defer t
+  :mode (
+         ("\\.fish\\'" . fish-mode))
+  )
+
 (use-package evil
   :hook (after-init . evil-mode)
   :custom
