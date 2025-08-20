@@ -137,7 +137,15 @@
 
 (use-package olivetti
   :defer t
-  :commands (olivetti-mode))
+  :commands (olivetti-mode)
+  :custom
+  (olivetti-body-width 130)
+)
+
+(use-package auto-olivetti
+  :vc (:url "https://git.sr.ht/~ashton314/auto-olivetti")
+  :config
+  (auto-olivetti-mode))
 
 (defvar-keymap prefix-find-files-map
   :doc "Find Files"
