@@ -343,15 +343,17 @@
          (nix-ts-mode . lsp-deferred)
 		 (python-ts-mode . lsp-deferred)
 		 (dart-mode . lsp-deferred)
+		 (go-mode . lsp-deferred)
 		 (typescript-ts-mode . lsp-deferred)
 		 (tsx-ts-mode . lsp-deferred)
+         (lsp-mode . lsp-diagnostics-mode)
          (lsp-mode . lsp-enable-which-key-integration)
          (lsp-completion-mode . my/lsp-mode-setup-completion))
-:commands lsp lsp-deferred)
+  :commands lsp lsp-deferred)
 
-;; optionally
 (use-package lsp-ui
   :custom
+  (lsp-ui-sideline-enable t)
   (lsp-ui-sideline-show-diagnostics t)
   (lsp-ui-sideline-show-hover nil)
   :commands lsp-ui-mode)
@@ -728,11 +730,30 @@
          ("\\.fish\\'" . fish-mode))
   )
 
+(use-package go-mode)
+
+(use-package pdf-tools
+  :init
+  (pdf-tools-install))
+
+(use-package auctex
+  :config
+  (TeX-auto-save t)
+  (TeX-parse-self t)
+  (TeX-PDF-mode t)
+  (TeX-view-program-selection '((output-pdf "PDF Tools")))
+  )
+(use-package cdlatex)
+(use-package reftex)
+
 (use-package evil
+  :init
+  (setq evil-respect-visual-line-mode t)
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
   :hook (after-init . evil-mode)
   :custom
   (evil-want-C-u-scroll t)
-  (evil-want-keybinding nil)
   (evil-undo-system 'undo-redo)
   ;; Set the leader key to space for easier access to custom commands.
   (evil-want-leader t)
@@ -744,7 +765,7 @@
     (kbd "RET") nil ; unset RET to use with org-return-follows-link
     (kbd "SPC") spc-prefix-map
     )
-  
+
   (global-unset-key (kbd "M-H"))
   )
 
