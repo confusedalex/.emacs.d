@@ -884,11 +884,3 @@ This really bugs me...
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 #+end_src
-* radio
-#+begin_src emacs-lisp
-(use-package empv
-  :config
-  (bind-key "C-c m" empv-map)
-  :custom
-  (empv-radio-channels '(("Deutschlandfunk Nova" . "https://st03.sslstream.dlf.de/dlf/03/high/aac/stream.aac"))))
-#+end_src

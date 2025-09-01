@@ -775,9 +775,3 @@
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
-
-(use-package empv
-  :config
-  (bind-key "C-c m" empv-map)
-  :custom
-  (empv-radio-channels '(("Deutschlandfunk Nova" . "https://st03.sslstream.dlf.de/dlf/03/high/aac/stream.aac"))))
