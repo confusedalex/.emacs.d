@@ -373,11 +373,11 @@ Orderless enables sort of a fuzzy search for searching commands. So "comm magi" 
 ** flycheck
 #+begin_src emacs-lisp
 (use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode)
   :bind (:map flycheck-mode-map
               ("M-n" . flycheck-next-error)
-              ("M-p" . flycheck-previous-error)))
+              ("M-p" . flycheck-previous-error))
+  :hook (prog-mode . flycheck-mode)
+  )
 #+end_src
 ** lsp-mode
 #+begin_src emacs-lisp

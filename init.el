@@ -321,11 +321,11 @@
   :hook (after-init . savehist-mode))
 
 (use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode)
   :bind (:map flycheck-mode-map
               ("M-n" . flycheck-next-error)
-              ("M-p" . flycheck-previous-error)))
+              ("M-p" . flycheck-previous-error))
+  :hook (prog-mode . flycheck-mode)
+  )
 
 (use-package lsp-mode
   :init
