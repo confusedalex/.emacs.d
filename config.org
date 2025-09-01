@@ -840,10 +840,13 @@ This really bugs me...
 * evil Mode
 #+BEGIN_SRC emacs-lisp
 (use-package evil
+  :init
+  (setq evil-respect-visual-line-mode t)
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
   :hook (after-init . evil-mode)
   :custom
   (evil-want-C-u-scroll t)
-  (evil-want-keybinding nil)
   (evil-undo-system 'undo-redo)
   ;; Set the leader key to space for easier access to custom commands.
   (evil-want-leader t)
@@ -855,7 +858,7 @@ This really bugs me...
     (kbd "RET") nil ; unset RET to use with org-return-follows-link
     (kbd "SPC") spc-prefix-map
     )
-  
+
   (global-unset-key (kbd "M-H"))
   )
 
