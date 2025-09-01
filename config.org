@@ -397,6 +397,7 @@ Orderless enables sort of a fuzzy search for searching commands. So "comm magi" 
          (nix-ts-mode . lsp-deferred)
 		 (python-ts-mode . lsp-deferred)
 		 (dart-mode . lsp-deferred)
+		 (go-mode . lsp-deferred)
 		 (typescript-ts-mode . lsp-deferred)
 		 (tsx-ts-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration)
@@ -831,6 +832,10 @@ This really bugs me...
   :mode (
          ("\\.fish\\'" . fish-mode))
   )
+#+end_src
+** go-mode
+#+begin_src emacs-lisp
+(use-package go-mode)
 #+end_src
 * evil Mode
 #+BEGIN_SRC emacs-lisp
