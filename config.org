@@ -837,6 +837,24 @@ This really bugs me...
 #+begin_src emacs-lisp
 (use-package go-mode)
 #+end_src
+** pdf
+#+begin_src emacs-lisp
+(use-package pdf-tools
+  :init
+  (pdf-tools-install))
+#+end_src
+** latex
+#+begin_src emacs-lisp
+(use-package auctex
+  :config
+  (TeX-auto-save t)
+  (TeX-parse-self t)
+  (TeX-PDF-mode t)
+  (TeX-view-program-selection '((output-pdf "PDF Tools")))
+  )
+(use-package cdlatex)
+(use-package reftex)
+#+end_src
 * evil Mode
 #+BEGIN_SRC emacs-lisp
 (use-package evil
