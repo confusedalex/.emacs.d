@@ -400,13 +400,14 @@ Orderless enables sort of a fuzzy search for searching commands. So "comm magi" 
 		 (go-mode . lsp-deferred)
 		 (typescript-ts-mode . lsp-deferred)
 		 (tsx-ts-mode . lsp-deferred)
+         (lsp-mode . lsp-diagnostics-mode)
          (lsp-mode . lsp-enable-which-key-integration)
          (lsp-completion-mode . my/lsp-mode-setup-completion))
-:commands lsp lsp-deferred)
+  :commands lsp lsp-deferred)
 
-;; optionally
 (use-package lsp-ui
   :custom
+  (lsp-ui-sideline-enable t)
   (lsp-ui-sideline-show-diagnostics t)
   (lsp-ui-sideline-show-hover nil)
   :commands lsp-ui-mode)
