@@ -557,13 +557,27 @@
 	  (:name "Waiting"
 			 :todo "WAIT"
 			 :order 10)))
+  (defvar work-files '("/home/alex/persist/org/work.org" "/home/alex/persist/org/google-calendar.org"))
   :custom
   (org-super-agenda-header-map nil)
   (org-super-agenda-mode t)
   (org-agenda-custom-commands
    '(
-     ("d" "Today"
+     ("fd" "Today"
 	  ((agenda "" ((org-agenda-span 'day)))
+	   (todo "" ((org-agenda-overriding-header "")
+                 (org-super-agenda-groups
+                  (append common-todo-groups
+					      '((:name "Shopping"
+						           :tag "@shopping"
+						           :order 19)
+                            (:name "Reading"
+						           :todo "READING"
+						           :order 20)
+					        ))))))
+	  ((org-agenda-tag-filter-preset '("-gifts"))))
+     ("fw" "Week"
+	  ((agenda "" ((org-agenda-span 'week)))
 	   (todo "" ((org-agenda-overriding-header "")
                  (org-super-agenda-groups
                   (append common-todo-groups
@@ -602,15 +616,17 @@
 					        ))))))
 	  ((org-agenda-tag-filter-preset '("-@work" "-gifts"))))
      ("wd" "work today"
-	  ((agenda "" ((org-agenda-files '("~/persist/org/work.org"))
+	  ((agenda "" ((org-agenda-files work-files)
                    (org-agenda-span 'day)))
 	   (todo "" ((org-agenda-overriding-header "")
+                 (org-agenda-files work-files)
                  (org-super-agenda-groups
                   common-todo-groups)))))
      ("ww" "work week"
-	  ((agenda "" ((org-agenda-files '("~/persist/org/work.org"))
+	  ((agenda "" ((org-agenda-files work-files)
                    (org-agenda-span 'week)))
 	   (todo "" ((org-agenda-overriding-header "")
+                 (org-agenda-files work-files)
                  (org-super-agenda-groups
                   common-todo-groups)))))
      ("g" "gifts"
