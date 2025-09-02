@@ -663,7 +663,6 @@ Cliplink allows instantly capturing from the clipboard and fetching the URL titl
 						           :tag "@shopping"
 						           :order 19)
                             (:name "Reading"
-
 						           :todo "READING"
 						           :order 20)
 					        ))))))
@@ -681,40 +680,18 @@ Cliplink allows instantly capturing from the clipboard and fetching the URL titl
 						           :order 19)
 					        ))))))
 	  ((org-agenda-tag-filter-preset '("-@work" "-gifts"))))
-     ("w" "work"
+     ("wd" "work today"
 	  ((agenda "" ((org-agenda-files '("~/persist/org/work.org"))
-				   (org-agenda-span 'day)
-				   (org-super-agenda-groups
-				    '((:name "Today"
-						     :time-grid t
-						     :date today
-						     :todo "TODAY"
-						     :scheduled today
-						     :order 1)))))
-	   (todo "" ((org-agenda-files '("~/persist/org/work.org"))
-			     (org-agenda-overriding-header "")
-			     (org-super-agenda-groups
-				  '((:name "Important"
-						   :tag "Important"
-						   :priority "A"
-						   :order 6)
-				    (:name "Due Today"
-						   :deadline today
-						   :order 2)
-				    (:name "Due Soon"
-						   :deadline future
-						   :order 8)
-				    (:name "Overdue"
-						   :deadline past
-						   :face error
-						   :order 7)
-				    (:name "To read"
-						   :tag "read"
-						   :order 30)
-				    (:name "Waiting"
-						   :todo "WAIT"
-						   :order 20)
-				    ))))))
+                   (org-agenda-span 'day)))
+	   (todo "" ((org-agenda-overriding-header "")
+                 (org-super-agenda-groups
+                  common-todo-groups)))))
+     ("ww" "work week"
+	  ((agenda "" ((org-agenda-files '("~/persist/org/work.org"))
+                   (org-agenda-span 'week)))
+	   (todo "" ((org-agenda-overriding-header "")
+                 (org-super-agenda-groups
+                  common-todo-groups)))))
      ("g" "gifts"
 	  ((tags-todo "+gifts" ((org-super-agenda-groups '((:auto-outline-path t))))))
 	  )
