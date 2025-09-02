@@ -477,6 +477,11 @@
 (use-package calfw-org)
 
 (use-package org
+  :custom
+  (org-archive-location "~/persist/org/archive.org::datetree/")
+  )
+
+(use-package org
   :config
   (org-clock-persistence-insinuate)
   :custom
