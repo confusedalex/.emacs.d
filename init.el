@@ -500,7 +500,7 @@
 
 (setq org-capture-templates
       '(
-	("p" "Personal")
+	    ("p" "Personal")
         ("pt" "Personal todo" entry
          (file+headline "notes.org" "Inbox")
          "* TODO %?\n%i" :prepend t)
@@ -525,16 +525,16 @@
             %^{PRICE}p
             %^{SERIAL_NUMBER}p
             %^{LENDING}p
-            %^{LEND_DATE}p 
+            %^{LEND_DATE}p
          ")
         ("j" "Journal entry" entry (file+datetree "journal.org") "* %(format-time-string \"%H:%M\") \n%?")
-	("b" "Bookmark" entry (file+headline "notes.org" "Bookmarks")
-	 "* %(org-cliplink-capture) \n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+        ("J" "Journal entry (Prompt)" entry (file+datetree+prompt "journal.org") "* %(format-time-string \"%H:%M\") \n%?")
+	    ("b" "Bookmark" entry (file+headline "notes.org" "Bookmarks")
+	     "* %(org-cliplink-capture) \n:PROPERTIES:\n:CREATED: %U\n:END:\n")
         ("e" "Email capture" entry (file+headline "notes.org" "Inbox") "* TODO %a")
-	("a" "Appointment" entry (file+headline "notes.org" "Events") "* %? %^t")
-    ("w" "Weight" table-line ( id "e0957b0e-d05e-485d-ad0a-e769287a5fe6" ) " | %^u | %^{Gewicht} |" :prepend t)
-    
-    )
+	    ("a" "Appointment" entry (file+headline "notes.org" "Events") "* %? %^t")
+        ("w" "Weight" table-line ( id "e0957b0e-d05e-485d-ad0a-e769287a5fe6" ) " | %^u | %^{Gewicht} |" :prepend t)
+        )
       )
 
 (use-package org-super-agenda
