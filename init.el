@@ -402,6 +402,8 @@
   (org-directory "~/persist/org/")
   (org-agenda-files (list org-directory))
   (org-ellipsis "⤵")
+  
+  (org-fold-catch-invisible-edits 'error) ;; error when editing in not folded area
 
   (global-hi-lock-mode 1)
   (org-todo-keywords
