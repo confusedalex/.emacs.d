@@ -382,6 +382,8 @@ Orderless enables sort of a fuzzy search for searching commands. So "comm magi" 
 ** lsp-mode
 #+begin_src emacs-lisp
 (use-package lsp-mode
+  :commands lsp lsp-deferred
+  :defer t
   :init
   (setq lsp-use-plists t)
   (defun my/lsp-mode-setup-completion ()
@@ -400,10 +402,9 @@ Orderless enables sort of a fuzzy search for searching commands. So "comm magi" 
 		 (go-mode . lsp-deferred)
 		 (typescript-ts-mode . lsp-deferred)
 		 (tsx-ts-mode . lsp-deferred)
-         (lsp-mode . lsp-diagnostics-mode)
          (lsp-mode . lsp-enable-which-key-integration)
          (lsp-completion-mode . my/lsp-mode-setup-completion))
-  :commands lsp lsp-deferred)
+  )
 
 (use-package lsp-ui
   :custom
@@ -421,6 +422,14 @@ Orderless enables sort of a fuzzy search for searching commands. So "comm magi" 
 (use-package lsp-eslint
   :ensure nil
   :after lsp-mode)
+#+end_src
+*** lsp-biome
+#+begin_src emacs-lisp
+(use-package lsp-biome
+  :vc (:url "https://github.com/cxa/lsp-biome")
+  :custom
+  (lsp-biome-format-on-save t)
+  )
 #+end_src
 ** treesit
 #+begin_src emacs-lisp
@@ -796,8 +805,6 @@ This really bugs me...
   :after dart-mode
   :bind (:map dart-mode-map
               ("C-M-x" . #'flutter-run-or-hot-reload))
-  ;; :custom
-  ;; (flutter-sdk-path "/Applications/flutter/")
   )
 #+end_src
 ** kdl-mode

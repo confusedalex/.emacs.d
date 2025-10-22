@@ -328,6 +328,8 @@
   )
 
 (use-package lsp-mode
+  :commands lsp lsp-deferred
+  :defer t
   :init
   (setq lsp-use-plists t)
   (defun my/lsp-mode-setup-completion ()
@@ -346,10 +348,9 @@
 		 (go-mode . lsp-deferred)
 		 (typescript-ts-mode . lsp-deferred)
 		 (tsx-ts-mode . lsp-deferred)
-         (lsp-mode . lsp-diagnostics-mode)
          (lsp-mode . lsp-enable-which-key-integration)
          (lsp-completion-mode . my/lsp-mode-setup-completion))
-  :commands lsp lsp-deferred)
+  )
 
 (use-package lsp-ui
   :custom
@@ -365,6 +366,12 @@
 (use-package lsp-eslint
   :ensure nil
   :after lsp-mode)
+
+(use-package lsp-biome
+  :vc (:url "https://github.com/cxa/lsp-biome")
+  :custom
+  (lsp-biome-format-on-save t)
+  )
 
 (use-package treesit-auto
   :custom
@@ -796,3 +803,15 @@
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
