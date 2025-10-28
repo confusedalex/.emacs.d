@@ -341,6 +341,7 @@
   (lsp-log-io nil)
   (lsp-signature-render-documentation nil)
   (lsp-eldoc-enable-hover nil)
+  (lsp-auto-execute-action nil) ; don't automatically run first code action
   :hook (
          (nix-ts-mode . lsp-deferred)
 		 (python-ts-mode . lsp-deferred)
