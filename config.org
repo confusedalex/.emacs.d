@@ -180,11 +180,6 @@ Orderless enables sort of a fuzzy search for searching commands. So "comm magi" 
   :custom
   (olivetti-body-width 130)
 )
-
-(use-package auto-olivetti
-  :vc (:url "https://git.sr.ht/~ashton314/auto-olivetti")
-  :config
-  (auto-olivetti-mode))
 #+end_src
 * Editor
 ** Keybinds
