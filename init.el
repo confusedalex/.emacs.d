@@ -365,8 +365,8 @@
 
 (use-package lsp-biome
   :vc (:url "https://github.com/cxa/lsp-biome")
-  :custom
-  (lsp-biome-format-on-save t)
+  ;; :hook
+  ;; (prog-mode . lsp-deferred)
   )
 
 (use-package treesit-auto

@@ -423,8 +423,8 @@ Orderless enables sort of a fuzzy search for searching commands. So "comm magi" 
 #+begin_src emacs-lisp
 (use-package lsp-biome
   :vc (:url "https://github.com/cxa/lsp-biome")
-  :custom
-  (lsp-biome-format-on-save t)
+  ;; :hook
+  ;; (prog-mode . lsp-deferred)
   )
 #+end_src
 ** treesit
