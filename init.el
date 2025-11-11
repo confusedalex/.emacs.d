@@ -734,6 +734,9 @@
          ("\\.fish\\'" . fish-mode))
   )
 
+(use-package prisma-mode
+ :vc (:url "https://github.com/pimeys/emacs-prisma-mode.git"))
+
 (use-package go-mode)
 
 (use-package pdf-tools

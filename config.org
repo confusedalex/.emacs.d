@@ -841,6 +841,11 @@ This really bugs me...
          ("\\.fish\\'" . fish-mode))
   )
 #+end_src
+** prisma-mode
+#+begin_src emacs-lisp
+(use-package prisma-mode
+ :vc (:url "https://github.com/pimeys/emacs-prisma-mode.git"))
+#+end_src
 ** go-mode
 #+begin_src emacs-lisp
 (use-package go-mode)
