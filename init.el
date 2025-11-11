@@ -364,9 +364,8 @@
   :after lsp-mode)
 
 (use-package lsp-biome
-  :vc (:url "https://github.com/cxa/lsp-biome")
-  ;; :hook
-  ;; (prog-mode . lsp-deferred)
+  :vc (:url "https://github.com/cxa/lsp-biome.git"
+            :rev :newest)
   )
 
 (use-package treesit-auto
