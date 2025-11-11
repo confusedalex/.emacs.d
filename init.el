@@ -445,6 +445,8 @@
   (org-return-follows-link t)
 
   (org-export-with-toc nil)
+  (org-html-htmlize-output-type 'css)
+  (org-html-head-include-default-style nil)
   
   (org-hide-leading-stars t)
   (org-refile-targets
