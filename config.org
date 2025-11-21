@@ -468,6 +468,14 @@ Orderless enables sort of a fuzzy search for searching commands. So "comm magi" 
          (magit-post-refresh . diff-hl-magit-post-refresh))
   :init (global-diff-hl-mode))
 #+end_src
+** jinx-mode
+#+begin_src emacs-lisp
+(use-package jinx
+  :custom
+  (jinx-languages "de_DE en_GB")
+  :bind (("M-$" . jinx-correct)
+         ("C-M-$" . jinx-languages)))
+#+end_src
 * Languages
 ** Org Mode
 #+begin_src emacs-lisp

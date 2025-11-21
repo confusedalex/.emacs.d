@@ -399,6 +399,12 @@
          (magit-post-refresh . diff-hl-magit-post-refresh))
   :init (global-diff-hl-mode))
 
+(use-package jinx
+  :custom
+  (jinx-languages "de_DE en_GB")
+  :bind (("M-$" . jinx-correct)
+         ("C-M-$" . jinx-languages)))
+
 (use-package org
   :defer t        ;; Defer loading Org-mode until it's needed.
   :hook
