@@ -233,7 +233,7 @@
 (defvar-keymap prefix-compute-map
   :doc "Compute"
   "b r" 'elisp-eval-region-or-buffer ;; Reload config
-  "f" 'format-all-buffer ;; Formatter
+  "f" 'apheleia-format-buffer ;; Formatter
   "a" 'eglot-code-actions ;; Code actions
   "r" 'eglot-rename ;; rename symbol
   "i" 'eglot-inlay-hints-mode ;; Toggles inlay hints
@@ -366,6 +366,12 @@
 (use-package lsp-biome
   :vc (:url "https://github.com/cxa/lsp-biome.git"
             :rev :newest)
+  :preface
+  (defun my/lsp-biome-active-hook ()
+    (setq-local apheleia-formatter '(biome)))
+  
+  :config
+  (add-hook 'lsp-biome-active-hook #'my/lsp-biome-active-hook)
   )
 
 (use-package treesit-auto
@@ -375,10 +381,8 @@
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
-(use-package format-all
-  :defer t
-  :commands format-all-mode
-  :hook (prog-mode . format-all-mode))
+(use-package apheleia
+  :hook (prog-mode . apheleia-global-mode))
 
 (use-package smartparens
   :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
