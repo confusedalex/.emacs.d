@@ -45,7 +45,7 @@
 
 (set-face-attribute 'default nil :family "JetBrainsMono Nerd Font" :height 110)
 
-(load-theme 'modus-vivendi-tinted t)
+(load-theme 'modus-vivendi t)
 
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))

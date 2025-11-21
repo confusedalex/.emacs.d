@@ -58,7 +58,7 @@
 #+end_src
 First we gonne install some nice themes
 #+begin_src emacs-lisp
-(load-theme 'modus-vivendi-tinted t)
+(load-theme 'modus-vivendi t)
 #+end_src
 ** doom-modeline
 #+begin_src emacs-lisp
