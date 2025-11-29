@@ -858,7 +858,7 @@ This really bugs me...
 ** prisma-mode
 #+begin_src emacs-lisp
 (use-package prisma-mode
- :vc (:url "https://github.com/pimeys/emacs-prisma-mode.git"))
+ :vc (:url "https://github.com/pimeys/emacs-prisma-mode.git") :rev :newset)
 #+end_src
 ** go-mode
 #+begin_src emacs-lisp
