@@ -249,7 +249,7 @@
   "g" prefix-magit-map
   "m" prefix-mode-map
   "o" prefix-org-map
-  "p" prefix-project-map
+  "p" 'disproject-dispatch
   "x" prefix-dired-map
   )
 
@@ -309,6 +309,8 @@
   ;;(add-to-list 'completion-at-point-functions #'cape-sgml) ;; Complete Unicode char from SGML entity, e.g., &alpha
   ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345) ;; Complete Unicode char using RFC 1345 mnemonics
   )
+
+(use-package disproject)
 
 (use-package envrc
   :hook (after-init . envrc-global-mode))
