@@ -572,14 +572,6 @@ Orderless enables sort of a fuzzy search for searching commands. So "comm magi" 
 (use-package calfw)
 (use-package calfw-org)
 #+end_src
-*** archiving
-I like archiving everything in one file and under a datetree
-#+begin_src emacs-lisp
-(use-package org
-  :custom
-  (org-archive-location "~/persist/org/archive.org::datetree/")
-  )
-#+end_src
 *** clocking
 #+begin_src emacs-lisp
 (use-package org
