@@ -45,7 +45,7 @@
                (display-buffer-no-window)
                (allow-no-window . t)))
 
-(set-face-attribute 'default nil :family "JetBrainsMono Nerd Font" :height 110)
+(set-face-attribute 'default nil :family "Iosevka Nerd Font" :height 130)
 
 (load-theme 'modus-vivendi t)
 

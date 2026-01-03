@@ -56,7 +56,7 @@
 #+end_src
 * Appearance
 #+begin_src emacs-lisp
-(set-face-attribute 'default nil :family "JetBrainsMono Nerd Font" :height 110)
+(set-face-attribute 'default nil :family "Iosevka Nerd Font" :height 130)
 #+end_src
 First we gonne install some nice themes
 #+begin_src emacs-lisp
