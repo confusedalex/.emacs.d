@@ -552,6 +552,12 @@
         )
       )
 
+(use-package org-bars
+  :vc (:url "https://github.com/tonyaldon/org-bars" :rev :newest)
+  :defer t
+  :hook (org-mode . org-bars-mode)
+  )
+
 (use-package org-super-agenda
   :after org-agenda
   :defer t
