@@ -749,7 +749,7 @@
   )
 
 (use-package prisma-mode
- :vc (:url "https://github.com/pimeys/emacs-prisma-mode.git") :rev :newset)
+ :vc (:url "https://github.com/pimeys/emacs-prisma-mode.git" :rev :newset))
 
 (use-package go-mode)
 
