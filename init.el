@@ -760,6 +760,12 @@
 (use-package cdlatex)
 (use-package reftex)
 
+(use-package sly-quicklisp)
+(use-package sly
+  :config
+  (setq inferior-lisp-program "/usr/bin/sbcl")
+)
+
 (use-package evil
   :init
   (setq evil-respect-visual-line-mode t)

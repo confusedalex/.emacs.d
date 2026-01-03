@@ -878,6 +878,14 @@ This really bugs me...
 (use-package cdlatex)
 (use-package reftex)
 #+end_src
+** lisp
+#+begin_src emacs-lisp
+(use-package sly-quicklisp)
+(use-package sly
+  :config
+  (setq inferior-lisp-program "/usr/bin/sbcl")
+)
+#+end_src
 * evil Mode
 #+BEGIN_SRC emacs-lisp
 (use-package evil
