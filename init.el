@@ -462,7 +462,6 @@
   (org-html-htmlize-output-type 'css)
   (org-html-head-include-default-style nil)
   
-  (org-hide-leading-stars t)
   (org-refile-targets
    '((nil :maxlevel . 5)
      (org-agenda-files :maxlevel . 5)) ;; add all agenda files as refile targets
@@ -555,7 +554,6 @@
 
 (use-package org-bars
   :vc (:url "https://github.com/tonyaldon/org-bars" :rev :newest)
-  :defer t
   :hook (org-mode . org-bars-mode)
   )
 
