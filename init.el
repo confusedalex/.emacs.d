@@ -552,9 +552,8 @@
         )
       )
 
-(use-package org-bars
-  :vc (:url "https://github.com/tonyaldon/org-bars" :rev :newest)
-  :hook (org-mode . org-bars-mode)
+(use-package org-modern
+  :hook (after-init . global-org-modern-mode)
   )
 
 (use-package org-super-agenda

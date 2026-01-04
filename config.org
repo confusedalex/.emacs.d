@@ -635,11 +635,10 @@ Cliplink allows instantly capturing from the clipboard and fetching the URL titl
         )
       )
 #+end_src
-*** org-bars
+*** org-modern
 #+begin_src emacs-lisp
-(use-package org-bars
-  :vc (:url "https://github.com/tonyaldon/org-bars" :rev :newest)
-  :hook (org-mode . org-bars-mode)
+(use-package org-modern
+  :hook (after-init . global-org-modern-mode)
   )
 #+end_src
 *** super-agenda
