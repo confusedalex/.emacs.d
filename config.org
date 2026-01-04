@@ -519,6 +519,7 @@ Orderless enables sort of a fuzzy search for searching commands. So "comm magi" 
   (org-agenda-skip-deadline-prewarning-if-scheduled t) ;; don't show deadlined when it's schedules on the same date
   (org-agenda-tags-todo-honor-ignore-options t) ;; Don't show scheduled items which are already shown on the agenda
   (org-agenda-skip-schedulded-if-done t) ;; Don't show schedulded items, if done
+  (org-agenda-skip-scheduled-if-deadline-is-shown t) ;; don't show scheduled if deadlined on the same day
   (org-agenda-skip-deadline-if-done t) ;; Don't show deadlined items, if done
   (org-agenda-todo-ignore-scheduled 'all) ;; Don't show schedulded dates in global TODO list
   (org-agenda-todo-ignore-deadlines 7) ;; Don't show deadlines that are more than 7 days away
@@ -552,8 +553,6 @@ Orderless enables sort of a fuzzy search for searching commands. So "comm magi" 
    '(;; Places
      ("@home" . ?H)
      ("@work" . ?W)
-     ("@uni" . ?U)
-     ("@school" . ?S)
 
      ;; Devices
      ("@computer" . ?C)
@@ -565,7 +564,7 @@ Orderless enables sort of a fuzzy search for searching commands. So "comm magi" 
      ("@email" . ?e)
      ("@shopping" . ?g)
      ("@calls" . ?a)
-     ("@errands" . ?r))
+     )
    )
   )
 
