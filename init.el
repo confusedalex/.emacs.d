@@ -164,7 +164,7 @@
 
   ;; Files
   "h" '(lambda() (interactive)(find-file "~/persist/org/hardware.org"))
-  "j" '(lambda() (interactive)(find-file "~/persist/org/journal.org"))
+  "j" '(lambda() (interactive)(find-file "~/persist/org/journal.org.gpg"))
   "n" '(lambda() (interactive)(find-file "~/persist/org/notes.org"))
   "w" '(lambda() (interactive)(find-file "~/persist/org/work.org"))
   )
@@ -541,8 +541,8 @@
             %^{LENDING}p
             %^{LEND_DATE}p
          ")
-        ("j" "Journal entry" entry (file+datetree "journal.org") "* %(format-time-string \"%H:%M\") \n%?")
-        ("J" "Journal entry (Prompt)" entry (file+datetree+prompt "journal.org") "* %(format-time-string \"%H:%M\") \n%?")
+        ("j" "Journal entry" entry (file+datetree "journal.org.gpg") "* %(format-time-string \"%H:%M\") \n%?")
+        ("J" "Journal entry (Prompt)" entry (file+datetree+prompt "journal.org.gpg") "* %(format-time-string \"%H:%M\") \n%?")
 	    ("b" "Bookmark" entry (file+headline "notes.org" "Bookmarks")
 	     "* %(org-cliplink-capture) \n:PROPERTIES:\n:CREATED: %U\n:END:\n")
         ("e" "Email capture" entry (file+headline "notes.org" "Inbox") "* TODO %a")
