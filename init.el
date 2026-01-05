@@ -7,6 +7,8 @@
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/") ;; For Eat Terminal
                          ))
 
+(use-package no-littering)
+
 (use-package emacs
   :init
   (tool-bar-mode -1)                              ;; Disable the tool bar

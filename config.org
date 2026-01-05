@@ -12,6 +12,10 @@
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/") ;; For Eat Terminal
                          ))
 #+end_src
+** no-littering
+#+begin_src emacs-lisp
+(use-package no-littering)
+#+end_src
 * Some good defaults
 #+begin_src emacs-lisp
 (use-package emacs
