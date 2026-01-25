@@ -31,6 +31,11 @@
   
   (set-default-coding-systems 'utf-8)             ;; utf-8
 
+  ;; save your last position in file
+  ;; https://www.emacswiki.org/emacs/SavePlace
+  (save-place-mode 1)
+  
+
   (indent-tabs-mode nil)
   (tab-width 4)
 
