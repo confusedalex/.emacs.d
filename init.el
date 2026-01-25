@@ -818,6 +818,7 @@
   :after org
   :hook
   (org-mode . evil-org-mode)
+  ;; (org-agenda . evil-org-mode)
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
