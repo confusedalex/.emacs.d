@@ -302,6 +302,15 @@ Orderless enables sort of a fuzzy search for searching commands. So "comm magi" 
 (which-key-add-keymap-based-replacements spc-prefix-map
   "f" `("find files" . ,prefix-find-files-map))
 #+end_src
+** TRAMP
+#+begin_src emacs-lisp
+(use-package tramp
+  :ensure nil
+  :custom
+  (remote-file-name-inhibit-locks t)
+  (tramp-use-scp-direct-remote-copying t)
+  (remote-file-name-inhibit-auto-save-visited t))
+#+end_src
 ** corfu
 #+begin_src emacs-lisp
 (use-package corfu

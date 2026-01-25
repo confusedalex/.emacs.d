@@ -258,6 +258,13 @@
 (which-key-add-keymap-based-replacements spc-prefix-map
   "f" `("find files" . ,prefix-find-files-map))
 
+(use-package tramp
+  :ensure nil
+  :custom
+  (remote-file-name-inhibit-locks t)
+  (tramp-use-scp-direct-remote-copying t)
+  (remote-file-name-inhibit-auto-save-visited t))
+
 (use-package corfu
   :after orderless
   :defer t
