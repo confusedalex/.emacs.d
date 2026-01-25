@@ -763,7 +763,7 @@
   (pdf-tools-install))
 
 (use-package auctex
-  :config
+  :custom
   (TeX-auto-save t)
   (TeX-parse-self t)
   (TeX-PDF-mode t)
