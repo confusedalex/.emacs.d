@@ -555,7 +555,7 @@
             %^{LENDING}p
             %^{LEND_DATE}p
          ")
-        ("j" "Journal entry" entry (file+datetree "journal.org.gpg") "* %(format-time-string \"%H:%M\") \n%?")
+        ("j" "Journal entry" entry (file+datetree "journal.org.gpg") "* %(my/org-journal-timestamp) \n%?")
         ("J" "Journal entry (Prompt)" entry (file+datetree+prompt "journal.org.gpg") "* %(format-time-string \"%H:%M\") \n%?")
 	    ("b" "Bookmark" entry (file+headline "notes.org" "Bookmarks")
 	     "* %(org-cliplink-capture) \n:PROPERTIES:\n:CREATED: %U\n:END:\n")
@@ -564,6 +564,12 @@
         ("w" "Weight" table-line ( id "e0957b0e-d05e-485d-ad0a-e769287a5fe6" ) " | %^u | %^{Gewicht} |" :prepend t)
         )
       )
+
+(defun my/org-journal-timestamp ()
+  (let ((hour (string-to-number (format-time-string "%H"))))
+    (if (< hour 6)
+        (format-time-string "%H:%M (%d.%m)")
+        (format-time-string "%H:%M"))))
 
 (use-package org-modern
   :hook (after-init . global-org-modern-mode)
@@ -830,7 +836,7 @@
   :after org
   :hook
   (org-mode . evil-org-mode)
-  ;; (org-agenda . evil-org-mode)
+  (org-agenda . evil-org-mode)
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
