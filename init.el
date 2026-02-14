@@ -578,7 +578,7 @@
 
 (use-package org-modern
   :hook (after-init . global-org-modern-mode)
-  )
+   )
 
 (use-package org-super-agenda
   :after org-agenda
@@ -776,7 +776,9 @@
 
 (use-package pdf-tools
   :init
-  (pdf-tools-install))
+  (pdf-tools-install)
+  (pdf-loader-install)
+  )
 
 (use-package auctex
   :custom

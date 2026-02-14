@@ -667,7 +667,7 @@ Cliplink allows instantly capturing from the clipboard and fetching the URL titl
 #+begin_src emacs-lisp
 (use-package org-modern
   :hook (after-init . global-org-modern-mode)
-  )
+   )
 #+end_src
 *** super-agenda
 #+begin_src emacs-lisp
@@ -898,7 +898,9 @@ This really bugs me...
 #+begin_src emacs-lisp
 (use-package pdf-tools
   :init
-  (pdf-tools-install))
+  (pdf-tools-install)
+  (pdf-loader-install)
+  )
 #+end_src
 ** latex
 #+begin_src emacs-lisp
