@@ -24,7 +24,6 @@
   (tab-always-indent 'complete)                   ;; Make the TAB key complete text instead of just indenting.
   
   (display-line-numbers-type 'visual)             ;; Use relative line numbering in programming modes.
-  (global-display-line-numbers-mode 1)            ;; display line numbers
   (gc-cons-threshold 100000000 t)                 ;; increase performance
   (use-short-answers t)                           ;; y/n instead of yes/no
   (global-auto-revert-mode t)                     ;; automatically reload files
@@ -45,6 +44,9 @@
   ("C-_" . text-scale-decrease)
   ("<C-wheel-up>" . text-scale-increase)
   ("<C-wheel-down>" . text-scale-decrease)
+  :hook
+  (prog-mode . display-line-numbers-mode)
+  (text-mode . display-line-numbers-mode)
   )
 
 (add-to-list 'display-buffer-alist
