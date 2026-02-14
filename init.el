@@ -270,6 +270,11 @@
   (tramp-use-scp-direct-remote-copying t)
   (remote-file-name-inhibit-auto-save-visited t))
 
+(use-package tramp-rpc
+  :vc (:url "https://github.com/ArthurHeymans/emacs-tramp-rpc"
+       :rev :newest
+       :lisp-dir "lisp"))
+
 (use-package corfu
   :after orderless
   :defer t

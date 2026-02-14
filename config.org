@@ -315,6 +315,11 @@ Orderless enables sort of a fuzzy search for searching commands. So "comm magi" 
   (remote-file-name-inhibit-locks t)
   (tramp-use-scp-direct-remote-copying t)
   (remote-file-name-inhibit-auto-save-visited t))
+
+(use-package tramp-rpc
+  :vc (:url "https://github.com/ArthurHeymans/emacs-tramp-rpc"
+       :rev :newest
+       :lisp-dir "lisp"))
 #+end_src
 ** corfu
 #+begin_src emacs-lisp
