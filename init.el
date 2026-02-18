@@ -294,6 +294,7 @@
   (corfu-cycle t)           ;; Enable cycling for `corfu-next/previous'
   (corfu-preselect 'prompt) ;; Always preselect the prompt
   (corfu-auto t)            ;; Enables auto-completion
+  (corfu-auto-trigger ".")            ;; Enables auto-completion
   (corfu-popupinfo-mode t)  ;; Enable popup information
   (corfu-auto-delay 0.1)    ;; lower delay for completion
   
