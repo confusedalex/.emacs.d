@@ -1,22 +1,45 @@
-(require 'package)
+;; init.el --- Alex's Emacs init -*- lexical-binding: t; -*-
 
-(require 'use-package-ensure) ;; Load use-package-always-ensure
-(setq use-package-always-ensure t) ;; Always ensures that a package is installed
-(setq package-archives '(("melpa" . "https://melpa.org/packages/") ;; Sets default package repositories
-                         ("elpa" . "https://elpa.gnu.org/packages/")
-                         ("nongnu" . "https://elpa.nongnu.org/nongnu/") ;; For Eat Terminal
-                         ))
+;;; Commentary:
+
+;;; Code:
+
+;; Bootstrap Straight.el
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+;;; Package setup -----
+(straight-use-package 'use-package)
+
+(use-package straight
+  :custom
+  (straight-use-package-by-default t)
+  (straight-current-profile 'base)
+  )
 
 (use-package no-littering)
 
 (use-package emacs
   :init
+  (auto-save-visited-mode 1)
   (tool-bar-mode -1)                              ;; Disable the tool bar
   (menu-bar-mode -1)                              ;; Disable the menu bar 
   (scroll-bar-mode -1)                            ;; Disable the scroll bar
 
   :custom                      
-  (auto-save-default nil)                         ;; Disable automatic saving of buffers.
   (make-backup-files nil)                         ;; Don't create backup files!
   (delete-by-moving-to-trash t)                   ;; Move deleted files to the trash instead of permanently deleting them.
   (delete-selection-mode 1)                       ;; Enable replacing selected text with typed text.
@@ -24,7 +47,6 @@
   (tab-always-indent 'complete)                   ;; Make the TAB key complete text instead of just indenting.
   
   (display-line-numbers-type 'visual)             ;; Use relative line numbering in programming modes.
-  (gc-cons-threshold 100000000 t)                 ;; increase performance
   (use-short-answers t)                           ;; y/n instead of yes/no
   (global-auto-revert-mode t)                     ;; automatically reload files
   
@@ -56,13 +78,14 @@
 
 (set-face-attribute 'default nil :family "Iosevka Nerd Font" :height 130)
 
+(use-package ef-themes)
 (load-theme 'modus-vivendi t)
 
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))
 
 (use-package which-key
-  :ensure nil     
+  :straight nil
   :defer t        
   :hook
   (after-init . which-key-mode)) ;; Enable which-key mode after initialization.
@@ -151,19 +174,19 @@
   :commands (olivetti-mode)
   :custom
   (olivetti-body-width 130)
-)
+  )
 
 (defvar-keymap prefix-find-files-map
   :doc "Find Files"
   "/" 'consult-line
   "C" 'consult-git-grep
-  "c" #'(lambda() (interactive)(find-file "~/.emacs.d/config.org"))
+  "c" #'(lambda() (interactive)(find-file "~/.emacs.d/init.el"))
   "f" 'consult-fd
   "g" 'consult-ripgrep
   "h" 'consult-info
   "r" 'consult-recent-file
   "t" 'consult-theme
-) 
+  ) 
 
 (defvar-keymap prefix-org-map
   :doc "Org mode keys"
@@ -211,7 +234,7 @@
   "d" 'magit-diff-buffer-file ;; Show diff for the current file
   "D" 'diff-hl-show-hunk ;; Show diff for a hunk
   "b" 'vc-annotate       ;; Annotate buffer with version control info
-)
+  )
 
 (defvar-keymap prefix-dired-map
   :doc "Dired commands for file management"
@@ -228,7 +251,7 @@
   "g" 'project-find-regexp ;; Find regexp in project
   "k" 'project-kill-buffers ;; Kill project buffers
   "D" 'project-dired ;; Dired for project
-)
+  )
 
 (defvar-keymap prefix-buffer-map
   :doc "Buffer management keybindings"
@@ -266,16 +289,14 @@
   "f" `("find files" . ,prefix-find-files-map))
 
 (use-package tramp
-  :ensure nil
+  :straight nil
   :custom
   (remote-file-name-inhibit-locks t)
   (tramp-use-scp-direct-remote-copying t)
   (remote-file-name-inhibit-auto-save-visited t))
 
 (use-package tramp-rpc
-  :vc (:url "https://github.com/ArthurHeymans/emacs-tramp-rpc"
-       :rev :newest
-       :lisp-dir "lisp"))
+  :straight (tramp-rpc :type git :host github :repo "ArthurHeymans/emacs-tramp-rpc"))
 
 (use-package corfu
   :after orderless
@@ -338,7 +359,7 @@
   :hook (after-init . envrc-global-mode))
 
 (use-package savehist
-  :ensure nil
+  :straight nil
   :hook (after-init . savehist-mode))
 
 (use-package flycheck
@@ -385,13 +406,9 @@
   :custom
   (lsp-dart-flutter-widget-guides nil))
 
-(use-package lsp-eslint
-  :ensure nil
-  :after lsp-mode)
-
 (use-package lsp-biome
-  :vc (:url "https://github.com/cxa/lsp-biome.git"
-            :rev :newest)
+  :straight (lsp-biome :type git :host github :repo "cxa/lsp-biome")
+
   :preface
   (defun my/lsp-biome-active-hook ()
     (setq-local apheleia-formatter '(biome)))
@@ -577,11 +594,11 @@
   (let ((hour (string-to-number (format-time-string "%H"))))
     (if (< hour 6)
         (format-time-string "%H:%M (%d.%m)")
-        (format-time-string "%H:%M"))))
+      (format-time-string "%H:%M"))))
 
 (use-package org-modern
   :hook (after-init . global-org-modern-mode)
-   )
+  )
 
 (use-package org-super-agenda
   :after org-agenda
@@ -692,13 +709,13 @@
   :hook (org-mode . toc-org-mode))
 
 (use-package org-tempo
-  :ensure nil
+  :straight nil
   :after org
   :config
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   )
 
-(use-package ob-python :ensure nil)
+(use-package ob-python :straight nil)
 
 (use-package org
   :config
@@ -773,7 +790,7 @@
   )
 
 (use-package prisma-mode
- :vc (:url "https://github.com/pimeys/emacs-prisma-mode.git" :rev :newset))
+  :straight (prisma-mode :type git :host github :repo "pimeys/emacs-prisma-mode"))
 
 (use-package go-mode)
 
@@ -797,7 +814,7 @@
 (use-package sly
   :config
   (setq inferior-lisp-program "/usr/bin/sbcl")
-)
+  )
 
 (use-package evil
   :init
@@ -850,3 +867,5 @@
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
+
+;;; init.el ends here
