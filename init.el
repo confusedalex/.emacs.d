@@ -631,6 +631,9 @@
   (org-super-agenda-mode t)
   (org-agenda-custom-commands
    '(
+     ("i" "Inbox" tags-todo "+TODO=\"TODO\""
+      ((org-agenda-files (file-expand-wildcards "~/persist/org/inbox.org"))))
+     ("n" "Next actions" tags-todo "+TODO=\"TODO\"")
      ("fd" "Today"
 	  ((agenda "" ((org-agenda-span 'day)))
 	   (todo "" ((org-agenda-overriding-header "")
