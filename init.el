@@ -36,10 +36,10 @@
   :init
   (auto-save-visited-mode 1)
   (tool-bar-mode -1)                              ;; Disable the tool bar
-  (menu-bar-mode -1)                              ;; Disable the menu bar 
+  (menu-bar-mode -1)                              ;; Disable the menu bar
   (scroll-bar-mode -1)                            ;; Disable the scroll bar
 
-  :custom                      
+  :custom
   (make-backup-files nil)                         ;; Don't create backup files!
   (delete-by-moving-to-trash t)                   ;; Move deleted files to the trash instead of permanently deleting them.
   (delete-selection-mode 1)                       ;; Enable replacing selected text with typed text.
@@ -86,7 +86,7 @@
 
 (use-package which-key
   :straight nil
-  :defer t        
+  :defer t
   :hook
   (after-init . which-key-mode)) ;; Enable which-key mode after initialization.
 
@@ -186,7 +186,7 @@
   "h" 'consult-info
   "r" 'consult-recent-file
   "t" 'consult-theme
-  ) 
+  )
 
 (defvar-keymap prefix-org-map
   :doc "Org mode keys"
