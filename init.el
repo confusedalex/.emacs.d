@@ -507,6 +507,7 @@
   (org-export-with-toc nil)
   (org-html-htmlize-output-type 'css)
   (org-html-head-include-default-style nil)
+  (org-html-postamble nil) ;; no postamble
   
   (org-refile-targets
    '((nil :maxlevel . 5)
