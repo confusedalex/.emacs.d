@@ -467,11 +467,17 @@
       "STRT(s)"  ; A task that is in progress
       "WAIT(w@/!)"  ; Something external is holding up this task
       "IDEA(i)"  ; An unconfirmed and unapproved task or notion
-      "NEXT(n)"  ; Item that can be worked on right now
+      "DELEGATED(g)"  ; Item that's delegate to someone else
+      "SOMEDAY(m)"
+      "OTHER(o)" ; A task which I isn't my direct or indirect responsibilty
       "|"
       "DONE(d)"  ; Task successfully completed
       "KILL(k@)")) ; Task was cancelled, aborted, or is no longer applicable
    )
+  (org-todo-keyword-faces
+   '(("DELEGATED" . (:foreground "orange" :weight bold))
+     ("WAITING" . (:foreground "yellow" :weight bold))))
+
   (org-log-done 'time) ; Add timestamp when a task is closed
   (org-log-into-drawer t) ;; Log changes into a drawer, so it wont clutter up my entry
 
@@ -672,7 +678,9 @@
 						           :todo "READING"
 						           :order 20)
 					        ))))))
-	  ((org-agenda-tag-filter-preset '("-@work" "-gifts"))))
+	  ((org-agenda-tag-filter-preset '("-@work" "-gifts"))
+       (org-agenda-skip-function-global '(org-agenda-skip-entry-if 'todo '("OTHER")))
+       ))
 	 ("pw" "private week"
 	  ((agenda "" ((org-agenda-span 7)))
 	   (todo "" ((org-agenda-overriding-header "")
@@ -685,7 +693,9 @@
 						           :tag "tech"
 						           :order 19)
 					        ))))))
-	  ((org-agenda-tag-filter-preset '("-@work" "-gifts"))))
+	  ((org-agenda-tag-filter-preset '("-@work" "-gifts"))
+       (org-agenda-skip-function-global '(org-agenda-skip-entry-if 'todo '("OTHER")))
+       ))
      ("wd" "work today"
 	  ((agenda "" ((org-agenda-files work-files)
                    (org-agenda-span 'day)))
