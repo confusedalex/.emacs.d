@@ -492,6 +492,7 @@
   (org-agenda-skip-deadline-if-done t) ;; Don't show deadlined items, if done
   (org-agenda-todo-ignore-scheduled 'all) ;; Don't show schedulded dates in global TODO list
   (org-agenda-todo-ignore-deadlines 7) ;; Don't show deadlines that are more than 7 days away
+  (org-agenda-skip-timestamp-if-deadline-is-shown t)
 
   (org-agenda-time-grid
    '((today require-timed remove-match)
