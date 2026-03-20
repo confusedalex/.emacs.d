@@ -116,6 +116,14 @@
   :commands vertico-mode
   :hook (after-init . vertico-mode))
 
+(use-package expand-region
+  :defer t
+  :commands (er/expand-region er/contract-region)
+  :bind
+  (("C-SPC" . er/expand-region)
+   ("C-S-SPC" . er/contract-region))
+  )
+
 ;; Emacs minibuffer configurations.
 (use-package emacs
   :custom
