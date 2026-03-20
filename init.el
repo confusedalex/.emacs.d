@@ -695,32 +695,21 @@
 (use-package ob-python :straight nil)
 
 (use-package org
+  :custom
+  (org-confirm-babel-evaluate nil) ;; don't ask for permission to run
+  (org-src-window-setup 'current-window)
+  (org-edit-src-persistent-message nil)
+  (org-src-fontify-natively t)
+  (org-src-preserve-indentation t) ; use the indentation of the major mode
+  (org-src-tab-acts-natively t)
+  (org-edit-src-content-indentation 0)
   :config
-  (setq org-confirm-babel-evaluate nil) ;; don't ask for permission to run
-  (setq org-src-window-setup 'current-window)
-  (setq org-edit-src-persistent-message nil)
-  (setq org-src-fontify-natively t)
-  (setq org-src-preserve-indentation t) ; use the indentation of the major mode
-  (setq org-src-tab-acts-natively t)
-  (setq org-edit-src-content-indentation 0))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((plantuml . t)))
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((plantuml . t)))
+  )
 
-;; (use-package org-caldav
-;;   :vc (:url "https://github.com/confusedalex/org-caldav.git"
-;; 	    :rev :newest :branch "fix-tags"
-;; 	    )
-;;   :custom
-;;   (org-caldav-url "https://cloud.mytbu.de/remote.php/dav/calendars/alex")
-;;   (org-caldav-calendar-id "orgmode")
-;;   (org-caldav-inbox "~/persist/org/events.org")
-;;   (org-caldav-files '("~/persist/org/notes.org"))
-;;   (org-icalendar-timezone "Europe/Berlin")
-;;   (org-caldav-select-tags '("calendar"))
-;;   (org-caldav-save-directory "~/persist/org/")
-;;   )
 
 (use-package gnuplot)
 
