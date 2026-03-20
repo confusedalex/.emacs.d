@@ -486,7 +486,7 @@
   (org-agenda-start-on-weekday nil) ; We don't need to start on a weekday, do we?
 
   (org-agenda-skip-deadline-prewarning-if-scheduled t) ;; don't show deadlined when it's schedules on the same date
-  (org-agenda-tags-todo-honor-ignore-options t) ;; Don't show scheduled items which are already shown on the agenda
+  (org-agenda-tags-todo-honor-ignore-options t) ;; Always honor options
   (org-agenda-skip-schedulded-if-done t) ;; Don't show schedulded items, if done
   (org-agenda-skip-scheduled-if-deadline-is-shown t) ;; don't show scheduled if deadlined on the same day
   (org-agenda-skip-deadline-if-done t) ;; Don't show deadlined items, if done
@@ -608,26 +608,16 @@
   :hook (after-init . global-org-modern-mode)
   )
 
+;; Nicer list creation
+(use-package org-autolist
+  :hook (org-mode . org-autolist-mode))
+
 (use-package org-super-agenda
   :after org-agenda
   :defer t
   :config
   (defvar common-todo-groups
-	'((:name "Important"
-			 :tag "Important"
-			 :priority "A"
-			 :order 6)
-	  (:name "Due Today"
-			 :deadline today
-			 :order 2)
-	  (:name "Due Soon"
-			 :deadline future
-			 :order 8)
-	  (:name "Overdue"
-			 :deadline past
-			 :face error
-			 :order 7)
-	  (:name "Started"
+	'((:name "Started"
 			 :todo "STRT"
 			 :order 10)
 	  (:name "Waiting"
@@ -641,63 +631,40 @@
    '(
      ("i" "Inbox" tags-todo "+TODO=\"TODO\""
       ((org-agenda-files (file-expand-wildcards "~/persist/org/inbox.org"))))
-     ("n" "Next actions" tags-todo "+TODO=\"TODO\"")
-     ("fd" "Today"
-	  ((agenda "" ((org-agenda-span 'day)))
-	   (todo "" ((org-agenda-overriding-header "")
-                 (org-super-agenda-groups
-                  (append common-todo-groups
-					      '((:name "Shopping"
-						           :tag "@shopping"
-						           :order 19)
-                            (:name "Reading"
-						           :todo "READING"
-						           :order 20)
-					        ))))))
-	  ((org-agenda-tag-filter-preset '("-gifts"))))
-     ("fw" "Week"
-	  ((agenda "" ((org-agenda-span 'week)))
-	   (todo "" ((org-agenda-overriding-header "")
-                 (org-super-agenda-groups
-                  (append common-todo-groups
-					      '((:name "Shopping"
-						           :tag "@shopping"
-						           :order 19)
-                            (:name "Reading"
-						           :todo "READING"
-						           :order 20)
-					        ))))))
-	  ((org-agenda-tag-filter-preset '("-gifts"))))
-     ("pd" "private day"
-	  ((agenda "" ((org-agenda-span 'day)))
-	   (todo "" ((org-agenda-overriding-header "")
-                 (org-super-agenda-groups
-                  (append common-todo-groups
-					      '((:name "Shopping"
-						           :tag "@shopping"
-						           :order 19)
-                            (:name "Reading"
-						           :todo "READING"
-						           :order 20)
-					        ))))))
-	  ((org-agenda-tag-filter-preset '("-@work" "-gifts"))
-       (org-agenda-skip-function-global '(org-agenda-skip-entry-if 'todo '("OTHER")))
-       ))
-	 ("pw" "private week"
-	  ((agenda "" ((org-agenda-span 7)))
-	   (todo "" ((org-agenda-overriding-header "")
-                 (org-super-agenda-groups
-                  (append common-todo-groups
-					      '((:name "People"
-						           :tag "people"
-						           :order 19)
-					        (:name "Tech"
-						           :tag "tech"
-						           :order 19)
-					        ))))))
-	  ((org-agenda-tag-filter-preset '("-@work" "-gifts"))
-       (org-agenda-skip-function-global '(org-agenda-skip-entry-if 'todo '("OTHER")))
-       ))
+     ("pp" "private agenda"
+      ((agenda ""
+               ((org-agenda-span 3)))
+       (tags-todo "-TODO=\"DELEGATED\""
+                  ((org-agenda-overriding-header "")
+                   (org-super-agenda-groups
+                    (append common-todo-groups
+                            '((:name "Shopping"
+                                     :tag "@shopping"
+                                     :order 19)
+                              (:name "Reading"
+                                     :todo "READING"
+                                     :order 20)))))))
+      ((org-agenda-tag-filter-preset '("-@work" "-gifts"))
+       (org-agenda-skip-function-global
+        '(org-agenda-skip-entry-if 'todo '("OTHER"))))
+      )
+     ("pw" "private week"
+      ((agenda ""
+               ((org-agenda-span 'week)))
+       (tags-todo "-TODO=\"DELEGATED\""
+                  ((org-agenda-overriding-header "")
+                   (org-super-agenda-groups
+                    (append common-todo-groups
+                            '((:name "Shopping"
+                                     :tag "@shopping"
+                                     :order 19)
+                              (:name "Reading"
+                                     :todo "READING"
+                                     :order 20)))))))
+      ((org-agenda-tag-filter-preset '("-@work" "-gifts"))
+       (org-agenda-skip-function-global
+        '(org-agenda-skip-entry-if 'todo '("OTHER"))))
+      )
      ("wd" "work today"
 	  ((agenda "" ((org-agenda-files work-files)
                    (org-agenda-span 'day)))
