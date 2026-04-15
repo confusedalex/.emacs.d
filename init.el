@@ -65,7 +65,6 @@
   :bind
   ("C-+" . text-scale-increase)
   ("C--" . text-scale-decrease)
-  ("C-_" . text-scale-decrease)
   ("<C-wheel-up>" . text-scale-increase)
   ("<C-wheel-down>" . text-scale-decrease)
   :hook
@@ -118,11 +117,23 @@
   :commands vertico-mode
   :hook (after-init . vertico-mode))
 
+(use-package vertico-posframe
+  :config
+  (setq vertico-multiform-commands
+        '((consult-line (:not posframe))
+          (consult-theme (:not posframe))
+          (consult-xref (:not posframe))
+          (consult-imenu (:not posframe))
+          (t posframe)))
+  (setq vertico-posframe-parameters
+        '((left-fringe . 8)
+          (right-fringe . 8)))
+  (vertico-multiform-mode 1))
+
 (use-package expreg
-  :defer t
-  :commands (expreg-expand expreg-contract)
-  :bind (("C-SPC" . expreg-expand)
-         ("C-S-SPC" . expreg-contract)))
+  :ensure t
+  :bind (("C-=" . expreg-expand)
+         ("C--" . expreg-contract)))
 
 ;; Emacs minibuffer configurations.
 (use-package emacs
@@ -165,6 +176,16 @@
 (use-package consult
   :defer t
   :hook (completion-list-mode . consult-preview-at-point-mode)
+  :bind
+  (
+   ("C-x b" . consult-buffer)
+   ("M-s f" . consult-fd)
+   ("M-s c" . (lambda() (interactive)(find-file "~/.emacs.d/init.el")))
+   ("M-s g" . consult-ripgrep)
+   ("M-s h" . consult-info)
+   ("M-s r" . consult-recent-file)
+   ("M-s t" . consult-theme)
+   )
   :init
   ;; Enhance register preview with thin lines and no mode line.
   (advice-add #'register-preview :override #'consult-register-window)
@@ -184,83 +205,6 @@
   (olivetti-body-width 130)
   )
 
-(defvar-keymap prefix-find-files-map
-  :doc "Find Files"
-  "/" 'consult-line
-  "C" 'consult-git-grep
-  "c" #'(lambda() (interactive)(find-file "~/.emacs.d/init.el"))
-  "f" 'consult-fd
-  "g" 'consult-ripgrep
-  "h" 'consult-info
-  "r" 'consult-recent-file
-  "t" 'consult-theme
-  )
-
-(defvar-keymap prefix-org-map
-  :doc "Org mode keys"
-  "a" 'org-agenda
-  "c" 'org-capture
-  "e" 'org-export-dispatch
-
-  ;; Files
-  "h" '(lambda() (interactive)(find-file "~/persist/org/hardware.org"))
-  "j" '(lambda() (interactive)(find-file "~/persist/org/journal.org.gpg"))
-  "n" '(lambda() (interactive)(find-file "~/persist/org/notes.org"))
-  "w" '(lambda() (interactive)(find-file "~/persist/org/work.org"))
-  )
-
-(defvar-keymap prefix-mode-map
-  "A" 'org-archive-subtree-default
-  "e" 'org-export-dispatch
-  "f" 'consult-org-heading
-  "h" 'org-toggle-heading
-  "n" 'org-store-link
-  "o" 'org-set-property
-  "r" 'org-refile
-  "t" 'org-todo
-  
-  ;; Org tables
-  "b d c" 'org-table-delete-column
-  "b d r" 'org-table-delete-row
-
-  ;; Org dates
-  "d d" 'org-deadline
-  "d s" 'org-schedule
-  "d t" 'org-time-stamp
-  "d T" 'org-time-stamp-inactive
-
-  ;; Org subtree
-  "s n" 'org-narrow-to-subtree
-  "s N" 'widen
-  "s r" 'org-refile
-  "s S" 'org-sort
-  )
-
-(defvar-keymap prefix-magit-map
-  :doc "Magit keybindings for Git integration"
-  "g" 'magit-status      ;; Open Magit status
-  "d" 'magit-diff-buffer-file ;; Show diff for the current file
-  "D" 'diff-hl-show-hunk ;; Show diff for a hunk
-  "b" 'vc-annotate       ;; Annotate buffer with version control info
-  )
-
-(defvar-keymap prefix-dired-map
-  :doc "Dired commands for file management"
-  "d" 'dired
-  "j" 'dired-jump
-  "f" 'find-file
-  )
-
-(defvar-keymap prefix-project-map
-  :doc "Project management keybindings"
-  "b" 'consult-project-buffer ;; Consult project buffer
-  "p" 'project-switch-project ;; Switch project
-  "f" 'project-find-file ;; Find file in project
-  "g" 'project-find-regexp ;; Find regexp in project
-  "k" 'project-kill-buffers ;; Kill project buffers
-  "D" 'project-dired ;; Dired for project
-  )
-
 (defvar-keymap prefix-buffer-map
   :doc "Buffer management keybindings"
   "b" 'ibuffer ;; Open Ibuffer
@@ -271,30 +215,6 @@
   "s" 'save-buffer ;; Save buffer
   "x" 'kill-current-buffer ;; Kill current buffer
   )
-
-(defvar-keymap prefix-compute-map
-  :doc "Compute"
-  "b r" 'elisp-eval-region-or-buffer ;; Reload config
-  "f" 'apheleia-format-buffer ;; Formatter
-  "a" 'eglot-code-actions ;; Code actions
-  "r" 'eglot-rename ;; rename symbol
-  "i" 'eglot-inlay-hints-mode ;; Toggles inlay hints
-  )
-
-(defvar-keymap spc-prefix-map
-  :doc "My prefix key map."
-  "b" prefix-buffer-map
-  "c" prefix-compute-map
-  "f" prefix-find-files-map
-  "g" prefix-magit-map
-  "m" prefix-mode-map
-  "o" prefix-org-map
-  "p" 'disproject-dispatch
-  "x" prefix-dired-map
-  )
-
-(which-key-add-keymap-based-replacements spc-prefix-map
-  "f" `("find files" . ,prefix-find-files-map))
 
 (use-package tramp
   :straight nil
@@ -349,7 +269,8 @@
   (add-to-list 'completion-at-point-functions #'cape-elisp-symbol) ;; Complete Elisp symbol
   )
 
-(use-package disproject)
+(use-package disproject
+  :bind (("C-c p" . disproject-dispatch)))
 
 (use-package envrc
   :hook (after-init . envrc-global-mode))
@@ -422,16 +343,16 @@
   (global-treesit-auto-mode))
 
 (use-package apheleia
-  :hook (prog-mode . apheleia-global-mode))
+  :hook (prog-mode . apheleia-global-mode)
+  :bind
+  ("C-c M-f"))
 
 (use-package smartparens
   :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
   :config
   (require 'smartparens-config))
 
-(use-package magit
-  :defer t
-  :commands (magit-status magit-diff-buffer-file))
+(use-package magit :bind ("C-c g" . 'magit-status))
 
 (use-package diff-hl
   :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)
@@ -450,6 +371,29 @@
   :hook
   ((org-mode . org-indent-mode)
    (org-mode . visual-line-mode))
+  :bind
+  (
+   ("C-c l" . org-store-link)
+   ("C-c a" . org-agenda)
+   ("C-c c" . org-capture)
+   ("C-c e" . org-export-dispatch)
+   ("C-c n h" . (lambda() (interactive)(find-file "~/persist/org/hardware.org")))
+   ("C-c n j" . (lambda() (interactive)(find-file "~/persist/org/journal.org.gpg")))
+   ("C-c n n" . (lambda() (interactive)(find-file "~/persist/org/notes.org")))
+   ("C-c n w" . (lambda() (interactive)(find-file "~/persist/org/work.org")))
+
+   ("C-c A" . org-archive-subtree-default)
+   ("C-c f" . consult-org-heading)
+   ("C-c h" . org-toggle-heading)
+   ("C-c o" . org-set-property)
+   ("C-c r" . org-refile)
+   ("C-c t" . org-todo)
+   
+   ;; Org subtree
+   ("C-c N" . org-narrow-to-subtree)
+   ("C-c W" . widen)
+   ("C-c S" . org-sort)
+   )
   :custom
   (org-directory "~/persist/org/")
   (org-agenda-files (list org-directory))
@@ -567,23 +511,23 @@
          "* %u %?\n%i" :prepend t)
         ("B" "Book" entry (file+headline "hardware.org" "Bücher")
          "** TODO %^{ Title }
-        %^{AUTHOR}p
-        %^{PAGES}p
-        %^{RATING}p
-        %^{CUSTOM_ID}p
-        %^{SERIAL_NUMBER}p
-"
+         %^{AUTHOR}p
+         %^{PAGES}p
+         %^{RATING}p
+         %^{CUSTOM_ID}p
+         %^{SERIAL_NUMBER}p
+         "
          )
         ("i" "Item" entry (file "hardware.org")
          "* %^{Item name}
-            %^{CUSTOM_ID}p
-            %^{LOCATION}p
-            %^{DESCRIPTION}p
-            %^{PURCHASE_DATE}p
-            %^{PRICE}p
-            %^{SERIAL_NUMBER}p
-            %^{LENDING}p
-            %^{LEND_DATE}p
+         %^{CUSTOM_ID}p
+         %^{LOCATION}p
+         %^{DESCRIPTION}p
+         %^{PURCHASE_DATE}p
+         %^{PRICE}p
+         %^{SERIAL_NUMBER}p
+         %^{LENDING}p
+         %^{LEND_DATE}p
          ")
         ("j" "Journal entry" entry (file+datetree "journal.org.gpg") "* %(my/org-journal-timestamp) \n%?")
         ("J" "Journal entry (Prompt)" entry (file+datetree+prompt "journal.org.gpg") "* %(format-time-string \"%H:%M\") \n%?")
@@ -609,6 +553,12 @@
 (use-package org-autolist
   :hook (org-mode . org-autolist-mode))
 
+;; for the occasional ics import
+(use-package org-caldav
+  :custom
+  (org-caldav-inbox "/home/alex/persist/org/inbox.org")
+  )
+
 (use-package org-super-agenda
   :after org-agenda
   :defer t
@@ -631,6 +581,16 @@
      ("pp" "private agenda"
       ((agenda ""
                ((org-agenda-span 3)))
+       (agenda "" ((org-agenda-time-grid nil)
+                   (org-agenda-start-on-weekday nil)
+                   (org-agenda-start-day "+3d")
+                   (org-agenda-span 14)
+                   (org-agenda-show-all-dates nil)
+                   (org-deadline-warning-days 0)
+                   (org-agenda-block-separator nil)
+                   (org-agenda-entry-types '(:deadline))
+                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                   (org-agenda-overriding-header "\nUpcoming deadlines (+14d)\n")))
        (tags-todo "-TODO=\"DELEGATED\""
                   ((org-agenda-overriding-header "")
                    (org-super-agenda-groups
