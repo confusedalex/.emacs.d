@@ -782,58 +782,6 @@
   (setq inferior-lisp-program "/usr/bin/sbcl")
   )
 
-(use-package evil
-  :init
-  (setq evil-respect-visual-line-mode t)
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  :hook (after-init . evil-mode)
-  :custom
-  (evil-want-C-u-scroll t)
-  (evil-undo-system 'undo-redo)
-  ;; Set the leader key to space for easier access to custom commands.
-  (evil-want-leader t)
-  (evil-leader/in-all-states t)  ;; Make the leader key available in all states.
-  (evil-want-fine-undo t)        ;; Evil uses finer grain undoing steps
-  :config
-
-  (evil-define-key '(normal motion visual) 'global
-    (kbd "RET") nil ; unset RET to use with org-return-follows-link
-    (kbd "SPC") spc-prefix-map
-    )
-
-  (global-unset-key (kbd "M-H"))
-  )
-
-(use-package evil-collection
-  :after evil
-  :config
-  (evil-collection-init))
-
-(use-package evil-surround
-  :after evil-collection
-  :config
-  (global-evil-surround-mode 1))
-
-(use-package evil-commentary
-  :after (evil org)
-  :config (evil-commentary-mode 1)
-  )
-
-(use-package evil-matchit
-  :after evil-collection
-  :config
-  (global-evil-matchit-mode 1))
-
-(use-package evil-org
-  :after org
-  :hook
-  (org-mode . evil-org-mode)
-  (org-agenda . evil-org-mode)
-  :config
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
-
 (use-package copilot
   :hook (prog-mode . copilot-mode)
   :bind (:map copilot-completion-map
