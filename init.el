@@ -51,6 +51,8 @@
   (global-auto-revert-mode t)                     ;; automatically reload files
   
   (set-default-coding-systems 'utf-8)             ;; utf-8
+  (redisplay-skip-fontification-on-input t)       ;; Only syntax-highlight when I stopped typing
+  (read-process-output-max (* 4 1024 1024)) ; 4MB
 
   ;; save your last position in file
   ;; https://www.emacswiki.org/emacs/SavePlace
