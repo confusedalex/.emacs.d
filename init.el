@@ -69,6 +69,7 @@
   ("C--" . text-scale-decrease)
   ("<C-wheel-up>" . text-scale-increase)
   ("<C-wheel-down>" . text-scale-decrease)
+  ("C-x k" . kill-current-buffer)
   :hook
   (prog-mode . display-line-numbers-mode)
   (text-mode . display-line-numbers-mode)
@@ -201,11 +202,10 @@
   (dashboard-setup-startup-hook))
 
 (use-package olivetti
-  :defer t
-  :commands (olivetti-mode)
   :custom
-  (olivetti-body-width 130)
-  )
+  (olivetti-body-width (+ fill-column 10))
+  (olivetti-style nil)
+  :bind ("C-c z" . olivetti-mode))
 
 (defvar-keymap prefix-buffer-map
   :doc "Buffer management keybindings"
@@ -235,12 +235,6 @@
   :hook ((prog-mode . corfu-mode)
          (shell-mode . corfu-mode)
          (eshell-mode . corfu-mode))
-  :bind
-  (:map corfu-map
-        ("TAB" . corfu-next)
-        ([ tab ] . corfu-next)
-        ("S-TAB" . corfu-previous)
-        ([backtab] . corfu-previous))
   :custom
   (corfu-cycle t)           ;; Enable cycling for `corfu-next/previous'
   (corfu-preselect 'prompt) ;; Always preselect the prompt
