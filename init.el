@@ -306,11 +306,11 @@
   (lsp-enable-file-watchers nil)
   :hook (
          (nix-ts-mode . lsp-deferred)
-		 (python-ts-mode . lsp-deferred)
-		 (dart-mode . lsp-deferred)
-		 (go-mode . lsp-deferred)
-		 (typescript-ts-mode . lsp-deferred)
-		 (tsx-ts-mode . lsp-deferred)
+		     (python-ts-mode . lsp-deferred)
+		     (dart-mode . lsp-deferred)
+		     (go-mode . lsp-deferred)
+		     (typescript-ts-mode . lsp-deferred)
+		     (tsx-ts-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration)
          (lsp-completion-mode . my/lsp-mode-setup-completion))
   )
@@ -504,7 +504,7 @@
 
 (setq org-capture-templates
       '(
-	    ("p" "Personal")
+	      ("p" "Personal")
         ("pt" "Personal todo" entry
          (file+headline "notes.org" "Inbox")
          "* TODO %?\n%i" :prepend t)
@@ -533,10 +533,10 @@
          ")
         ("j" "Journal entry" entry (file+datetree "journal.org.gpg") "* %(my/org-journal-timestamp) \n%?")
         ("J" "Journal entry (Prompt)" entry (file+datetree+prompt "journal.org.gpg") "* %(format-time-string \"%H:%M\") \n%?")
-	    ("b" "Bookmark" entry (file+headline "notes.org" "Bookmarks")
-	     "* %(org-cliplink-capture) \n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+	      ("b" "Bookmark" entry (file+headline "notes.org" "Bookmarks")
+	       "* %(org-cliplink-capture) \n:PROPERTIES:\n:CREATED: %U\n:END:\n")
         ("e" "Email capture" entry (file+headline "notes.org" "Inbox") "* TODO %a")
-	    ("a" "Appointment" entry (file+headline "notes.org" "Events") "* %? %^t")
+	      ("a" "Appointment" entry (file+headline "notes.org" "Events") "* %? %^t")
         ("w" "Weight" table-line ( id "e0957b0e-d05e-485d-ad0a-e769287a5fe6" ) " | %^u | %^{Gewicht} |" :prepend t)
         )
       )
@@ -566,12 +566,12 @@
   :defer t
   :config
   (defvar common-todo-groups
-	'((:name "Started"
-			 :todo "STRT"
-			 :order 10)
-	  (:name "Waiting"
-			 :todo "WAIT"
-			 :order 10)))
+	  '((:name "Started"
+			       :todo "STRT"
+			       :order 10)
+	    (:name "Waiting"
+			       :todo "WAIT"
+			       :order 10)))
   (defvar work-files '("/home/alex/persist/org/work.org" "/home/alex/persist/org/google-calendar.org"))
   :custom
   (org-super-agenda-header-map nil)
@@ -625,22 +625,22 @@
         '(org-agenda-skip-entry-if 'todo '("OTHER"))))
       )
      ("wd" "work today"
-	  ((agenda "" ((org-agenda-files work-files)
+	    ((agenda "" ((org-agenda-files work-files)
                    (org-agenda-span 'day)))
-	   (todo "" ((org-agenda-overriding-header "")
+	     (todo "" ((org-agenda-overriding-header "")
                  (org-agenda-files work-files)
                  (org-super-agenda-groups
                   common-todo-groups)))))
      ("ww" "work week"
-	  ((agenda "" ((org-agenda-files work-files)
+	    ((agenda "" ((org-agenda-files work-files)
                    (org-agenda-span 'week)))
-	   (todo "" ((org-agenda-overriding-header "")
+	     (todo "" ((org-agenda-overriding-header "")
                  (org-agenda-files work-files)
                  (org-super-agenda-groups
                   common-todo-groups)))))
      ("g" "gifts"
-	  ((tags-todo "+gifts" ((org-super-agenda-groups '((:auto-outline-path t))))))
-	  )
+	    ((tags-todo "+gifts" ((org-super-agenda-groups '((:auto-outline-path t))))))
+	    )
      )
    )
   )
