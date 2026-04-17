@@ -750,4 +750,6 @@
               ("C-n" . copilot-next-completion)
               ("C-p" . copilot-previous-completion)))
 
+(use-package agent-shell)
+
 ;;; init.el ends here
