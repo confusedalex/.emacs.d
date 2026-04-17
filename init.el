@@ -49,6 +49,8 @@
   (display-line-numbers-type 'visual)             ;; Use relative line numbering in programming modes.
   (use-short-answers t)                           ;; y/n instead of yes/no
   (global-auto-revert-mode t)                     ;; automatically reload files
+
+  (scroll-conservatively 101)
   
   (set-default-coding-systems 'utf-8)             ;; utf-8
   (redisplay-skip-fontification-on-input t)       ;; Only syntax-highlight when I stopped typing
