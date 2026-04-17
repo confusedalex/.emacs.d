@@ -418,7 +418,7 @@
   (org-log-done 'time) ; Add timestamp when a task is closed
   (org-log-into-drawer t) ;; Log changes into a drawer, so it wont clutter up my entry
 
-  (org-extend-today-until 4) ;; my day ends at 03:00, you have to love org mode for this
+  (org-extend-today-until 5) ;; my day ends at 05:00, you have to love org mode for this
 
   (org-agenda-start-on-weekday nil) ; We don't need to start on a weekday, do we?
 
