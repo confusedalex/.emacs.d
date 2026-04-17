@@ -62,7 +62,7 @@
   
 
   (indent-tabs-mode nil)
-  (tab-width 4)
+  (tab-width 2)
 
   :bind
   ("C-+" . text-scale-increase)
