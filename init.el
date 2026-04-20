@@ -752,4 +752,6 @@
 
 (use-package agent-shell)
 
+(use-package dired-preview)
+
 ;;; init.el ends here
