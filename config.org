@@ -546,9 +546,6 @@
         (format-time-string "%H:%M (%d.%m)")
       (format-time-string "%H:%M"))))
 
-(use-package org-modern
-  :hook (after-init . global-org-modern-mode)
-  )
 
 ;; Nicer list creation
 (use-package org-autolist
