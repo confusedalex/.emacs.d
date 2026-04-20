@@ -126,6 +126,7 @@
         '((consult-line (:not posframe))
           (consult-theme (:not posframe))
           (consult-xref (:not posframe))
+          (consult-ripgrep (:not posframe))
           (consult-imenu (:not posframe))
           (t posframe)))
   (setq vertico-posframe-parameters
