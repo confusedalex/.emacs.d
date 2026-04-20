@@ -757,3 +757,8 @@
 (use-package dired-preview)
 
 #+end_src
+* wordcloud
+#+begin_src emacs-lisp
+(use-package wordcloud
+  :straight (wordcloud :type git :host github :repo "davep/wordcloud.el"))
+#+end_src
