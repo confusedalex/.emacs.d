@@ -675,8 +675,8 @@
 
 (use-package gnuplot)
 
-(use-package nix-ts-mode
-  :mode "\\.nix\\'")
+(use-package nix-mode
+  :mode "\\.nix$")
 
 (use-package dart-mode
   :defer t
