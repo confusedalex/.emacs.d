@@ -54,6 +54,8 @@
   (use-short-answers t)                           ;; y/n instead of yes/no
   (global-auto-revert-mode t)                     ;; automatically reload files
 
+  (auth-sources '("~/.emacs.d/.authinfo.gpg"))
+
   (scroll-conservatively 101)
   
   (set-default-coding-systems 'utf-8)             ;; utf-8
@@ -761,4 +763,9 @@
 #+begin_src emacs-lisp
 (use-package wordcloud
   :straight (wordcloud :type git :host github :repo "davep/wordcloud.el"))
+#+end_src
+* forge
+#+begin_src emacs-lisp
+(use-package forge
+  :after magit)
 #+end_src
