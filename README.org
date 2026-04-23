@@ -797,3 +797,10 @@ To use elfeed with my rss reader, I need to use elfeed protocol.
   (elfeed-protocol-enable))
 
 #+end_src
+* Code commenting
+~comment-dwin-2~ makes commenting a nicer experience. It supports comments in front and at the end of a line.
+#+begin_src emacs-lisp
+(use-package comment-dwim-2
+  :bind
+  ("M-;" . comment-dwim-2))
+#+end_src
