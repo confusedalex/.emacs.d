@@ -43,53 +43,53 @@
 Settings all the visual clutter to nil. I don't need any of these GUI
 elements.
 #+begin_src emacs-lisp :tangle no :noweb-ref emacs-init
-  (tool-bar-mode -1)
-  (menu-bar-mode -1)
-  (scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
 #+end_src
 
 Enable auto-save of file and don't create any backup files. Also
 enable ~auto-revert-mode~ which automatically reloads the file when
 the content was changed.
 #+begin_src emacs-lisp :tangle no :noweb-ref emacs-custom
-  (auto-save-visited-mode 1)
-  (make-backup-files nil)
-  (global-auto-revert-mode t)
+(auto-save-visited-mode 1)
+(make-backup-files nil)
+(global-auto-revert-mode t)
 #+end_src
 
-#+begin_src :noweb-ref emacs-custom
-  (delete-by-moving-to-trash t)                   ;; Move deleted files to the trash instead of permanently deleting them.
-  (delete-selection-mode 1)                       ;; Enable replacing selected text with typed text.
-  (inhibit-startup-message t)                     ;; Disable the startup message when Emacs launches.
-  (tab-always-indent 'complete)                   ;; Make the TAB key complete text instead of just indenting.
-  
-  (display-line-numbers-type 'visual)             ;; Use relative line numbering in programming modes.
-  (use-short-answers t)                           ;; y/n instead of yes/no
+#+begin_src emacs-lisp :tangle no :noweb-ref emacs-custom
+(delete-by-moving-to-trash t)                   ;; Move deleted files to the trash instead of permanently deleting them.
+(delete-selection-mode 1)                       ;; Enable replacing selected text with typed text.
+(inhibit-startup-message t)                     ;; Disable the startup message when Emacs launches.
+(tab-always-indent 'complete)                   ;; Make the TAB key complete text instead of just indenting.
 
-  (auth-sources '("~/.emacs.d/.authinfo.gpg"))
+(display-line-numbers-type 'visual)             ;; Use relative line numbering in programming modes.
+(use-short-answers t)                           ;; y/n instead of yes/no
 
-  (scroll-conservatively 101)
-  
-  (set-default-coding-systems 'utf-8)             ;; utf-8
-  (redisplay-skip-fontification-on-input t)       ;; Only syntax-highlight when I stopped typing
-  (read-process-output-max (* 4 1024 1024)) ; 4MB
+(auth-sources '("~/.emacs.d/.authinfo.gpg"))
 
-  ;; save your last position in file
-  ;; https://www.emacswiki.org/emacs/SavePlace
-  (save-place-mode 1)
-  
-  (indent-tabs-mode nil)
-  (tab-width 2)
+(scroll-conservatively 101)
 
-  :bind
-  ("C-+" . text-scale-increase)
-  ("C--" . text-scale-decrease)
-  ("<C-wheel-up>" . text-scale-increase)
-  ("<C-wheel-down>" . text-scale-decrease)
-  ("C-x k" . kill-current-buffer)
-  :hook
-  (prog-mode . display-line-numbers-mode)
-  (text-mode . display-line-numbers-mode)
+(set-default-coding-systems 'utf-8)             ;; utf-8
+(redisplay-skip-fontification-on-input t)       ;; Only syntax-highlight when I stopped typing
+(read-process-output-max (* 4 1024 1024)) ; 4MB
+
+;; save your last position in file
+;; https://www.emacswiki.org/emacs/SavePlace
+(save-place-mode 1)
+
+(indent-tabs-mode nil)
+(tab-width 2)
+
+:bind
+("C-+" . text-scale-increase)
+("C--" . text-scale-decrease)
+("<C-wheel-up>" . text-scale-increase)
+("<C-wheel-down>" . text-scale-decrease)
+("C-x k" . kill-current-buffer)
+:hook
+(prog-mode . display-line-numbers-mode)
+(text-mode . display-line-numbers-mode)
 #+end_src
 * No littering
 #+begin_src emacs-lisp
