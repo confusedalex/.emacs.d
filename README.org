@@ -190,7 +190,7 @@
   (
    ("C-x b" . consult-buffer)
    ("M-s f" . consult-fd)
-   ("M-s c" . (lambda() (interactive)(find-file "~/.emacs.d/config.org")))
+   ("M-s c" . (lambda() (interactive)(find-file "~/.emacs.d/README.org")))
    ("M-s g" . consult-ripgrep)
    ("M-s h" . consult-info)
    ("M-s r" . consult-recent-file)
