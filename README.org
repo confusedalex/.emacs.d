@@ -83,7 +83,7 @@ the content was changed.
 
 :bind
 ("C-+" . text-scale-increase)
-("C--" . text-scale-decrease)
+("C-_" . text-scale-decrease)
 ("<C-wheel-up>" . text-scale-increase)
 ("<C-wheel-down>" . text-scale-decrease)
 ("C-x k" . kill-current-buffer)
