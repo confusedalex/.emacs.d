@@ -821,3 +821,62 @@ To use elfeed with my rss reader, I need to use elfeed protocol.
   :bind
   ("M-;" . comment-dwim-2))
 #+end_src
+* Email
+I want to read my emails via Emacs. For this I use mu4e:
+#+begin_src emacs-lisp
+(use-package mu4e
+  :straight
+  (:local-repo "/home/alex/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.12.13"
+               :type built-in)
+  :custom
+  <<mu4e-custom>>
+  )
+  
+#+end_src
+These folders need to be defined for mu4e to work. Theses match the names of my IMAP folders.
+#+begin_src emacs-lisp :tangle no :noweb-ref mu4e-custom
+(mu4e-sent-folder   "/Sent")
+(mu4e-drafts-folder "/Drafts")
+(mu4e-trash-folder  "/Trash")
+(mu4e-refile-folder "/Archive")
+#+end_src
+My mails should be updated every 5 minutes via mbsync.
+#+begin_src emacs-lisp :tangle no :noweb-ref mu4e-custom
+(mu4e-get-mail-command "mbsync -a")
+(mu4e-update-interval 300)
+#+end_src
+Mu4e has to changes filenames when moving, otherwise mbsync will have ID issues.
+#+begin_src emacs-lisp :tangle no :noweb-ref mu4e-custom
+(mu4e-change-filenames-when-moving t)
+#+end_src
+For sending mails I use msmtp:
+#+begin_src emacs-lisp :tangle no :noweb-ref mu4e-custom
+(sendmail-program (executable-find "msmtp"))
+#+end_src
+The default sendmail functions always asks on how to send the email, I therefore override it. To send the email with the message specific sender and not the main address, we have to specify the ~message-send-mail-function~ correctly, otherwise it uses the default ~send-mail-function~ and set the envelope from the header.
+#+begin_src emacs-lisp :tangle no :noweb-ref mu4e-custom
+(send-mail-function 'message-send-mail-with-sendmail)
+(message-send-mail-function 'message-send-mail-with-sendmail)
+(message-sendmail-envelope-from 'header)
+#+end_src
+Kill the composing buffer after sending.
+#+begin_src emacs-lisp :tangle no :noweb-ref mu4e-custom
+(message-kill-buffer-on-exit t)
+#+end_src
+Maildir shortcuts are quite like bookmarks. Defining them I can directly jump to them via "v KEY" and use the same for moving a mail to a folder.
+#+begin_src emacs-lisp :tangle no :noweb-ref mu4e-custom
+(mu4e-maildir-shortcuts '(
+                          (:maildir "/INBOX" :key ?i)
+                          (:maildir "/Sent" :key ?s)
+                          (:maildir "/Drafts" :key ?d)
+                          (:maildir "/Trash" :key ?t)
+                          (:maildir "/Archive" :key ?a)
+                          (:maildir "/Politik" :key ?p)
+                          (:maildir "/Menschen" :key ?m)
+                          ))
+#+end_src
+mu4e should also be the default mail client
+#+begin_src emacs-lisp :tangle no :noweb-ref mu4e-custom
+(mail-user-agent 'mu4e-user-agent)
+(read-mail-command 'mu4e)
+#+end_src
