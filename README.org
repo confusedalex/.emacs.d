@@ -790,17 +790,24 @@ the content was changed.
 
 #+end_src
 * vundo
+visual-undo allows traversing a undo-timeline and deciding between
+branching points. Makes undo way more powerful and easier to
+understand.
 #+begin_src emacs-lisp
 (use-package vundo
   :custom
   (vundo-glyph-alist vundo-unicode-symbols))
 #+end_src
 * wordcloud
+Builts a worldcloud of the current buffer. Can be sortet
+alphabetically or by frequency.
 #+begin_src emacs-lisp
 (use-package wordcloud
   :straight (wordcloud :type git :host github :repo "davep/wordcloud.el"))
 #+end_src
 * forge
+~forge~ allows me to use interact with Github or Gitlab in [[magit]]. I
+can open, close or participate in Issues and even merge pull requests.
 #+begin_src emacs-lisp
 (use-package forge
   :after magit)
