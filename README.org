@@ -813,7 +813,7 @@ visualize these changes in the fringe.
          (magit-post-refresh . diff-hl-magit-post-refresh))
   :init (global-diff-hl-mode))
 #+end_src
-~forge~ allows me to use interact with Github or Gitlab in [[magit]]. I
+~forge~ allows me to use interact with Github or Gitlab in magit. I
 can open, close or participate in Issues and even merge pull requests.
 #+begin_src emacs-lisp
 (use-package forge
