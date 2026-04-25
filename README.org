@@ -766,6 +766,12 @@ the content was changed.
 (use-package dired-preview)
 
 #+end_src
+* vundo
+#+begin_src emacs-lisp
+(use-package vundo
+  :custom
+  (vundo-glyph-alist vundo-unicode-symbols))
+#+end_src
 * wordcloud
 #+begin_src emacs-lisp
 (use-package wordcloud
