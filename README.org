@@ -2,6 +2,24 @@
 #+author: confusedalex
 #+property: header-args  :noweb yes :tangle yes :comments both
 #+startup: fold
+
+* Introduction
+
+This is my Emacs configuration. Feel free to take inspiration or eveny
+copying it.
+
+* Table of Contents                                                     :TOC:
+- [[#introduction][Introduction]]
+- [[#package-management][Package Management]]
+- [[#emacs][emacs]]
+- [[#no-littering][No littering]]
+- [[#vundo][vundo]]
+- [[#wordcloud][wordcloud]]
+- [[#forge][forge]]
+- [[#elfeed][elfeed]]
+- [[#code-commenting][Code commenting]]
+- [[#email][Email]]
+
 * Package Management
 #+begin_src emacs-lisp
 ;; Bootstrap Straight.el
