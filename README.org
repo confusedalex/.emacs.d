@@ -785,7 +785,11 @@ the content was changed.
 * elfeed
 For reading rss feeds I use elfeed.
 #+begin_src emacs-lisp
-(use-package elfeed)
+(use-package elfeed
+  :bind
+  (:map elfeed-search-mode-map
+        ("g" . 'elfeed-update))
+   )
 #+end_src
 To use elfeed with my rss reader, I need to use elfeed protocol. 
 #+begin_src emacs-lisp
@@ -808,7 +812,6 @@ To use elfeed with my rss reader, I need to use elfeed protocol.
   (advice-add 'elfeed-update :after 'my/elfeed-protocol-pull-read-from-fever)
   
   (elfeed-protocol-enable))
-
 #+end_src
 * Code commenting
 ~comment-dwin-2~ makes commenting a nicer experience. It supports comments in front and at the end of a line.
