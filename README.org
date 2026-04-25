@@ -15,7 +15,7 @@ copying it.
 - [[#no-littering][No littering]]
 - [[#vundo][vundo]]
 - [[#wordcloud][wordcloud]]
-- [[#forge][forge]]
+- [[#git][git]]
 - [[#elfeed][elfeed]]
 - [[#code-commenting][Code commenting]]
 - [[#email][Email]]
@@ -394,14 +394,6 @@ the content was changed.
   :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
   :config
   (require 'smartparens-config))
-
-(use-package magit :bind ("C-c g" . 'magit-status))
-
-(use-package diff-hl
-  :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)
-         (magit-pre-refresh  . diff-hl-magit-pre-refresh)
-         (magit-post-refresh . diff-hl-magit-post-refresh))
-  :init (global-diff-hl-mode))
 
 (use-package jinx
   :custom
@@ -805,7 +797,20 @@ alphabetically or by frequency.
 (use-package wordcloud
   :straight (wordcloud :type git :host github :repo "davep/wordcloud.el"))
 #+end_src
-* forge
+* git
+Of course I use ~magit~ as my git interface.
+#+begin_src emacs-lisp
+(use-package magit :bind ("C-c g" . 'magit-status))
+#+end_src
+To see which lines are changed, delete or added I use ~diff-hl~ to
+visualize these changes in the fringe.
+#+begin_src emacs-lisp
+(use-package diff-hl
+  :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)
+         (magit-pre-refresh  . diff-hl-magit-pre-refresh)
+         (magit-post-refresh . diff-hl-magit-post-refresh))
+  :init (global-diff-hl-mode))
+#+end_src
 ~forge~ allows me to use interact with Github or Gitlab in [[magit]]. I
 can open, close or participate in Issues and even merge pull requests.
 #+begin_src emacs-lisp
