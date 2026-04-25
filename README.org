@@ -128,8 +128,10 @@ the content was changed.
 (set-face-attribute 'default nil :family "AporeticSerifMonoNerdFont" :height 130)
 (set-face-attribute 'variable-pitch nil :family "Aporetic Sans" :height 130)
 
-(use-package ef-themes)
-(load-theme 'ef-dream t)
+(use-package ef-themes
+  :config
+  (load-theme 'ef-dream t)
+)
 
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))
