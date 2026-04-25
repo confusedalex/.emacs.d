@@ -21,6 +21,11 @@ copying it.
 - [[#email][Email]]
 
 * Package Management
+I use [[https://github.com/radian-software/straight.el][straight.el]] for package managment. Instead of the default
+~package.el~ it allows for creating lockfiles and different
+profiles. So all packages needed for development could go into a dev
+profile and don't pollute or rather slow down emacs on my phone. But
+currently I don't make use of both these features.
 #+begin_src emacs-lisp
 ;; Bootstrap Straight.el
 (defvar bootstrap-version)
