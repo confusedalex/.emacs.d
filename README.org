@@ -80,6 +80,13 @@ the content was changed.
 (global-auto-revert-mode t)
 #+end_src
 
+~repeat-mode~ allows to drop the prefix and just keep pressing the
+final key. To do multiple undos I don't need to "C-x u C-x u C-x u"
+instead I can do "C-x u u u".
+#+begin_src emacs-lisp
+(repeat-mode t)
+#+end_src
+
 #+begin_src emacs-lisp :tangle no :noweb-ref emacs-custom
 (delete-by-moving-to-trash t)                   ;; Move deleted files to the trash instead of permanently deleting them.
 (delete-selection-mode 1)                       ;; Enable replacing selected text with typed text.
@@ -131,7 +138,7 @@ the content was changed.
 (use-package ef-themes
   :config
   (load-theme 'ef-dream t)
-)
+  )
 
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))
@@ -185,7 +192,17 @@ the content was changed.
 (use-package expreg
   :ensure t
   :bind (("C-=" . expreg-expand)
-         ("C--" . expreg-contract)))
+         ("C--" . expreg-contract))
+  :config
+  (defvar expreg-repeat-map
+    (let ((map (make-sparse-keymap)))
+      (define-key map "=" #'expreg-expand)
+      (define-key map "-" #'expreg-contract)
+      map))
+
+  (put 'expreg-expand 'repeat-map 'expreg-repeat-map)
+  (put 'expreg-contract 'repeat-map 'expreg-repeat-map)
+  )
 
 ;; Emacs minibuffer configurations.
 (use-package emacs
