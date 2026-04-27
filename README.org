@@ -293,6 +293,7 @@ instead I can do "C-x u u u".
   (corfu-auto t)            ;; Enables auto-completion
   (corfu-auto-trigger ".")            ;; Enables auto-completion
   (corfu-popupinfo-mode t)  ;; Enable popup information
+  (corfu-popupinfo-delay '(0.25 . 0.1)) ;; Lowers the delay of popup appearance
   (corfu-auto-delay 0.1)    ;; lower delay for completion
   
   (completion-ignore-case t)
