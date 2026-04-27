@@ -313,18 +313,11 @@ instead I can do "C-x u u u".
   (global-corfu-mode))
 
 (use-package cape
-  :defer t
-  :commands (cape-dabbrev cape-file cape-elisp-block)
   :init
   (advice-add #'lsp-completion-at-point :around #'cape-wrap-noninterruptible)
   (add-to-list 'completion-at-point-functions #'cape-dabbrev) ;; Complete word from current buffers
-  (add-to-list 'completion-at-point-functions #'cape-dict) ;; Dictionary completion
   (add-to-list 'completion-at-point-functions #'cape-file) ;; Path completion
   (add-to-list 'completion-at-point-functions #'cape-elisp-block) ;; Complete elisp in Org or Markdown mode
-  (add-to-list 'completion-at-point-functions #'cape-keyword) ;; Keyword/Snipet completion
-  (add-to-list 'completion-at-point-functions #'cape-abbrev) ;; Complete abbreviation
-  (add-to-list 'completion-at-point-functions #'cape-history) ;; Complete from Eshell, Comint or minibuffer history
-  (add-to-list 'completion-at-point-functions #'cape-elisp-symbol) ;; Complete Elisp symbol
   )
 
 (use-package disproject
