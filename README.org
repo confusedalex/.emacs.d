@@ -237,6 +237,8 @@ instead I can do "C-x u u u".
    ("M-s h" . consult-info)
    ("M-s r" . consult-recent-file)
    ("M-s t" . consult-theme)
+   ("M-s s" . consult-line)
+   ("M-s l" . consult-line)
    )
   :init
   ;; Enhance register preview with thin lines and no mode line.
