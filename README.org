@@ -101,6 +101,7 @@ instead I can do "C-x u u u".
 (auth-sources '("~/.emacs.d/.authinfo.gpg"))
 
 (scroll-conservatively 101)
+(pixel-scroll-precision-mode t) 
 
 (set-default-coding-systems 'utf-8)             ;; utf-8
 (redisplay-skip-fontification-on-input t)       ;; Only syntax-highlight when I stopped typing
