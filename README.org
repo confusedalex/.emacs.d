@@ -861,10 +861,10 @@ can open, close or participate in Issues and even merge pull requests.
 For reading rss feeds I use elfeed.
 #+begin_src emacs-lisp
 (use-package elfeed
-  :bind
-  (:map elfeed-search-mode-map
-        ("g" . 'elfeed-update))
-   )
+  :bind (("C-x e" . elfeed)
+         :map elfeed-search-mode-map
+         ("g" . 'elfeed-update)
+         ))
 #+end_src
 To use elfeed with my rss reader, I need to use elfeed protocol. 
 #+begin_src emacs-lisp
