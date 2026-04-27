@@ -14,6 +14,8 @@ copying it.
 - [[#emacs][emacs]]
 - [[#no-littering][No littering]]
 - [[#vundo][vundo]]
+- [[#languages][Languages]]
+  - [[#dartflutter][Dart/Flutter]]
 - [[#wordcloud][wordcloud]]
 - [[#git][git]]
 - [[#elfeed][elfeed]]
@@ -729,16 +731,6 @@ instead I can do "C-x u u u".
 (use-package nix-mode
   :mode "\\.nix$")
 
-(use-package dart-mode
-  :defer t
-  :hook (dart-mode . flutter-test-mode))
-
-(use-package flutter
-  :after dart-mode
-  :bind (:map dart-mode-map
-              ("C-M-x" . #'flutter-run-or-hot-reload))
-  )
-
 (use-package kdl-mode
   :mode ("\\.kdl\\'"))
 
@@ -808,6 +800,37 @@ understand.
 (use-package vundo
   :custom
   (vundo-glyph-alist vundo-unicode-symbols))
+#+end_src
+* Languages
+** Dart/Flutter
+First we use dart-mode for dart specific stuff.
+#+begin_src emacs-lisp
+(use-package dart-mode
+  :defer t
+  :hook (dart-mode . flutter-test-mode))
+#+end_src
+For running flutter apps and tests I use flutter mode
+#+begin_src emacs-lisp
+(use-package flutter
+  :after dart-mode
+  :bind (:map dart-mode-map
+              ("C-M-x" . #'flutter-run-or-hot-reload))
+  )
+#+end_src
+Flutter can only run on started emulators. Because I don't want to
+start the emulator manually I've developed this little wrapper:
+#+begin_src emacs-lisp
+ (defun flutter-launch-emulator (emulator-id)
+  "Launches the emulator with the given ID."
+  (interactive
+   (list (completing-read "Emulator: " (flutter--emulators))))
+  (shell-command (format "flutter emulators --launch %s" emulator-id))
+  )
+
+(defun flutter--emulators ()
+  "Return an list of emulators."
+  (string-lines (shell-command-to-string "emulator -list-avds") t)
+  )
 #+end_src
 * wordcloud
 Builts a worldcloud of the current buffer. Can be sortet
