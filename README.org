@@ -902,6 +902,7 @@ I want to read my emails via Emacs. For this I use mu4e:
   :straight
   (:local-repo "/home/alex/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.12.13"
                :type built-in)
+  :bind (("C-x m" . mu4e))
   :custom
   <<mu4e-custom>>
   )
