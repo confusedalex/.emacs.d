@@ -845,13 +845,17 @@ Of course I use ~magit~ as my git interface.
 (use-package magit :bind ("C-c g" . 'magit-status))
 #+end_src
 To see which lines are changed, delete or added I use ~diff-hl~ to
-visualize these changes in the fringe.
+visualize these changes in the fringe. ~diff-hl-flydiff-mode~ redraws
+the fringe on every change, not every file save as otherwise.
 #+begin_src emacs-lisp
 (use-package diff-hl
   :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)
          (magit-pre-refresh  . diff-hl-magit-pre-refresh)
          (magit-post-refresh . diff-hl-magit-post-refresh))
-  :init (global-diff-hl-mode))
+  :config
+  (global-diff-hl-mode 1)
+  (diff-hl-flydiff-mode 1)
+  )
 #+end_src
 ~forge~ allows me to use interact with Github or Gitlab in magit. I
 can open, close or participate in Issues and even merge pull requests.
