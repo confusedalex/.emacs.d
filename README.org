@@ -224,20 +224,6 @@ instead I can do "C-x u u u".
   (completion-category-defaults nil)
   (completion-category-overrides nil))
 
-(use-package embark
-  :defer t
-  :commands (embark-act
-             embark-dwim
-             embark-export
-             embark-collect
-             embark-bindings
-             embark-prefix-help-command))
-
-(use-package embark-consult
-  :ensure t
-  :hook
-  (embark-collect-mode . consult-preview-at-point-mode))
-
 (use-package consult
   :defer t
   :hook (completion-list-mode . consult-preview-at-point-mode)
