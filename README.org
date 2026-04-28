@@ -842,13 +842,16 @@ can open, close or participate in Issues and even merge pull requests.
   :after magit)
 #+end_src
 * elfeed
-For reading rss feeds I use elfeed.
+For reading rss feeds I use elfeed. I set "g" to update my feeds when
+in the elfeed buffer. For a nicer reading experience I enter
+olivetti-mode on opening an entry.
 #+begin_src emacs-lisp
 (use-package elfeed
   :bind (("C-x e" . elfeed)
          :map elfeed-search-mode-map
          ("g" . 'elfeed-update)
-         ))
+         )
+  :hook (elfeed-show-mode . olivetti-mode))
 #+end_src
 To use elfeed with my rss reader, I need to use elfeed protocol. 
 #+begin_src emacs-lisp
