@@ -85,8 +85,15 @@ the content was changed.
 ~repeat-mode~ allows to drop the prefix and just keep pressing the
 final key. To do multiple undos I don't need to "C-x u C-x u C-x u"
 instead I can do "C-x u u u".
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no :noweb-ref emacs-custom
 (repeat-mode t)
+#+end_src
+
+Help windows are great but don't get selected automatically, which
+kinda bothers me.
+#+begin_src emacs-lisp :tangle no :noweb-ref emacs-custom
+(help-window-select t)
+(help-window-keep-selected t)
 #+end_src
 
 #+begin_src emacs-lisp :tangle no :noweb-ref emacs-custom
