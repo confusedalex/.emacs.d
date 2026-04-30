@@ -136,7 +136,7 @@ instead I can do "C-x u u u".
                (allow-no-window . t)))
 
 (set-face-attribute 'default nil :family "AporeticSerifMonoNerdFont" :height 130)
-(set-face-attribute 'variable-pitch nil :family "Aporetic Sans" :height 130)
+(set-face-attribute 'variable-pitch nil :family "Aporetic Sans" :height 1.0)
 
 (use-package ef-themes
   :config
