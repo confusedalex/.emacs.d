@@ -906,15 +906,20 @@ I want to read my emails via Emacs. For this I use mu4e:
   :bind (("C-x m" . mu4e))
   :custom
   <<mu4e-custom>>
+  :config
+  <<mu4e-config>>
   )
-  
+#+end_src
+Telling Emacs who I am makes composing mails easier.
+#+begin_src emacs-lisp :tangle no :noweb-ref mu4e-custom
+(user-mail-address "alex@loll.be")
+(user-full-name "Alexander Loll")
 #+end_src
 These folders need to be defined for mu4e to work. Theses match the names of my IMAP folders.
 #+begin_src emacs-lisp :tangle no :noweb-ref mu4e-custom
 (mu4e-sent-folder   "/Sent")
 (mu4e-drafts-folder "/Drafts")
 (mu4e-trash-folder  "/Trash")
-(mu4e-refile-folder "/Archive")
 #+end_src
 My mails should be updated every 5 minutes via mbsync.
 #+begin_src emacs-lisp :tangle no :noweb-ref mu4e-custom
@@ -955,4 +960,14 @@ mu4e should also be the default mail client
 #+begin_src emacs-lisp :tangle no :noweb-ref mu4e-custom
 (mail-user-agent 'mu4e-user-agent)
 (read-mail-command 'mu4e)
+#+end_src
+I also define a custom refile function, so mails get automatically
+refiled correctly. Because this contains some private information,
+this file is not public.
+#+begin_src emacs-lisp :tangle no :noweb-ref mu4e-config
+(load-file (expand-file-name "refile.el" user-emacs-directory))
+#+end_src
+* Code coverage
+#+begin_src emacs-lisp
+(use-package cov)
 #+end_src
