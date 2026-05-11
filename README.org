@@ -11,6 +11,7 @@ copying it.
 * Table of Contents                                                     :TOC:
 - [[#introduction][Introduction]]
 - [[#package-management][Package Management]]
+- [[#macos][macos]]
 - [[#emacs][emacs]]
 - [[#no-littering][No littering]]
 - [[#vundo][vundo]]
@@ -53,6 +54,22 @@ currently I don't make use of both these features.
   :custom
   (straight-use-package-by-default t)
   (straight-current-profile 'base)
+  )
+#+end_src
+* macos
+These are some macos specific settings, which change the meta-key do the command-key on macos and disables the option key in Emacs.
+#+begin_src emacs-lisp
+(when (memq system-type '(darwin))
+  (set-fontset-font t nil "SF Pro Display" nil 'append)
+
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier 'none)
+
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+  (add-to-list 'default-frame-alist '(ns-appearance . dark))
+  (add-to-list 'default-frame-alist '(undecorated-round . t))
+  (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e")
+  (setq mu4e-mu-binary "/opt/homebrew/bin/mu")
   )
 #+end_src
 * emacs
