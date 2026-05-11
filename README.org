@@ -876,9 +876,7 @@ To use elfeed with my rss reader, I need to use elfeed protocol.
 I want to read my emails via Emacs. For this I use mu4e:
 #+begin_src emacs-lisp
 (use-package mu4e
-  :straight
-  (:local-repo "/home/alex/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.12.13"
-               :type built-in)
+  :straight nil
   :bind (("C-x m" . mu4e))
   :custom
   <<mu4e-custom>>
