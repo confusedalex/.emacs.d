@@ -408,13 +408,6 @@ color things which just looks weird and unreadable.
   (add-hook 'lsp-biome-active-hook #'my/lsp-biome-active-hook)
   )
 
-(use-package treesit-auto
-  :custom
-  (treesit-auto-install 'prompt)
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
-
 (use-package apheleia
   :hook (prog-mode . apheleia-global-mode)
   :bind
