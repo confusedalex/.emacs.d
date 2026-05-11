@@ -480,7 +480,6 @@ color things which just looks weird and unreadable.
   (org-agenda-skip-scheduled-if-deadline-is-shown t) ;; don't show scheduled if deadlined on the same day
   (org-agenda-skip-deadline-if-done t) ;; Don't show deadlined items, if done
   (org-agenda-todo-ignore-scheduled 'all) ;; Don't show schedulded dates in global TODO list
-  (org-agenda-todo-ignore-deadlines 7) ;; Don't show deadlines that are more than 7 days away
   (org-agenda-skip-timestamp-if-deadline-is-shown t)
 
   (org-agenda-time-grid
@@ -625,7 +624,8 @@ color things which just looks weird and unreadable.
       ((org-agenda-files (file-expand-wildcards "~/persist/org/inbox.org"))))
      ("pp" "private agenda"
       ((agenda ""
-               ((org-agenda-span 3)))
+               ((org-agenda-span 3)
+                (org-deadline-warning-days 0))) 
        (agenda "" ((org-agenda-time-grid nil)
                    (org-agenda-start-on-weekday nil)
                    (org-agenda-start-day "+3d")
