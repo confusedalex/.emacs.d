@@ -180,8 +180,8 @@ applicable in the current mode/buffer.
                (display-buffer-no-window)
                (allow-no-window . t)))
 
-(set-face-attribute 'default nil :family "AporeticSerifMonoNerdFont" :height 130)
-(set-face-attribute 'variable-pitch nil :family "Aporetic Sans" :height 1.0)
+(set-face-attribute 'default nil :family "AporeticSerifMonoNerdFont" :height 160)
+(set-face-attribute 'variable-pitch nil :family "Aporetic Sans" :height 1.5)
 
 (use-package ef-themes
   :config
