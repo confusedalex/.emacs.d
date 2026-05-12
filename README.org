@@ -13,6 +13,7 @@ copying it.
 - [[#package-management][Package Management]]
 - [[#macos][macos]]
 - [[#emacs][emacs]]
+  - [[#theme][Theme]]
 - [[#no-littering][No littering]]
 - [[#vundo][vundo]]
 - [[#languages][Languages]]
@@ -154,6 +155,13 @@ color things which just looks weird and unreadable.
 :hook
 (prog-mode . display-line-numbers-mode)
 (text-mode . display-line-numbers-mode)
+#+end_src
+** Theme
+#+begin_src emacs-lisp
+(use-package auto-dark
+  :custom
+  (auto-dark-themes '((ef-dream) (ef-day)))
+  (auto-dark-mode t))
 #+end_src
 * No littering
 #+begin_src emacs-lisp
