@@ -421,7 +421,6 @@ applicable in the current mode/buffer.
   :commands lsp lsp-deferred
   :defer t
   :init
-  (setq lsp-use-plists t)
   (defun my/lsp-mode-setup-completion ()
     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
           '(orderless))) ;; Configure orderless
