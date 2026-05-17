@@ -359,14 +359,15 @@ applicable in the current mode/buffer.
   )
 
 (use-package tramp
-  :straight nil
   :custom
   (remote-file-name-inhibit-locks t)
   (tramp-use-scp-direct-remote-copying t)
   (remote-file-name-inhibit-auto-save-visited t))
 
 (use-package tramp-rpc
-  :straight (tramp-rpc :type git :host github :repo "ArthurHeymans/emacs-tramp-rpc"))
+  :straight (tramp-rpc :type git :host github :repo "ArthurHeymans/emacs-tramp-rpc")
+  :custom
+  (tramp-rpc-deploy-git-build-policy 'release))
 
 (use-package corfu
   :after orderless
