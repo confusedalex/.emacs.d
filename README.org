@@ -266,20 +266,6 @@ applicable in the current mode/buffer.
   :commands vertico-mode
   :hook (after-init . vertico-mode))
 
-(use-package vertico-posframe
-  :config
-  (setq vertico-multiform-commands
-        '((consult-line (:not posframe))
-          (consult-theme (:not posframe))
-          (consult-xref (:not posframe))
-          (consult-ripgrep (:not posframe))
-          (consult-imenu (:not posframe))
-          (t posframe)))
-  (setq vertico-posframe-parameters
-        '((left-fringe . 8)
-          (right-fringe . 8)))
-  (vertico-multiform-mode 1))
-
 (use-package expreg
   :ensure t
   :bind (("C-=" . expreg-expand)
