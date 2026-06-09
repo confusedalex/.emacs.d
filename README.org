@@ -16,6 +16,7 @@ copying it.
 - [[#emacs][emacs]]
   - [[#theme][Theme]]
   - [[#dired][dired]]
+  - [[#snake][Snake]]
 - [[#no-littering][No littering]]
 - [[#vundo][vundo]]
 - [[#languages][Languages]]
@@ -211,6 +212,19 @@ applicable in the current mode/buffer.
 *** filetags
 #+begin_src emacs-lisp
 (use-package filetags)
+#+end_src
+** Snake
+#+begin_src emacs-lisp
+(use-package snake
+  :straight nil
+  :bind
+  (:map snake-mode-map
+   ("w" . snake-move-up)
+   ("a" . snake-move-left)
+   ("s" . snake-move-down)
+   ("d" . snake-move-right)
+   )
+  )
 #+end_src
 * No littering
 #+begin_src emacs-lisp
