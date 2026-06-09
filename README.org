@@ -1,6 +1,6 @@
 #+title: Emacs Configuration
 #+author: confusedalex
-#+property: header-args  :noweb yes :tangle yes :comments both
+#+property: header-args  :noweb yes :tangle init.el :comments both
 #+startup: fold
 
 * Introduction
