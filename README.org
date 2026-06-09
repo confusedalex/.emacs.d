@@ -674,13 +674,6 @@ applicable in the current mode/buffer.
   :after org-agenda
   :defer t
   :config
-  (defvar common-todo-groups
-	  '((:name "Started"
-			       :todo "STRT"
-			       :order 10)
-	    (:name "Waiting"
-			       :todo "WAIT"
-			       :order 10)))
   (defvar work-files '("/home/alex/persist/org/work.org" "/home/alex/persist/org/google-calendar.org"))
   :custom
   (org-super-agenda-header-map nil)
@@ -693,26 +686,34 @@ applicable in the current mode/buffer.
       ((agenda ""
                ((org-agenda-span 3)
                 (org-deadline-warning-days 0))) 
-       (agenda "" ((org-agenda-time-grid nil)
-                   (org-agenda-start-on-weekday nil)
-                   (org-agenda-start-day "+3d")
-                   (org-agenda-span 14)
-                   (org-agenda-show-all-dates nil)
-                   (org-deadline-warning-days 0)
-                   (org-agenda-block-separator nil)
-                   (org-agenda-entry-types '(:deadline))
-                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                   (org-agenda-overriding-header "\nUpcoming deadlines (+14d)\n")))
+       (agenda ""
+               ((org-agenda-time-grid nil)
+                (org-agenda-entry-types '(:deadline))
+                (org-agenda-start-on-weekday nil)
+                (org-agenda-start-day "+3d")
+                (org-agenda-span 14)
+                (org-agenda-show-all-dates nil)
+                (org-deadline-warning-days 0)
+                (org-agenda-block-separator nil)
+                
+                (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                (org-agenda-overriding-header "\nUpcoming deadlines (+14d)\n")))
        (tags-todo "-TODO=\"DELEGATED\""
                   ((org-agenda-overriding-header "")
                    (org-super-agenda-groups
-                    (append common-todo-groups
-                            '((:name "Shopping"
-                                     :tag "@shopping"
-                                     :order 19)
-                              (:name "Reading"
-                                     :todo "READING"
-                                     :order 20)))))))
+                    '((:name "Started"
+			                       :todo "STRT")
+	                    (:name "Waiting"
+			                       :todo "WAIT")
+                      (:name "Inbox"
+                             :and (
+                             :todo "TODO"
+                             :tag "inbox"))
+                      (:name "Tasks"
+                             :todo "TODO")
+                      (:name "Someday"
+                             :todo "SOMEDAY")
+                      )))))
       ((org-agenda-tag-filter-preset '("-@work" "-gifts"))
        (org-agenda-skip-function-global
         '(org-agenda-skip-entry-if 'todo '("OTHER"))))
