@@ -482,7 +482,6 @@ applicable in the current mode/buffer.
          ("C-M-$" . jinx-languages)))
 
 (use-package org
-  :defer t        ;; Defer loading Org-mode until it's needed.
   :hook
   ((org-mode . org-indent-mode)
    (org-mode . visual-line-mode))
