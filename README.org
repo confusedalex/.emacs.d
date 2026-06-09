@@ -985,3 +985,7 @@ this file is not public.
 #+begin_src emacs-lisp :tangle no :noweb-ref mu4e-config
 (load-file (expand-file-name "refile.el" user-emacs-directory))
 #+end_src
+
+#+begin_src emacs-lisp :tangle no :noweb-ref mu4e-custom
+(mml-secure-openpgp-encrypt-to-self t)
+#+end_src
