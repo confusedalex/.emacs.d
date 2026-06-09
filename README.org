@@ -759,20 +759,6 @@ applicable in the current mode/buffer.
 (use-package kdl-mode
   :mode ("\\.kdl\\'"))
 
-(use-package web-mode
-  :defer t
-  :hook (web-mode . lsp-deferred)
-  :mode
-  (("\\.phtml\\'" . web-mode)
-   ("\\.php\\'" . web-mode)
-   ("\\.tpl\\'" . web-mode)
-   ("\\.[agj]sp\\'" . web-mode)
-   ("\\.as[cp]x\\'" . web-mode)
-   ("\\.erb\\'" . web-mode)
-   ("\\.mustache\\'" . web-mode)
-   ("\\.vue\\'" . web-mode)
-   ("\\.djhtml\\'" . web-mode)))
-
 (use-package yaml-mode
   :defer t
   :mode (
