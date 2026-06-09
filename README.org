@@ -989,3 +989,18 @@ this file is not public.
 #+begin_src emacs-lisp :tangle no :noweb-ref mu4e-custom
 (mml-secure-openpgp-encrypt-to-self t)
 #+end_src
+
+#+begin_src emacs-lisp :tangle no :noweb-ref mu4e-config
+(defun my/mu4e-unsubscribe ()
+  "A quick and dirty function to unsubscribe from mails"
+  (interactive)
+  (browse-url
+           (concat
+            (cdr
+             (butlast
+              (string-to-list
+               (mu4e-fetch-field (mu4e-message-at-point) "List-Unsubscribe"))))
+            ))
+  (mu4e-headers-mark-for-delete)
+  )
+#+end_src
