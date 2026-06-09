@@ -593,9 +593,6 @@ applicable in the current mode/buffer.
    )
   )
 
-(use-package calfw)
-(use-package calfw-org)
-
 (use-package org
   :config
   (org-clock-persistence-insinuate)
