@@ -206,6 +206,7 @@ applicable in the current mode/buffer.
 *** date2name
 #+begin_src emacs-lisp
 (use-package date2name
+  :after org
   :custom
   (date2name-default-separation-character " "))
 #+end_src
