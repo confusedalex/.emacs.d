@@ -116,8 +116,6 @@
 ;; Theme
 
 ;; [[file:README.org::*Theme][Theme:1]]
-
-
 (use-package auto-dark
   :custom
   (auto-dark-themes '((ef-dream) (ef-day)))
@@ -127,7 +125,6 @@
 ;; dired
 
 ;; [[file:README.org::*dired][dired:1]]
-
 (use-package dired
   :straight nil
   :init
@@ -619,13 +616,13 @@
 
 ;; for the occasional ics import
 (use-package org-caldav
-  :after org
   :custom
   (org-caldav-inbox "/home/alex/persist/org/inbox.org")
   )
 
 (use-package org-super-agenda
-  :after org
+  :after org-agenda
+  :defer t
   :config
   (defvar work-files '("/home/alex/persist/org/work.org" "/home/alex/persist/org/google-calendar.org"))
   :custom
