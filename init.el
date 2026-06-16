@@ -603,6 +603,14 @@
         )
       )
 
+(defun my/org-capture-setup-action ()
+  (when (equal (plist-get org-capture-plist :key) "j")
+    (delete-other-windows)
+    (olivetti-mode)
+    ))
+
+(add-hook 'org-capture-mode-hook 'my-org-capture-setup-action)
+
 (defun my/org-journal-timestamp ()
   (let ((hour (string-to-number (format-time-string "%H"))))
     (if (< hour 6)
