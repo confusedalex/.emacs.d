@@ -641,7 +641,6 @@ applicable in the current mode/buffer.
          %^{LEND_DATE}p
          ")
         ("j" "Journal entry" entry (file+datetree "journal.org.gpg") "* %(my/org-journal-timestamp) \n%?")
-        ("J" "Journal entry (Prompt)" entry (file+datetree+prompt "journal.org.gpg") "* %(format-time-string \"%H:%M\") \n%?")
 	      ("b" "Bookmark" entry (file+headline "notes.org" "Bookmarks")
 	       "* %(org-cliplink-capture) \n:PROPERTIES:\n:CREATED: %U\n:END:\n")
         ("e" "Email capture" entry (file+headline "notes.org" "Inbox") "* TODO %a")
