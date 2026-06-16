@@ -297,7 +297,7 @@
 
 (use-package olivetti
   :custom
-  (olivetti-body-width (+ fill-column 10))
+  (olivetti-body-width 82)
   (olivetti-style nil)
   :bind ("C-c z" . olivetti-mode))
 
