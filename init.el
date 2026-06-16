@@ -874,20 +874,10 @@
   :custom
   (elfeed-protocol-fever-update-unread-only nil)
   (elfeed-protocol-fever-fetch-category-as-tag t)
-  (elfeed-protocol-feeds '(("fever+https://alex@rss.mytbu.de"
+  (elfeed-feeds '(("fever+https://alex@rss.mytbu.de"
                             :api-url "https://rss.mytbu.de/fever/"
                             :use-authinfo t)))
   :config
-  (defun my/elfeed-protocol-pull-read-from-fever ()
-    (interactive)
-    (mark-whole-buffer)
-    (cl-loop for entry in (elfeed-search-selected)
-             do (elfeed-untag-1 entry 'unread))
-    (elfeed-search-update--force)
-    (elfeed-protocol-fever-reinit "https://alex@rss.mytbu.de"))
-  
-  (advice-add 'elfeed-update :after 'my/elfeed-protocol-pull-read-from-fever)
-  
   (elfeed-protocol-enable))
 ;; elfeed:2 ends here
 
