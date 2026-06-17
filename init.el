@@ -608,7 +608,7 @@
     (olivetti-mode)
     ))
 
-(add-hook 'org-capture-mode-hook 'my-org-capture-setup-action)
+(add-hook 'org-capture-mode-hook 'my/org-capture-setup-action)
 
 (defun my/org-journal-timestamp ()
   (let ((hour (string-to-number (format-time-string "%H"))))
