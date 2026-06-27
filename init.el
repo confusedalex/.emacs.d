@@ -427,13 +427,7 @@
 (use-package smartparens
   :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
   :config
-  (require 'smartparens-config))
-
-(use-package jinx
-  :custom
-  (jinx-languages "de_DE en_GB")
-  :bind (("M-$" . jinx-correct)
-         ("C-M-$" . jinx-languages)))
+  (require 'smartparens-config)) 
 
 (use-package org
   :hook
@@ -774,6 +768,18 @@
   :custom
   (vundo-glyph-alist vundo-unicode-symbols))
 ;; vundo:1 ends here
+
+;; jinx - Spell Checking
+
+;; [[file:README.org::*jinx - Spell Checking][jinx - Spell Checking:1]]
+(use-package jinx
+  :hook
+  (after-init . global-jinx-mode)
+  :custom
+  (jinx-languages "de_DE en_GB")
+  :bind (("M-$" . jinx-correct)
+         ("C-M-$" . jinx-languages)))
+;; jinx - Spell Checking:1 ends here
 
 ;; Dart/Flutter
 ;; First we use dart-mode for dart specific stuff.

@@ -19,6 +19,7 @@ copying it.
   - [[#snake][Snake]]
 - [[#no-littering][No littering]]
 - [[#vundo][vundo]]
+- [[#jinx---spell-checking][jinx - Spell Checking]]
 - [[#languages][Languages]]
   - [[#dartflutter][Dart/Flutter]]
   - [[#latex][Latex]]
@@ -475,13 +476,7 @@ applicable in the current mode/buffer.
 (use-package smartparens
   :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
   :config
-  (require 'smartparens-config))
-
-(use-package jinx
-  :custom
-  (jinx-languages "de_DE en_GB")
-  :bind (("M-$" . jinx-correct)
-         ("C-M-$" . jinx-languages)))
+  (require 'smartparens-config)) 
 
 (use-package org
   :hook
@@ -819,6 +814,16 @@ understand.
 (use-package vundo
   :custom
   (vundo-glyph-alist vundo-unicode-symbols))
+#+end_src
+* jinx - Spell Checking
+#+begin_src emacs-lisp
+(use-package jinx
+  :hook
+  (after-init . global-jinx-mode)
+  :custom
+  (jinx-languages "de_DE en_GB")
+  :bind (("M-$" . jinx-correct)
+         ("C-M-$" . jinx-languages)))
 #+end_src
 * Languages
 ** Dart/Flutter
