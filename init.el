@@ -547,6 +547,17 @@
    )
   )
 
+(defun my/org-normalize-all-timestamps ()
+  (interactive)
+  (save-excursion
+    (let ((positions (org-element-map (org-element-parse-buffer) 'timestamp
+                       (lambda (timestamp)
+                         (org-element-property :begin timestamp)))))
+      (dolist (pos (reverse positions))
+        (goto-char pos)
+        (org-timestamp-up-day 0)      )
+      )))
+
 (use-package org
   :config
   (org-clock-persistence-insinuate)
