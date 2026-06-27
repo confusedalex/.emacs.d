@@ -751,15 +751,6 @@
   (pdf-loader-install)
   )
 
-(use-package auctex
-  :custom
-  (TeX-auto-save t)
-  (TeX-parse-self t)
-  (TeX-PDF-mode t)
-  (TeX-view-program-selection '((output-pdf "PDF Tools")))
-  )
-(use-package cdlatex)
-(use-package reftex)
 
 (use-package sly-quicklisp)
 (use-package sly
@@ -821,6 +812,22 @@
   (string-lines (shell-command-to-string "emulator -list-avds") t)
   )
 ;; Dart/Flutter:3 ends here
+
+;; Latex
+
+;; [[file:README.org::*Latex][Latex:1]]
+(use-package auctex
+  :hook
+  (LaTeX-mode . TeX-source-correlate-mode) ;; jump between source and preview
+  :custom
+  (TeX-auto-save t)
+  (TeX-parse-self t)
+  (TeX-master nil) ;; ask for master file
+  (TeX-view-program-selection '((output-pdf "PDF Tools")))
+  )
+(use-package cdlatex)
+(use-package reftex)
+;; Latex:1 ends here
 
 ;; wordcloud
 ;; Builts a worldcloud of the current buffer. Can be sortet

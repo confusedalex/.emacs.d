@@ -21,6 +21,7 @@ copying it.
 - [[#vundo][vundo]]
 - [[#languages][Languages]]
   - [[#dartflutter][Dart/Flutter]]
+  - [[#latex][Latex]]
 - [[#wordcloud][wordcloud]]
 - [[#git][git]]
 - [[#elfeed][elfeed]]
@@ -798,15 +799,6 @@ applicable in the current mode/buffer.
   (pdf-loader-install)
   )
 
-(use-package auctex
-  :custom
-  (TeX-auto-save t)
-  (TeX-parse-self t)
-  (TeX-PDF-mode t)
-  (TeX-view-program-selection '((output-pdf "PDF Tools")))
-  )
-(use-package cdlatex)
-(use-package reftex)
 
 (use-package sly-quicklisp)
 (use-package sly
@@ -858,6 +850,20 @@ start the emulator manually I've developed this little wrapper:
   "Return an list of emulators."
   (string-lines (shell-command-to-string "emulator -list-avds") t)
   )
+#+end_src
+** Latex
+#+begin_src emacs-lisp
+(use-package auctex
+  :hook
+  (LaTeX-mode . TeX-source-correlate-mode) ;; jump between source and preview
+  :custom
+  (TeX-auto-save t)
+  (TeX-parse-self t)
+  (TeX-master nil) ;; ask for master file
+  (TeX-view-program-selection '((output-pdf "PDF Tools")))
+  )
+(use-package cdlatex)
+(use-package reftex)
 #+end_src
 * wordcloud
 Builts a worldcloud of the current buffer. Can be sortet
