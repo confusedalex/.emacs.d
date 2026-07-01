@@ -519,7 +519,6 @@ applicable in the current mode/buffer.
       "TODO(t)"  ; A task that needs doing & is ready to do
       "STRT(s)"  ; A task that is in progress
       "WAIT(w@/!)"  ; Something external is holding up this task
-      "IDEA(i)"  ; An unconfirmed and unapproved task or notion
       "DELEGATED(g)"  ; Item that's delegate to someone else
       "SOMEDAY(m)"
       "OTHER(o)" ; A task which I isn't my direct or indirect responsibilty
