@@ -466,6 +466,7 @@
   (global-hi-lock-mode 1)
   (org-todo-keywords
    '((sequence
+      "PROJ(p)"  ; State for projects
       "TODO(t)"  ; A task that needs doing & is ready to do
       "STRT(s)"  ; A task that is in progress
       "WAIT(w@/!)"  ; Something external is holding up this task
