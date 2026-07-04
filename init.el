@@ -611,6 +611,7 @@
   (when (equal (plist-get org-capture-plist :key) "j")
     (delete-other-windows)
     (olivetti-mode)
+    (refill-mode)
     ))
 
 (add-hook 'org-capture-mode-hook 'my/org-capture-setup-action)
