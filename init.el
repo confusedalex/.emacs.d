@@ -76,7 +76,6 @@
   (help-window-keep-selected t)
   (shr-use-colors nil)
   (shr-use-fonts nil )
-  (read-extended-command-predicate #'command-completion-default-include-p)
   (delete-by-moving-to-trash t)                   ;; Move deleted files to the trash instead of permanently deleting them.
   (delete-selection-mode 1)                       ;; Enable replacing selected text with typed text.
   (inhibit-startup-message t)                     ;; Disable the startup message when Emacs launches.
@@ -100,7 +99,14 @@
   
   (indent-tabs-mode nil)
   (tab-width 2)
-  
+    (enable-recursive-minibuffers t)
+    ;; Hide commands in M-x which do not work in the current mode.  Vertico
+    ;; commands are hidden in normal buffers. This setting is useful beyond
+    ;; Vertico.
+    (read-extended-command-predicate #'command-completion-default-include-p)
+    ;; Do not allow the cursor in the minibuffer prompt
+    (minibuffer-prompt-properties
+     '(read-only t cursor-intangible t face minibuffer-prompt))
   :bind
   ("C-+" . text-scale-increase)
   ("C-_" . text-scale-decrease)
@@ -116,10 +122,10 @@
 ;; Theme
 
 ;; [[file:README.org::*Theme][Theme:1]]
-(use-package auto-dark
-  :custom
-  (auto-dark-themes '((ef-dream) (ef-day)))
-  (auto-dark-mode t))
+(use-package ef-themes
+  :config
+  (load-theme 'ef-dream t)
+  )
 ;; Theme:1 ends here
 
 ;; dired
@@ -179,40 +185,29 @@
   )
 ;; Snake:1 ends here
 
-;; No littering
+;; Font
 
-;; [[file:README.org::*No littering][No littering:1]]
-(use-package no-littering)
-;; No littering:1 ends here
-
-;; [[file:README.org::*No littering][No littering:2]]
-(add-to-list 'display-buffer-alist
-             '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"
-               (display-buffer-no-window)
-               (allow-no-window . t)))
-
+;; [[file:README.org::*Font][Font:1]]
 (set-face-attribute 'default nil :family "AporeticSerifMonoNerdFont" :height 160)
 (set-face-attribute 'variable-pitch nil :family "Aporetic Sans" :height 1.5)
+;; Font:1 ends here
 
-(use-package ef-themes
-  :config
-  (load-theme 'ef-dream t)
-  )
+;; Appearance
+;; Ignore compile errors
 
+;; [[file:README.org::*Appearance][Appearance:1]]
+(add-to-list 'display-buffer-alist                                                      
+             '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"                               
+               (display-buffer-no-window)                                               
+               (allow-no-window . t)))                                                  
+;; Appearance:1 ends here
+
+;; [[file:README.org::*Appearance][Appearance:2]]
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))
+;; Appearance:2 ends here
 
-(use-package which-key
-  :straight nil
-  :defer t
-  :hook
-  (after-init . which-key-mode)) ;; Enable which-key mode after initialization.
-
-(use-package rainbow-delimiters
-  :defer t
-  :hook
-  (prog-mode . rainbow-delimiters-mode))
-
+;; [[file:README.org::*Appearance][Appearance:3]]
 (use-package nerd-icons)
 
 (use-package nerd-icons-completion
@@ -228,45 +223,55 @@
 (use-package nerd-icons-dired
   :hook
   (dired-mode . nerd-icons-dired-mode))
+;; Appearance:3 ends here
 
+;; [[file:README.org::*Appearance][Appearance:4]]
+(use-package rainbow-delimiters
+  :defer t
+  :hook
+  (prog-mode . rainbow-delimiters-mode))
+;; Appearance:4 ends here
+
+;; [[file:README.org::*Appearance][Appearance:5]]
+(use-package olivetti
+  :custom
+  (olivetti-body-width 82)
+  (olivetti-style nil)
+  :bind ("C-c z" . olivetti-mode))
+;; Appearance:5 ends here
+
+;; [[file:README.org::*Appearance][Appearance:6]]
+(use-package dashboard
+  :config
+  (dashboard-setup-startup-hook))
+;; Appearance:6 ends here
+
+
+;; Vertico enables vertical completiton in the minibuffer, which makes
+;; the minibuffer easier to use and more pleasent to view.
+
+;; [[file:README.org::*Minibuffer][Minibuffer:2]]
 (use-package vertico
   :defer t
   :commands vertico-mode
   :hook (after-init . vertico-mode))
+;; Minibuffer:2 ends here
 
-(use-package expreg
-  :ensure t
-  :bind (("C-=" . expreg-expand)
-         ("C--" . expreg-contract)
-         (:repeat-map expreg-repeat-map
-                      ("=" .  expreg-expand)
-                      ("-" .  expreg-contract)))
-  )
 
-;; Emacs minibuffer configurations.
-(use-package emacs
-  :custom
-  ;; Support opening new minibuffers from inside existing minibuffers.
-  (enable-recursive-minibuffers t)
-  ;; Hide commands in M-x which do not work in the current mode.  Vertico
-  ;; commands are hidden in normal buffers. This setting is useful beyond
-  ;; Vertico.
-  (read-extended-command-predicate #'command-completion-default-include-p)
-  ;; Do not allow the cursor in the minibuffer prompt
-  (minibuffer-prompt-properties
-   '(read-only t cursor-intangible t face minibuffer-prompt)))
 
+;; Marginalia adds annotations like keybinds to the minibuffer results
+
+;; [[file:README.org::*Minibuffer][Minibuffer:3]]
 (use-package marginalia
   :commands (marginalia-mode marginalia-cycle)
   :hook (after-init . marginalia-mode))
+;; Minibuffer:3 ends here
 
-;; Optionally use the `orderless' completion style.
-(use-package orderless
-  :custom
-  (completion-styles '(orderless partial-completion basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides nil))
 
+
+;; ~Consult~ adds more completion interfaces to work with.
+
+;; [[file:README.org::*Minibuffer][Minibuffer:4]]
 (use-package consult
   :defer t
   :hook (completion-list-mode . consult-preview-at-point-mode)
@@ -290,69 +295,13 @@
   ;; Use Consult for xref locations with a preview feature.
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref))
+;; Minibuffer:4 ends here
 
-(use-package dashboard
-  :config
-  (dashboard-setup-startup-hook))
-
-(use-package olivetti
-  :custom
-  (olivetti-body-width 82)
-  (olivetti-style nil)
-  :bind ("C-c z" . olivetti-mode))
-
-(defvar-keymap prefix-buffer-map
-  :doc "Buffer management keybindings"
-  "b" 'ibuffer ;; Open Ibuffer
-  "d" 'kill-current-buffer ;; Kill current buffer
-  "i" 'consult-buffer ;; Open consult buffer list
-  "k" 'kill-current-buffer ;; Kill current buffer
-  "l" 'consult-buffer ;; Consult buffer
-  "s" 'save-buffer ;; Save buffer
-  "x" 'kill-current-buffer ;; Kill current buffer
-  )
-
-(use-package tramp
-  :custom
-  (remote-file-name-inhibit-locks t)
-  (tramp-use-scp-direct-remote-copying t)
-  (remote-file-name-inhibit-auto-save-visited t))
-
-(use-package tramp-rpc
-  :straight (tramp-rpc :type git :host github :repo "ArthurHeymans/emacs-tramp-rpc")
-  :custom
-  (tramp-rpc-deploy-git-build-policy 'release))
-
-(use-package corfu
-  :after orderless
-  :defer t
-  :commands (corfu-mode global-corfu-mode)
-  :hook ((prog-mode . corfu-mode)
-         (shell-mode . corfu-mode)
-         (eshell-mode . corfu-mode))
-  :custom
-  (corfu-cycle t)           ;; Enable cycling for `corfu-next/previous'
-  (corfu-preselect 'prompt) ;; Always preselect the prompt
-  (corfu-auto t)            ;; Enables auto-completion
-  (corfu-auto-trigger ".")            ;; Enables auto-completion
-  (corfu-popupinfo-mode t)  ;; Enable popup information
-  (corfu-popupinfo-delay '(0.25 . 0.1)) ;; Lowers the delay of popup appearance
-  (corfu-auto-delay 0.1)    ;; lower delay for completion
-  
-  (completion-ignore-case t)
-
-  (text-mode-ispell-word-completion nil) ;; Disable Ispell completion
-  
-  :config
-  (global-corfu-mode))
-
-(use-package cape
-  :init
-  (advice-add #'lsp-completion-at-point :around #'cape-wrap-noninterruptible)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev) ;; Complete word from current buffers
-  (add-to-list 'completion-at-point-functions #'cape-file) ;; Path completion
-  (add-to-list 'completion-at-point-functions #'cape-elisp-block) ;; Complete elisp in Org or Markdown mode
-  )
+;; [[file:README.org::*Minibuffer][Minibuffer:5]]
+(use-package which-key
+  :straight nil
+  :hook
+  (after-init . which-key-mode))
 
 (use-package disproject
   :bind (("C-c p" . disproject-dispatch)))
@@ -371,6 +320,173 @@
   :hook (prog-mode . flycheck-mode)
   )
 
+
+
+(use-package apheleia
+  :hook (prog-mode . apheleia-global-mode)
+  :bind
+  ("C-c M-f"))
+
+(use-package smartparens
+  :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
+  :config
+  (require 'smartparens-config)) 
+
+
+
+(use-package pdf-tools
+  :init
+  (pdf-tools-install)
+  (pdf-loader-install)
+  )
+
+(use-package agent-shell)
+
+(use-package dired-preview)
+;; Minibuffer:5 ends here
+
+;; Completion
+;; ~Orderless~ reworks the completion ordering by usage and
+;; mark-at-point.
+
+;; [[file:README.org::*Completion][Completion:1]]
+(use-package orderless
+  :custom
+  (completion-styles '(orderless partial-completion basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides nil))
+;; Completion:1 ends here
+
+
+;; ~Cape~ adds more completetion providers.
+
+;; [[file:README.org::*Completion][Completion:2]]
+(use-package cape
+  :init
+  (advice-add #'lsp-completion-at-point :around #'cape-wrap-noninterruptible)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev) ;; Complete word from current buffers
+  (add-to-list 'completion-at-point-functions #'cape-file) ;; Path completion
+  (add-to-list 'completion-at-point-functions #'cape-elisp-block) ;; Complete elisp in Org or Markdown mode
+  )
+;; Completion:2 ends here
+
+;; [[file:README.org::*Completion][Completion:3]]
+(use-package corfu
+  :after orderless
+  :hook
+  (after-init . global-corfu-mode)
+  :custom
+  (corfu-cycle t)           ;; Enable cycling for `corfu-next/previous'
+  (corfu-preselect 'prompt) ;; Always preselect the prompt
+  (corfu-auto t)            ;; Enables auto-completion
+  (corfu-auto-trigger ".")            ;; Enables auto-completion
+  (corfu-popupinfo-mode t)  ;; Enable popup information
+  (corfu-popupinfo-delay '(0.25 . 0.1)) ;; Lowers the delay of popup appearance
+  (corfu-auto-delay 0.1)    ;; lower delay for completion
+  
+  (completion-ignore-case t)
+
+  (text-mode-ispell-word-completion nil) ;; Disable Ispell completion
+)  
+;; Completion:3 ends here
+
+;; vundo
+;; visual-undo allows traversing a undo-timeline and deciding between
+;; branching points. Makes undo way more powerful and easier to
+;; understand.
+
+;; [[file:README.org::*vundo][vundo:1]]
+(use-package vundo
+  :custom
+  (vundo-glyph-alist vundo-unicode-symbols))
+;; vundo:1 ends here
+
+;; git
+;; Of course I use ~magit~ as my git interface.
+
+;; [[file:README.org::*git][git:1]]
+(use-package magit :bind ("C-c g" . 'magit-status))
+;; git:1 ends here
+
+
+;; To see which lines are changed, delete or added I use ~diff-hl~ to
+;; visualize these changes in the fringe. ~diff-hl-flydiff-mode~ redraws
+;; the fringe on every change, not every file save as otherwise.
+
+;; [[file:README.org::*git][git:2]]
+(use-package diff-hl
+  :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)
+         (magit-pre-refresh  . diff-hl-magit-pre-refresh)
+         (magit-post-refresh . diff-hl-magit-post-refresh))
+  :config
+  (global-diff-hl-mode 1)
+  (diff-hl-flydiff-mode 1)
+  )
+;; git:2 ends here
+
+
+;; ~forge~ allows me to use interact with Github or Gitlab in magit. I
+;; can open, close or participate in Issues and even merge pull requests.
+
+;; [[file:README.org::*git][git:3]]
+(use-package forge
+  :after magit)
+;; git:3 ends here
+
+;; Code commenting
+;; ~comment-dwin-2~ makes commenting a nicer experience. It supports comments in front and at the end of a line.
+
+;; [[file:README.org::*Code commenting][Code commenting:1]]
+(use-package comment-dwim-2
+  :bind
+  ("M-;" . comment-dwim-2))
+;; Code commenting:1 ends here
+
+;; No littering
+
+;; [[file:README.org::*No littering][No littering:1]]
+(use-package no-littering)
+;; No littering:1 ends here
+
+;; expreg
+;; Expand region allow for simple region increase and decrease with
+;; treesitter objects.
+
+;; [[file:README.org::*expreg][expreg:1]]
+(use-package expreg
+  :ensure t
+  :bind (("C-=" . expreg-expand)
+         ("C--" . expreg-contract)
+         (:repeat-map expreg-repeat-map
+                      ("=" .  expreg-expand)
+                      ("-" .  expreg-contract)))
+  )
+;; expreg:1 ends here
+
+;; tramp
+;; Tramp allow to connect with emacs to other servers.
+
+;; [[file:README.org::*tramp][tramp:1]]
+(use-package tramp
+  :custom
+  (remote-file-name-inhibit-locks t)
+  (tramp-use-scp-direct-remote-copying t)
+  (remote-file-name-inhibit-auto-save-visited t))
+;; tramp:1 ends here
+
+
+;; Tramp-rpc uses json-rpc which makes tramp way faster for me.
+
+;; [[file:README.org::*tramp][tramp:2]]
+(use-package tramp-rpc
+  :straight (tramp-rpc :type git :host github :repo "ArthurHeymans/emacs-tramp-rpc")
+  :custom
+  (tramp-rpc-deploy-git-build-policy 'release))
+;; tramp:2 ends here
+
+;; Language Server Protocol
+
+;; [[file:README.org::*Language Server Protocol][Language Server Protocol:1]]
 (use-package lsp-mode
   :commands lsp lsp-deferred
   :defer t
@@ -418,17 +534,112 @@
   :config
   (add-hook 'lsp-biome-active-hook #'my/lsp-biome-active-hook)
   )
+;; Language Server Protocol:1 ends here
 
-(use-package apheleia
-  :hook (prog-mode . apheleia-global-mode)
-  :bind
-  ("C-c M-f"))
+;; Dart/Flutter
+;; First we use dart-mode for dart specific stuff.
 
-(use-package smartparens
-  :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
-  :config
-  (require 'smartparens-config)) 
+;; [[file:README.org::*Dart/Flutter][Dart/Flutter:1]]
+(use-package dart-mode
+  :defer t
+  :hook (dart-mode . flutter-test-mode))
+;; Dart/Flutter:1 ends here
 
+
+;; For running flutter apps and tests I use flutter mode
+
+;; [[file:README.org::*Dart/Flutter][Dart/Flutter:2]]
+(use-package flutter
+  :after dart-mode
+  :bind (:map dart-mode-map
+              ("C-M-x" . #'flutter-run-or-hot-reload))
+  )
+;; Dart/Flutter:2 ends here
+
+
+;; Flutter can only run on started emulators. Because I don't want to
+;; start the emulator manually I've developed this little wrapper:
+
+;; [[file:README.org::*Dart/Flutter][Dart/Flutter:3]]
+ (defun flutter-launch-emulator (emulator-id)
+  "Launches the emulator with the given ID."
+  (interactive
+   (list (completing-read "Emulator: " (flutter--emulators))))
+  (shell-command (format "flutter emulators --launch %s" emulator-id))
+  )
+
+(defun flutter--emulators ()
+  "Return an list of emulators."
+  (string-lines (shell-command-to-string "emulator -list-avds") t)
+  )
+;; Dart/Flutter:3 ends here
+
+;; Latex
+
+;; [[file:README.org::*Latex][Latex:1]]
+(use-package auctex
+  :hook
+  (LaTeX-mode . TeX-source-correlate-mode) ;; jump between source and preview
+  :custom
+  (TeX-auto-save t)
+  (TeX-parse-self t)
+  (TeX-master nil) ;; ask for master file
+  (TeX-view-program-selection '((output-pdf "PDF Tools")))
+  )
+(use-package cdlatex)
+(use-package reftex)
+;; Latex:1 ends here
+
+;; Nix
+
+;; [[file:README.org::*Nix][Nix:1]]
+(use-package nix-mode
+  :mode "\\.nix$")
+;; Nix:1 ends here
+
+;; Kdl
+
+;; [[file:README.org::*Kdl][Kdl:1]]
+(use-package kdl-mode
+  :mode ("\\.kdl\\'"))
+;; Kdl:1 ends here
+
+;; Yaml
+
+;; [[file:README.org::*Yaml][Yaml:1]]
+(use-package yaml-mode
+  :defer t
+  :mode (
+         ("\\.yml\\'" . yaml-mode))
+  )
+;; Yaml:1 ends here
+
+;; fish
+
+;; [[file:README.org::*fish][fish:1]]
+(use-package fish-mode
+  :defer t
+  :mode (
+         ("\\.fish\\'" . fish-mode))
+  )
+;; fish:1 ends here
+
+;; Prisma
+
+;; [[file:README.org::*Prisma][Prisma:1]]
+(use-package prisma-mode
+  :straight (prisma-mode :type git :host github :repo "pimeys/emacs-prisma-mode"))
+;; Prisma:1 ends here
+
+;; Golang
+
+;; [[file:README.org::*Golang][Golang:1]]
+(use-package go-mode)
+;; Golang:1 ends here
+
+;; Org-Mode
+
+;; [[file:README.org::*Org-Mode][Org-Mode:1]]
 (use-package org
   :hook
   ((org-mode . org-indent-mode)
@@ -713,116 +924,7 @@
    '((plantuml . t)))
 
   )
-
-
-(use-package gnuplot)
-
-(use-package nix-mode
-  :mode "\\.nix$")
-
-(use-package kdl-mode
-  :mode ("\\.kdl\\'"))
-
-(use-package yaml-mode
-  :defer t
-  :mode (
-         ("\\.yml\\'" . yaml-mode))
-  )
-
-(use-package fish-mode
-  :defer t
-  :mode (
-         ("\\.fish\\'" . fish-mode))
-  )
-
-(use-package prisma-mode
-  :straight (prisma-mode :type git :host github :repo "pimeys/emacs-prisma-mode"))
-
-(use-package go-mode)
-
-(use-package pdf-tools
-  :init
-  (pdf-tools-install)
-  (pdf-loader-install)
-  )
-
-
-(use-package sly-quicklisp)
-(use-package sly
-  :config
-  (setq inferior-lisp-program "/usr/bin/sbcl")
-  )
-
-(use-package agent-shell)
-
-(use-package dired-preview)
-
-;; No littering:2 ends here
-
-;; vundo
-;; visual-undo allows traversing a undo-timeline and deciding between
-;; branching points. Makes undo way more powerful and easier to
-;; understand.
-
-;; [[file:README.org::*vundo][vundo:1]]
-(use-package vundo
-  :custom
-  (vundo-glyph-alist vundo-unicode-symbols))
-;; vundo:1 ends here
-
-;; Dart/Flutter
-;; First we use dart-mode for dart specific stuff.
-
-;; [[file:README.org::*Dart/Flutter][Dart/Flutter:1]]
-(use-package dart-mode
-  :defer t
-  :hook (dart-mode . flutter-test-mode))
-;; Dart/Flutter:1 ends here
-
-
-;; For running flutter apps and tests I use flutter mode
-
-;; [[file:README.org::*Dart/Flutter][Dart/Flutter:2]]
-(use-package flutter
-  :after dart-mode
-  :bind (:map dart-mode-map
-              ("C-M-x" . #'flutter-run-or-hot-reload))
-  )
-;; Dart/Flutter:2 ends here
-
-
-;; Flutter can only run on started emulators. Because I don't want to
-;; start the emulator manually I've developed this little wrapper:
-
-;; [[file:README.org::*Dart/Flutter][Dart/Flutter:3]]
- (defun flutter-launch-emulator (emulator-id)
-  "Launches the emulator with the given ID."
-  (interactive
-   (list (completing-read "Emulator: " (flutter--emulators))))
-  (shell-command (format "flutter emulators --launch %s" emulator-id))
-  )
-
-(defun flutter--emulators ()
-  "Return an list of emulators."
-  (string-lines (shell-command-to-string "emulator -list-avds") t)
-  )
-;; Dart/Flutter:3 ends here
-
-;; Latex
-
-;; [[file:README.org::*Latex][Latex:1]]
-(use-package auctex
-  :hook
-  (LaTeX-mode . TeX-source-correlate-mode) ;; jump between source and preview
-  :custom
-  (TeX-auto-save t)
-  (TeX-parse-self t)
-  (TeX-master nil) ;; ask for master file
-  (TeX-view-program-selection '((output-pdf "PDF Tools")))
-  )
-(use-package cdlatex)
-(use-package reftex)
-;; Latex:1 ends here
+;; Org-Mode:1 ends here
 
 ;; wordcloud
 ;; Builts a worldcloud of the current buffer. Can be sortet
@@ -832,38 +934,6 @@
 (use-package wordcloud
   :straight (wordcloud :type git :host github :repo "davep/wordcloud.el"))
 ;; wordcloud:1 ends here
-
-;; git
-;; Of course I use ~magit~ as my git interface.
-
-;; [[file:README.org::*git][git:1]]
-(use-package magit :bind ("C-c g" . 'magit-status))
-;; git:1 ends here
-
-
-;; To see which lines are changed, delete or added I use ~diff-hl~ to
-;; visualize these changes in the fringe. ~diff-hl-flydiff-mode~ redraws
-;; the fringe on every change, not every file save as otherwise.
-
-;; [[file:README.org::*git][git:2]]
-(use-package diff-hl
-  :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)
-         (magit-pre-refresh  . diff-hl-magit-pre-refresh)
-         (magit-post-refresh . diff-hl-magit-post-refresh))
-  :config
-  (global-diff-hl-mode 1)
-  (diff-hl-flydiff-mode 1)
-  )
-;; git:2 ends here
-
-
-;; ~forge~ allows me to use interact with Github or Gitlab in magit. I
-;; can open, close or participate in Issues and even merge pull requests.
-
-;; [[file:README.org::*git][git:3]]
-(use-package forge
-  :after magit)
-;; git:3 ends here
 
 ;; elfeed
 ;; For reading rss feeds I use elfeed. I set "g" to update my feeds when
@@ -893,15 +963,6 @@
   :config
   (elfeed-protocol-enable))
 ;; elfeed:2 ends here
-
-;; Code commenting
-;; ~comment-dwin-2~ makes commenting a nicer experience. It supports comments in front and at the end of a line.
-
-;; [[file:README.org::*Code commenting][Code commenting:1]]
-(use-package comment-dwim-2
-  :bind
-  ("M-;" . comment-dwim-2))
-;; Code commenting:1 ends here
 
 ;; Email
 ;; I want to read my emails via Emacs. For this I use mu4e:

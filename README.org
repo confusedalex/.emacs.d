@@ -17,15 +17,30 @@ copying it.
   - [[#theme][Theme]]
   - [[#dired][dired]]
   - [[#snake][Snake]]
-- [[#no-littering][No littering]]
-- [[#vundo][vundo]]
+  - [[#font][Font]]
+- [[#appearance][Appearance]]
+- [[#editor][Editor]]
+  - [[#minibuffer][Minibuffer]]
+  - [[#completion][Completion]]
+  - [[#vundo][vundo]]
+  - [[#git][git]]
+  - [[#code-commenting][Code commenting]]
+  - [[#no-littering][No littering]]
+  - [[#expreg][expreg]]
+  - [[#tramp][tramp]]
+  - [[#language-server-protocol][Language Server Protocol]]
 - [[#languages][Languages]]
   - [[#dartflutter][Dart/Flutter]]
   - [[#latex][Latex]]
+  - [[#nix][Nix]]
+  - [[#kdl][Kdl]]
+  - [[#yaml][Yaml]]
+  - [[#fish][fish]]
+  - [[#prisma][Prisma]]
+  - [[#golang][Golang]]
+- [[#org-mode][Org-Mode]]
 - [[#wordcloud][wordcloud]]
-- [[#git][git]]
 - [[#elfeed][elfeed]]
-- [[#code-commenting][Code commenting]]
 - [[#email][Email]]
 
 * Package Management
@@ -90,6 +105,15 @@ These are some macos specific settings, which change the meta-key do the command
   <<emacs-init>>
   :custom
   <<emacs-custom>>
+  :bind
+  ("C-+" . text-scale-increase)
+  ("C-_" . text-scale-decrease)
+  ("<C-wheel-up>" . text-scale-increase)
+  ("<C-wheel-down>" . text-scale-decrease)
+  ("C-x k" . kill-current-buffer)
+  :hook
+  (prog-mode . display-line-numbers-mode)
+  (text-mode . display-line-numbers-mode)
   )
 #+end_src
 
@@ -131,12 +155,6 @@ color things which just looks weird and unreadable.
 (shr-use-fonts nil )
 #+end_src
 
-This only includes function in the ~M-x~ minibuffer, which are
-applicable in the current mode/buffer.
-#+begin_src emacs-lisp :tangle no :noweb-ref emacs-custom
-(read-extended-command-predicate #'command-completion-default-include-p)
-#+end_src
-
 #+begin_src emacs-lisp :tangle no :noweb-ref emacs-custom
 (delete-by-moving-to-trash t)                   ;; Move deleted files to the trash instead of permanently deleting them.
 (delete-selection-mode 1)                       ;; Enable replacing selected text with typed text.
@@ -161,23 +179,13 @@ applicable in the current mode/buffer.
 
 (indent-tabs-mode nil)
 (tab-width 2)
-
-:bind
-("C-+" . text-scale-increase)
-("C-_" . text-scale-decrease)
-("<C-wheel-up>" . text-scale-increase)
-("<C-wheel-down>" . text-scale-decrease)
-("C-x k" . kill-current-buffer)
-:hook
-(prog-mode . display-line-numbers-mode)
-(text-mode . display-line-numbers-mode)
 #+end_src
 ** Theme
 #+begin_src emacs-lisp
-(use-package auto-dark
-  :custom
-  (auto-dark-themes '((ef-dream) (ef-day)))
-  (auto-dark-mode t))
+(use-package ef-themes
+  :config
+  (load-theme 'ef-dream t)
+  )
 #+end_src
 ** dired
 #+begin_src emacs-lisp
@@ -228,39 +236,24 @@ applicable in the current mode/buffer.
    )
   )
 #+end_src
-* No littering
+** Font
 #+begin_src emacs-lisp
-(use-package no-littering)
-#+end_src
-
-#+begin_src emacs-lisp
-(add-to-list 'display-buffer-alist
-             '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"
-               (display-buffer-no-window)
-               (allow-no-window . t)))
-
 (set-face-attribute 'default nil :family "AporeticSerifMonoNerdFont" :height 160)
 (set-face-attribute 'variable-pitch nil :family "Aporetic Sans" :height 1.5)
-
-(use-package ef-themes
-  :config
-  (load-theme 'ef-dream t)
-  )
-
+#+end_src
+* Appearance
+Ignore compile errors
+#+begin_src emacs-lisp
+(add-to-list 'display-buffer-alist                                                      
+             '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"                               
+               (display-buffer-no-window)                                               
+               (allow-no-window . t)))                                                  
+#+end_src
+#+begin_src emacs-lisp
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))
-
-(use-package which-key
-  :straight nil
-  :defer t
-  :hook
-  (after-init . which-key-mode)) ;; Enable which-key mode after initialization.
-
-(use-package rainbow-delimiters
-  :defer t
-  :hook
-  (prog-mode . rainbow-delimiters-mode))
-
+#+end_src
+#+begin_src emacs-lisp
 (use-package nerd-icons)
 
 (use-package nerd-icons-completion
@@ -276,25 +269,28 @@ applicable in the current mode/buffer.
 (use-package nerd-icons-dired
   :hook
   (dired-mode . nerd-icons-dired-mode))
-
-(use-package vertico
+#+end_src
+#+begin_src emacs-lisp
+(use-package rainbow-delimiters
   :defer t
-  :commands vertico-mode
-  :hook (after-init . vertico-mode))
-
-(use-package expreg
-  :ensure t
-  :bind (("C-=" . expreg-expand)
-         ("C--" . expreg-contract)
-         (:repeat-map expreg-repeat-map
-                      ("=" .  expreg-expand)
-                      ("-" .  expreg-contract)))
-  )
-
-;; Emacs minibuffer configurations.
-(use-package emacs
+  :hook
+  (prog-mode . rainbow-delimiters-mode))
+#+end_src
+#+begin_src emacs-lisp
+(use-package olivetti
   :custom
-  ;; Support opening new minibuffers from inside existing minibuffers.
+  (olivetti-body-width 82)
+  (olivetti-style nil)
+  :bind ("C-c z" . olivetti-mode))
+#+end_src
+#+begin_src emacs-lisp
+(use-package dashboard
+  :config
+  (dashboard-setup-startup-hook))
+#+end_src
+* Editor
+** Minibuffer
+#+begin_src emacs-lisp :tangle no :noweb-ref emacs-custom
   (enable-recursive-minibuffers t)
   ;; Hide commands in M-x which do not work in the current mode.  Vertico
   ;; commands are hidden in normal buffers. This setting is useful beyond
@@ -302,19 +298,26 @@ applicable in the current mode/buffer.
   (read-extended-command-predicate #'command-completion-default-include-p)
   ;; Do not allow the cursor in the minibuffer prompt
   (minibuffer-prompt-properties
-   '(read-only t cursor-intangible t face minibuffer-prompt)))
+   '(read-only t cursor-intangible t face minibuffer-prompt))
+#+end_src
+Vertico enables vertical completiton in the minibuffer, which makes
+the minibuffer easier to use and more pleasent to view.
+#+begin_src emacs-lisp
+(use-package vertico
+  :defer t
+  :commands vertico-mode
+  :hook (after-init . vertico-mode))
+#+end_src
 
+Marginalia adds annotations like keybinds to the minibuffer results
+#+begin_src emacs-lisp
 (use-package marginalia
   :commands (marginalia-mode marginalia-cycle)
   :hook (after-init . marginalia-mode))
+#+end_src
 
-;; Optionally use the `orderless' completion style.
-(use-package orderless
-  :custom
-  (completion-styles '(orderless partial-completion basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides nil))
-
+~Consult~ adds more completion interfaces to work with.
+#+begin_src emacs-lisp
 (use-package consult
   :defer t
   :hook (completion-list-mode . consult-preview-at-point-mode)
@@ -338,69 +341,13 @@ applicable in the current mode/buffer.
   ;; Use Consult for xref locations with a preview feature.
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref))
+#+end_src
 
-(use-package dashboard
-  :config
-  (dashboard-setup-startup-hook))
-
-(use-package olivetti
-  :custom
-  (olivetti-body-width 82)
-  (olivetti-style nil)
-  :bind ("C-c z" . olivetti-mode))
-
-(defvar-keymap prefix-buffer-map
-  :doc "Buffer management keybindings"
-  "b" 'ibuffer ;; Open Ibuffer
-  "d" 'kill-current-buffer ;; Kill current buffer
-  "i" 'consult-buffer ;; Open consult buffer list
-  "k" 'kill-current-buffer ;; Kill current buffer
-  "l" 'consult-buffer ;; Consult buffer
-  "s" 'save-buffer ;; Save buffer
-  "x" 'kill-current-buffer ;; Kill current buffer
-  )
-
-(use-package tramp
-  :custom
-  (remote-file-name-inhibit-locks t)
-  (tramp-use-scp-direct-remote-copying t)
-  (remote-file-name-inhibit-auto-save-visited t))
-
-(use-package tramp-rpc
-  :straight (tramp-rpc :type git :host github :repo "ArthurHeymans/emacs-tramp-rpc")
-  :custom
-  (tramp-rpc-deploy-git-build-policy 'release))
-
-(use-package corfu
-  :after orderless
-  :defer t
-  :commands (corfu-mode global-corfu-mode)
-  :hook ((prog-mode . corfu-mode)
-         (shell-mode . corfu-mode)
-         (eshell-mode . corfu-mode))
-  :custom
-  (corfu-cycle t)           ;; Enable cycling for `corfu-next/previous'
-  (corfu-preselect 'prompt) ;; Always preselect the prompt
-  (corfu-auto t)            ;; Enables auto-completion
-  (corfu-auto-trigger ".")            ;; Enables auto-completion
-  (corfu-popupinfo-mode t)  ;; Enable popup information
-  (corfu-popupinfo-delay '(0.25 . 0.1)) ;; Lowers the delay of popup appearance
-  (corfu-auto-delay 0.1)    ;; lower delay for completion
-  
-  (completion-ignore-case t)
-
-  (text-mode-ispell-word-completion nil) ;; Disable Ispell completion
-  
-  :config
-  (global-corfu-mode))
-
-(use-package cape
-  :init
-  (advice-add #'lsp-completion-at-point :around #'cape-wrap-noninterruptible)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev) ;; Complete word from current buffers
-  (add-to-list 'completion-at-point-functions #'cape-file) ;; Path completion
-  (add-to-list 'completion-at-point-functions #'cape-elisp-block) ;; Complete elisp in Org or Markdown mode
-  )
+#+begin_src emacs-lisp
+(use-package which-key
+  :straight nil
+  :hook
+  (after-init . which-key-mode))
 
 (use-package disproject
   :bind (("C-c p" . disproject-dispatch)))
@@ -419,6 +366,145 @@ applicable in the current mode/buffer.
   :hook (prog-mode . flycheck-mode)
   )
 
+
+
+(use-package apheleia
+  :hook (prog-mode . apheleia-global-mode)
+  :bind
+  ("C-c M-f"))
+
+(use-package smartparens
+  :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
+  :config
+  (require 'smartparens-config)) 
+
+
+
+(use-package pdf-tools
+  :init
+  (pdf-tools-install)
+  (pdf-loader-install)
+  )
+
+(use-package agent-shell)
+
+(use-package dired-preview)
+#+end_src
+** Completion
+~Orderless~ reworks the completion ordering by usage and
+mark-at-point.
+#+begin_src emacs-lisp
+(use-package orderless
+  :custom
+  (completion-styles '(orderless partial-completion basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides nil))
+#+end_src
+~Cape~ adds more completetion providers.
+#+begin_src emacs-lisp
+(use-package cape
+  :init
+  (advice-add #'lsp-completion-at-point :around #'cape-wrap-noninterruptible)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev) ;; Complete word from current buffers
+  (add-to-list 'completion-at-point-functions #'cape-file) ;; Path completion
+  (add-to-list 'completion-at-point-functions #'cape-elisp-block) ;; Complete elisp in Org or Markdown mode
+  )
+#+end_src
+
+#+begin_src emacs-lisp
+(use-package corfu
+  :after orderless
+  :hook
+  (after-init . global-corfu-mode)
+  :custom
+  (corfu-cycle t)           ;; Enable cycling for `corfu-next/previous'
+  (corfu-preselect 'prompt) ;; Always preselect the prompt
+  (corfu-auto t)            ;; Enables auto-completion
+  (corfu-auto-trigger ".")            ;; Enables auto-completion
+  (corfu-popupinfo-mode t)  ;; Enable popup information
+  (corfu-popupinfo-delay '(0.25 . 0.1)) ;; Lowers the delay of popup appearance
+  (corfu-auto-delay 0.1)    ;; lower delay for completion
+  
+  (completion-ignore-case t)
+
+  (text-mode-ispell-word-completion nil) ;; Disable Ispell completion
+)  
+#+end_src
+** vundo
+visual-undo allows traversing a undo-timeline and deciding between
+branching points. Makes undo way more powerful and easier to
+understand.
+#+begin_src emacs-lisp
+(use-package vundo
+  :custom
+  (vundo-glyph-alist vundo-unicode-symbols))
+#+end_src
+** git
+Of course I use ~magit~ as my git interface.
+#+begin_src emacs-lisp
+(use-package magit :bind ("C-c g" . 'magit-status))
+#+end_src
+To see which lines are changed, delete or added I use ~diff-hl~ to
+visualize these changes in the fringe. ~diff-hl-flydiff-mode~ redraws
+the fringe on every change, not every file save as otherwise.
+#+begin_src emacs-lisp
+(use-package diff-hl
+  :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)
+         (magit-pre-refresh  . diff-hl-magit-pre-refresh)
+         (magit-post-refresh . diff-hl-magit-post-refresh))
+  :config
+  (global-diff-hl-mode 1)
+  (diff-hl-flydiff-mode 1)
+  )
+#+end_src
+~forge~ allows me to use interact with Github or Gitlab in magit. I
+can open, close or participate in Issues and even merge pull requests.
+#+begin_src emacs-lisp
+(use-package forge
+  :after magit)
+#+end_src
+** Code commenting
+~comment-dwin-2~ makes commenting a nicer experience. It supports comments in front and at the end of a line.
+#+begin_src emacs-lisp
+(use-package comment-dwim-2
+  :bind
+  ("M-;" . comment-dwim-2))
+#+end_src
+** No littering
+#+begin_src emacs-lisp
+(use-package no-littering)
+#+end_src
+** expreg
+Expand region allow for simple region increase and decrease with
+treesitter objects.
+#+begin_src emacs-lisp
+(use-package expreg
+  :ensure t
+  :bind (("C-=" . expreg-expand)
+         ("C--" . expreg-contract)
+         (:repeat-map expreg-repeat-map
+                      ("=" .  expreg-expand)
+                      ("-" .  expreg-contract)))
+  )
+#+end_src
+** tramp
+Tramp allow to connect with emacs to other servers.
+#+begin_src emacs-lisp
+(use-package tramp
+  :custom
+  (remote-file-name-inhibit-locks t)
+  (tramp-use-scp-direct-remote-copying t)
+  (remote-file-name-inhibit-auto-save-visited t))
+#+end_src
+Tramp-rpc uses json-rpc which makes tramp way faster for me.
+#+begin_src emacs-lisp
+(use-package tramp-rpc
+  :straight (tramp-rpc :type git :host github :repo "ArthurHeymans/emacs-tramp-rpc")
+  :custom
+  (tramp-rpc-deploy-git-build-policy 'release))
+#+end_src
+** Language Server Protocol
+#+begin_src emacs-lisp
 (use-package lsp-mode
   :commands lsp lsp-deferred
   :defer t
@@ -466,17 +552,89 @@ applicable in the current mode/buffer.
   :config
   (add-hook 'lsp-biome-active-hook #'my/lsp-biome-active-hook)
   )
+#+end_src
+* Languages
+** Dart/Flutter
+First we use dart-mode for dart specific stuff.
+#+begin_src emacs-lisp
+(use-package dart-mode
+  :defer t
+  :hook (dart-mode . flutter-test-mode))
+#+end_src
+For running flutter apps and tests I use flutter mode
+#+begin_src emacs-lisp
+(use-package flutter
+  :after dart-mode
+  :bind (:map dart-mode-map
+              ("C-M-x" . #'flutter-run-or-hot-reload))
+  )
+#+end_src
+Flutter can only run on started emulators. Because I don't want to
+start the emulator manually I've developed this little wrapper:
+#+begin_src emacs-lisp
+ (defun flutter-launch-emulator (emulator-id)
+  "Launches the emulator with the given ID."
+  (interactive
+   (list (completing-read "Emulator: " (flutter--emulators))))
+  (shell-command (format "flutter emulators --launch %s" emulator-id))
+  )
 
-(use-package apheleia
-  :hook (prog-mode . apheleia-global-mode)
-  :bind
-  ("C-c M-f"))
-
-(use-package smartparens
-  :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
-  :config
-  (require 'smartparens-config)) 
-
+(defun flutter--emulators ()
+  "Return an list of emulators."
+  (string-lines (shell-command-to-string "emulator -list-avds") t)
+  )
+#+end_src
+** Latex
+#+begin_src emacs-lisp
+(use-package auctex
+  :hook
+  (LaTeX-mode . TeX-source-correlate-mode) ;; jump between source and preview
+  :custom
+  (TeX-auto-save t)
+  (TeX-parse-self t)
+  (TeX-master nil) ;; ask for master file
+  (TeX-view-program-selection '((output-pdf "PDF Tools")))
+  )
+(use-package cdlatex)
+(use-package reftex)
+#+end_src
+** Nix
+#+begin_src emacs-lisp
+(use-package nix-mode
+  :mode "\\.nix$")
+#+end_src
+** Kdl
+#+begin_src emacs-lisp
+(use-package kdl-mode
+  :mode ("\\.kdl\\'"))
+#+end_src
+** Yaml
+#+begin_src emacs-lisp
+(use-package yaml-mode
+  :defer t
+  :mode (
+         ("\\.yml\\'" . yaml-mode))
+  )
+#+end_src
+** fish
+#+begin_src emacs-lisp
+(use-package fish-mode
+  :defer t
+  :mode (
+         ("\\.fish\\'" . fish-mode))
+  )
+#+end_src
+** Prisma
+#+begin_src emacs-lisp
+(use-package prisma-mode
+  :straight (prisma-mode :type git :host github :repo "pimeys/emacs-prisma-mode"))
+#+end_src
+** Golang
+#+begin_src emacs-lisp
+(use-package go-mode)
+#+end_src
+* Org-Mode
+#+begin_src emacs-lisp
 (use-package org
   :hook
   ((org-mode . org-indent-mode)
@@ -761,104 +919,6 @@ applicable in the current mode/buffer.
    '((plantuml . t)))
 
   )
-
-
-(use-package gnuplot)
-
-(use-package nix-mode
-  :mode "\\.nix$")
-
-(use-package kdl-mode
-  :mode ("\\.kdl\\'"))
-
-(use-package yaml-mode
-  :defer t
-  :mode (
-         ("\\.yml\\'" . yaml-mode))
-  )
-
-(use-package fish-mode
-  :defer t
-  :mode (
-         ("\\.fish\\'" . fish-mode))
-  )
-
-(use-package prisma-mode
-  :straight (prisma-mode :type git :host github :repo "pimeys/emacs-prisma-mode"))
-
-(use-package go-mode)
-
-(use-package pdf-tools
-  :init
-  (pdf-tools-install)
-  (pdf-loader-install)
-  )
-
-
-(use-package sly-quicklisp)
-(use-package sly
-  :config
-  (setq inferior-lisp-program "/usr/bin/sbcl")
-  )
-
-(use-package agent-shell)
-
-(use-package dired-preview)
-
-#+end_src
-* vundo
-visual-undo allows traversing a undo-timeline and deciding between
-branching points. Makes undo way more powerful and easier to
-understand.
-#+begin_src emacs-lisp
-(use-package vundo
-  :custom
-  (vundo-glyph-alist vundo-unicode-symbols))
-#+end_src
-* Languages
-** Dart/Flutter
-First we use dart-mode for dart specific stuff.
-#+begin_src emacs-lisp
-(use-package dart-mode
-  :defer t
-  :hook (dart-mode . flutter-test-mode))
-#+end_src
-For running flutter apps and tests I use flutter mode
-#+begin_src emacs-lisp
-(use-package flutter
-  :after dart-mode
-  :bind (:map dart-mode-map
-              ("C-M-x" . #'flutter-run-or-hot-reload))
-  )
-#+end_src
-Flutter can only run on started emulators. Because I don't want to
-start the emulator manually I've developed this little wrapper:
-#+begin_src emacs-lisp
- (defun flutter-launch-emulator (emulator-id)
-  "Launches the emulator with the given ID."
-  (interactive
-   (list (completing-read "Emulator: " (flutter--emulators))))
-  (shell-command (format "flutter emulators --launch %s" emulator-id))
-  )
-
-(defun flutter--emulators ()
-  "Return an list of emulators."
-  (string-lines (shell-command-to-string "emulator -list-avds") t)
-  )
-#+end_src
-** Latex
-#+begin_src emacs-lisp
-(use-package auctex
-  :hook
-  (LaTeX-mode . TeX-source-correlate-mode) ;; jump between source and preview
-  :custom
-  (TeX-auto-save t)
-  (TeX-parse-self t)
-  (TeX-master nil) ;; ask for master file
-  (TeX-view-program-selection '((output-pdf "PDF Tools")))
-  )
-(use-package cdlatex)
-(use-package reftex)
 #+end_src
 * wordcloud
 Builts a worldcloud of the current buffer. Can be sortet
@@ -866,30 +926,6 @@ alphabetically or by frequency.
 #+begin_src emacs-lisp
 (use-package wordcloud
   :straight (wordcloud :type git :host github :repo "davep/wordcloud.el"))
-#+end_src
-* git
-Of course I use ~magit~ as my git interface.
-#+begin_src emacs-lisp
-(use-package magit :bind ("C-c g" . 'magit-status))
-#+end_src
-To see which lines are changed, delete or added I use ~diff-hl~ to
-visualize these changes in the fringe. ~diff-hl-flydiff-mode~ redraws
-the fringe on every change, not every file save as otherwise.
-#+begin_src emacs-lisp
-(use-package diff-hl
-  :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)
-         (magit-pre-refresh  . diff-hl-magit-pre-refresh)
-         (magit-post-refresh . diff-hl-magit-post-refresh))
-  :config
-  (global-diff-hl-mode 1)
-  (diff-hl-flydiff-mode 1)
-  )
-#+end_src
-~forge~ allows me to use interact with Github or Gitlab in magit. I
-can open, close or participate in Issues and even merge pull requests.
-#+begin_src emacs-lisp
-(use-package forge
-  :after magit)
 #+end_src
 * elfeed
 For reading rss feeds I use elfeed. I set "g" to update my feeds when
@@ -914,13 +950,6 @@ To use elfeed with my rss reader, I need to use elfeed protocol.
                             :use-authinfo t)))
   :config
   (elfeed-protocol-enable))
-#+end_src
-* Code commenting
-~comment-dwin-2~ makes commenting a nicer experience. It supports comments in front and at the end of a line.
-#+begin_src emacs-lisp
-(use-package comment-dwim-2
-  :bind
-  ("M-;" . comment-dwim-2))
 #+end_src
 * Email
 I want to read my emails via Emacs. For this I use mu4e:
