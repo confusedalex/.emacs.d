@@ -19,7 +19,6 @@ copying it.
   - [[#snake][Snake]]
 - [[#no-littering][No littering]]
 - [[#vundo][vundo]]
-- [[#jinx---spell-checking][jinx - Spell Checking]]
 - [[#languages][Languages]]
   - [[#dartflutter][Dart/Flutter]]
   - [[#latex][Latex]]
@@ -815,16 +814,6 @@ understand.
 (use-package vundo
   :custom
   (vundo-glyph-alist vundo-unicode-symbols))
-#+end_src
-* jinx - Spell Checking
-#+begin_src emacs-lisp
-(use-package jinx
-  :hook
-  (after-init . global-jinx-mode)
-  :custom
-  (jinx-languages "de_DE en_GB")
-  :bind (("M-$" . jinx-correct)
-         ("C-M-$" . jinx-languages)))
 #+end_src
 * Languages
 ** Dart/Flutter
