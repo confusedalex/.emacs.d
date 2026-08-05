@@ -4,16 +4,15 @@
 #+startup: fold
 
 * Introduction
-
 This is my Emacs configuration. Feel free to take inspiration or eveny
 copying it.
-
 * Table of Contents                                                     :TOC:
 - [[#introduction][Introduction]]
 - [[#early-init][early-init]]
 - [[#package-management][Package Management]]
-- [[#macos][macos]]
-  - [[#path-fix][Path fix]]
+- [[#system-tweaks][System tweaks]]
+  - [[#macos][macos]]
+  - [[#work-notebook][Work notebook]]
 - [[#emacs][emacs]]
   - [[#theme][Theme]]
   - [[#dired][dired]]
@@ -89,10 +88,24 @@ currently I don't make use of both these features.
   (straight-current-profile 'base)
   )
 #+end_src
-* macos
+* System tweaks
+Because I run emacs on linux and macos machines, I want to make some system specific tweaks.
+#+begin_src emacs-lisp
+(defvar os-linux (string-equal system-type "gnu/linux") "Running on Linux.")
+(defvar os-macos (string-equal system-type "darwin") "Running on macOS.")
+(defvar is-work (string= system-name "avin5K0B2K4"))
+#+end_src
+
+#+begin_src emacs-lisp
+(cond
+ (os-linux (defvar my/font-height 140 "The default font height for Emacs on Linux (in 1/10th points)."))
+ (os-macos (defvar my/font-height 180 "The default font height for Emacs on macOS (in 1/10th points)."))
+ (t (defvar my/font-height 140 "The default font height for Emacs on Windows and other systems (in 1/10th points).")))
+#+end_src
+** macos
 These are some macos specific settings, which change the meta-key do the command-key on macos and disables the option key in Emacs.
 #+begin_src emacs-lisp
-(when (memq system-type '(darwin))
+(when os-macos
   (set-fontset-font t nil "SF Pro Display" nil 'append)
 
   (setq mac-command-modifier 'meta)
@@ -105,11 +118,17 @@ These are some macos specific settings, which change the meta-key do the command
   (setq mu4e-mu-binary "/opt/homebrew/bin/mu")
   )
 #+end_src
-** Path fix
+*** Path fix
 #+begin_src emacs-lisp
 (use-package exec-path-from-shell
   :config
   (exec-path-from-shell-initialize))
+#+end_src
+** Work notebook
+#+begin_src emacs-lisp
+(when os-linux
+  (add-to-list 'default-frame-alist '(undecorated . t))
+  )
 #+end_src
 * emacs
 #+begin_src emacs-lisp
@@ -256,7 +275,7 @@ Shows preview of files in dired buffer.
 #+end_src
 ** Font
 #+begin_src emacs-lisp
-(set-face-attribute 'default nil :family "AporeticSerifMonoNerdFont" :height 160)
+(set-face-attribute 'default nil :family "AporeticSerifMonoNerdFont" :height my/font-height)
 (set-face-attribute 'variable-pitch nil :family "Aporetic Sans" :height 1.5)
 #+end_src
 * Appearance
@@ -264,7 +283,7 @@ Ignore compile errors and warnings when starting Emacs.
 #+begin_src emacs-lisp
 (add-to-list 'display-buffer-alist                                                      
              '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"                               
-               (display-buffer-no-window)                                               
+               ``(display-buffer-no-window)                                               
                (allow-no-window . t)))                                                  
 #+end_src
 

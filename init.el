@@ -6,7 +6,16 @@
   (straight-current-profile 'base)
   )
 
-(when (memq system-type '(darwin))
+(defvar os-linux (string-equal system-type "gnu/linux") "Running on Linux.")
+(defvar os-macos (string-equal system-type "darwin") "Running on macOS.")
+(defvar is-work (string= system-name "avin5K0B2K4"))
+
+(cond
+ (os-linux (defvar my/font-height 140 "The default font height for Emacs on Linux (in 1/10th points)."))
+ (os-macos (defvar my/font-height 180 "The default font height for Emacs on macOS (in 1/10th points)."))
+ (t (defvar my/font-height 140 "The default font height for Emacs on Windows and other systems (in 1/10th points).")))
+
+(when os-macos
   (set-fontset-font t nil "SF Pro Display" nil 'append)
 
   (setq mac-command-modifier 'meta)
@@ -22,6 +31,10 @@
 (use-package exec-path-from-shell
   :config
   (exec-path-from-shell-initialize))
+
+(when os-linux
+  (add-to-list 'default-frame-alist '(undecorated . t))
+  )
 
 (use-package emacs
   :init
@@ -127,12 +140,12 @@
    )
   )
 
-(set-face-attribute 'default nil :family "AporeticSerifMonoNerdFont" :height 160)
+(set-face-attribute 'default nil :family "AporeticSerifMonoNerdFont" :height my/font-height)
 (set-face-attribute 'variable-pitch nil :family "Aporetic Sans" :height 1.5)
 
 (add-to-list 'display-buffer-alist                                                      
              '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"                               
-               (display-buffer-no-window)                                               
+               ``(display-buffer-no-window)                                               
                (allow-no-window . t)))                                                  
 
 (use-package doom-modeline
