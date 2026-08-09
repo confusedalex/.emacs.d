@@ -933,7 +933,6 @@ PDF-tools for viewing and editing PDFs in emacs.
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((plantuml . t)))
-
   )
 #+end_src
 

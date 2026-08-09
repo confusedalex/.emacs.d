@@ -922,7 +922,6 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((plantuml . t)))
-
   )
 ;; Org-Mode:1 ends here
 
