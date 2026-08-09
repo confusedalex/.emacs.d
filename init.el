@@ -802,10 +802,6 @@
   (org-clock-report-include-clocking-task t)
   )
 
-(use-package org-cliplink
-  :defer t
-  :commands (org-cliplink-capture))
-
 (setq org-capture-templates
       '(
 	      ("p" "Personal")
@@ -859,17 +855,6 @@
         (format-time-string "%H:%M (%d.%m)")
       (format-time-string "%H:%M"))))
 
-
-;; Nicer list creation
-(use-package org-autolist
-  :hook (org-mode . org-autolist-mode))
-
-;; for the occasional ics import
-(use-package org-caldav
-  :custom
-  (org-caldav-inbox "/Users/alex/persist/org/inbox.org")
-  )
-
 (use-package org-super-agenda
   :after org-agenda
   :defer t
@@ -922,17 +907,6 @@
    )
   )
 
-(use-package toc-org
-  :commands toc-org-enable
-  :hook (org-mode . toc-org-mode))
-
-(use-package org-tempo
-  :straight nil
-  :after org
-  :config
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  )
-
 (use-package ob-python :straight nil)
 
 (use-package org
@@ -951,6 +925,57 @@
 
   )
 ;; Org-Mode:1 ends here
+
+
+
+;; Fetches the title of the url in clipboard and pastes org link at point.
+
+;; [[file:README.org::*Org-Mode][Org-Mode:2]]
+(use-package org-cliplink
+  :defer t
+  :commands (org-cliplink-capture))
+;; Org-Mode:2 ends here
+
+;; [[file:README.org::*Org-Mode][Org-Mode:3]]
+;; Nicer list creation
+(use-package org-autolist
+  :hook (org-mode . org-autolist-mode))
+;; Org-Mode:3 ends here
+
+
+
+;; Would allows for syncing org-mode with a caldav server. I just use it
+;; to import ics files into my inbox.
+
+;; [[file:README.org::*Org-Mode][Org-Mode:4]]
+(use-package org-caldav
+  :custom
+  (org-caldav-inbox "/Users/alex/persist/org/inbox.org")
+  )
+;; Org-Mode:4 ends here
+
+
+
+;; Allows for faster creation of source blocks.
+
+;; [[file:README.org::*Org-Mode][Org-Mode:5]]
+(use-package org-tempo
+  :straight nil
+  :after org
+  :config
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  )
+;; Org-Mode:5 ends here
+
+
+
+;; Package for automatic creation of table of contents for org documents.
+
+;; [[file:README.org::*Org-Mode][Org-Mode:6]]
+(use-package toc-org
+  :commands toc-org-enable
+  :hook (org-mode . toc-org-mode))
+;; Org-Mode:6 ends here
 
 ;; wordcloud
 ;; Builts a worldcloud of the current buffer. Can be sortet

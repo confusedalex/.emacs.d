@@ -813,10 +813,6 @@ PDF-tools for viewing and editing PDFs in emacs.
   (org-clock-report-include-clocking-task t)
   )
 
-(use-package org-cliplink
-  :defer t
-  :commands (org-cliplink-capture))
-
 (setq org-capture-templates
       '(
 	      ("p" "Personal")
@@ -870,17 +866,6 @@ PDF-tools for viewing and editing PDFs in emacs.
         (format-time-string "%H:%M (%d.%m)")
       (format-time-string "%H:%M"))))
 
-
-;; Nicer list creation
-(use-package org-autolist
-  :hook (org-mode . org-autolist-mode))
-
-;; for the occasional ics import
-(use-package org-caldav
-  :custom
-  (org-caldav-inbox "/Users/alex/persist/org/inbox.org")
-  )
-
 (use-package org-super-agenda
   :after org-agenda
   :defer t
@@ -933,17 +918,6 @@ PDF-tools for viewing and editing PDFs in emacs.
    )
   )
 
-(use-package toc-org
-  :commands toc-org-enable
-  :hook (org-mode . toc-org-mode))
-
-(use-package org-tempo
-  :straight nil
-  :after org
-  :config
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  )
-
 (use-package ob-python :straight nil)
 
 (use-package org
@@ -961,6 +935,45 @@ PDF-tools for viewing and editing PDFs in emacs.
    '((plantuml . t)))
 
   )
+#+end_src
+
+Fetches the title of the url in clipboard and pastes org link at point.
+#+begin_src emacs-lisp
+(use-package org-cliplink
+  :defer t
+  :commands (org-cliplink-capture))
+#+end_src
+
+#+begin_src emacs-lisp
+;; Nicer list creation
+(use-package org-autolist
+  :hook (org-mode . org-autolist-mode))
+#+end_src
+
+Would allows for syncing org-mode with a caldav server. I just use it
+to import ics files into my inbox.
+#+begin_src emacs-lisp
+(use-package org-caldav
+  :custom
+  (org-caldav-inbox "/Users/alex/persist/org/inbox.org")
+  )
+#+end_src
+
+Allows for faster creation of source blocks.
+#+begin_src emacs-lisp
+(use-package org-tempo
+  :straight nil
+  :after org
+  :config
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  )
+#+end_src
+
+Package for automatic creation of table of contents for org documents.
+#+begin_src emacs-lisp
+(use-package toc-org
+  :commands toc-org-enable
+  :hook (org-mode . toc-org-mode))
 #+end_src
 * wordcloud
 Builts a worldcloud of the current buffer. Can be sortet
