@@ -260,13 +260,14 @@ Shows preview of files in dired buffer.
 (set-face-attribute 'variable-pitch nil :family "Aporetic Sans" :height 1.5)
 #+end_src
 * Appearance
-Ignore compile errors
+Ignore compile errors and warnings when starting Emacs.
 #+begin_src emacs-lisp
 (add-to-list 'display-buffer-alist                                                      
              '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"                               
                (display-buffer-no-window)                                               
                (allow-no-window . t)))                                                  
 #+end_src
+
 #+begin_src emacs-lisp
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))

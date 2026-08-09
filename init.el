@@ -183,7 +183,7 @@
 ;; Font:1 ends here
 
 ;; Appearance
-;; Ignore compile errors
+;; Ignore compile errors and warnings when starting Emacs.
 
 ;; [[file:README.org::*Appearance][Appearance:1]]
 (add-to-list 'display-buffer-alist                                                      
