@@ -30,6 +30,7 @@ copying it.
   - [[#expreg][expreg]]
   - [[#tramp][tramp]]
   - [[#language-server-protocol][Language Server Protocol]]
+  - [[#agent-shell][Agent Shell]]
 - [[#languages][Languages]]
   - [[#dartflutter][Dart/Flutter]]
   - [[#latex][Latex]]
@@ -393,8 +394,6 @@ Marginalia adds annotations like keybinds to the minibuffer results
   (pdf-loader-install)
   )
 
-(use-package agent-shell)
-
 (use-package dired-preview)
 #+end_src
 ** Completion
@@ -563,6 +562,11 @@ Tramp-rpc uses json-rpc which makes tramp way faster for me.
   :config
   (add-hook 'lsp-biome-active-hook #'my/lsp-biome-active-hook)
   )
+#+end_src
+** Agent Shell
+For the occasional use of LLMs I use agent-shell.
+#+begin_src emacs-lisp
+(use-package agent-shell)
 #+end_src
 * Languages
 ** Dart/Flutter

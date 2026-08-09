@@ -323,8 +323,6 @@
   (pdf-loader-install)
   )
 
-(use-package agent-shell)
-
 (use-package dired-preview)
 ;; Minibuffer:5 ends here
 
@@ -523,6 +521,12 @@
   )
 ;; Language Server Protocol:1 ends here
 
+;; Agent Shell
+;; For the occasional use of LLMs I use agent-shell.
+
+;; [[file:README.org::*Agent Shell][Agent Shell:1]]
+(use-package agent-shell)
+;; Agent Shell:1 ends here
 ;; Dart/Flutter
 ;; First we use dart-mode for dart specific stuff.
 
