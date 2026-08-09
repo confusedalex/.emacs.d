@@ -580,7 +580,7 @@ For the occasional use of LLMs I use agent-shell.
 #+begin_src emacs-lisp
 (use-package agent-shell)
 #+end_src
-** Apheleia (Code formatter)
+** Apheleia
 Apheleia is a code formatter, which can use many many backends.
 #+begin_src emacs-lisp
 (use-package apheleia
