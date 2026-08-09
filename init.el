@@ -317,10 +317,11 @@
   :bind (:map flycheck-mode-map
               ("M-n" . flycheck-next-error)
               ("M-p" . flycheck-previous-error))
-  :hook (prog-mode . flycheck-mode)
-  )
-
-
+  :hook ((after-init . global-flycheck-mode)
+         (after-init . global-flycheck-annotate-mode))
+  :custom
+  (flycheck-annotate-background t)
+    )
 
 (use-package apheleia
   :hook (prog-mode . apheleia-global-mode)
