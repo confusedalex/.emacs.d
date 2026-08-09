@@ -21,6 +21,7 @@ copying it.
   - [[#font][Font]]
 - [[#appearance][Appearance]]
 - [[#editor][Editor]]
+  - [[#which-key][Which-key]]
   - [[#minibuffer][Minibuffer]]
   - [[#completion][Completion]]
   - [[#vundo][vundo]]
@@ -304,6 +305,13 @@ Ignore compile errors
   (dashboard-setup-startup-hook))
 #+end_src
 * Editor
+** Which-key
+#+begin_src emacs-lisp
+(use-package which-key
+  :straight nil
+  :hook
+  (after-init . which-key-mode))
+#+end_src
 ** Minibuffer
 #+begin_src emacs-lisp :tangle no :noweb-ref emacs-custom
   (enable-recursive-minibuffers t)
@@ -359,11 +367,6 @@ Marginalia adds annotations like keybinds to the minibuffer results
 #+end_src
 
 #+begin_src emacs-lisp
-(use-package which-key
-  :straight nil
-  :hook
-  (after-init . which-key-mode))
-
 (use-package disproject
   :bind (("C-c p" . disproject-dispatch)))
 
@@ -379,8 +382,6 @@ Marginalia adds annotations like keybinds to the minibuffer results
   (pdf-tools-install)
   (pdf-loader-install)
   )
-
-
 #+end_src
 ** Completion
 ~Orderless~ reworks the completion ordering by usage and

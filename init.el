@@ -236,6 +236,15 @@
   (dashboard-setup-startup-hook))
 ;; Appearance:6 ends here
 
+;; Which-key
+
+;; [[file:README.org::*Which-key][Which-key:1]]
+(use-package which-key
+  :straight nil
+  :hook
+  (after-init . which-key-mode))
+;; Which-key:1 ends here
+
 
 ;; Vertico enables vertical completiton in the minibuffer, which makes
 ;; the minibuffer easier to use and more pleasent to view.
@@ -288,11 +297,6 @@
 ;; Minibuffer:4 ends here
 
 ;; [[file:README.org::*Minibuffer][Minibuffer:5]]
-(use-package which-key
-  :straight nil
-  :hook
-  (after-init . which-key-mode))
-
 (use-package disproject
   :bind (("C-c p" . disproject-dispatch)))
 
@@ -308,8 +312,6 @@
   (pdf-tools-install)
   (pdf-loader-install)
   )
-
-
 ;; Minibuffer:5 ends here
 
 ;; Completion
