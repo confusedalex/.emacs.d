@@ -841,7 +841,7 @@
 ;; for the occasional ics import
 (use-package org-caldav
   :custom
-  (org-caldav-inbox "/home/alex/persist/org/inbox.org")
+  (org-caldav-inbox "/Users/alex/persist/org/inbox.org")
   )
 
 (use-package org-super-agenda
