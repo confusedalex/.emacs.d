@@ -272,6 +272,8 @@ Ignore compile errors and warnings when starting Emacs.
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))
 #+end_src
+
+Nerd-icons for all stuff.
 #+begin_src emacs-lisp
 (use-package nerd-icons)
 
@@ -289,12 +291,14 @@ Ignore compile errors and warnings when starting Emacs.
   :hook
   (dired-mode . nerd-icons-dired-mode))
 #+end_src
+
 #+begin_src emacs-lisp
 (use-package rainbow-delimiters
   :defer t
   :hook
   (prog-mode . rainbow-delimiters-mode))
 #+end_src
+
 #+begin_src emacs-lisp
 (use-package olivetti
   :custom
@@ -302,6 +306,7 @@ Ignore compile errors and warnings when starting Emacs.
   (olivetti-style nil)
   :bind ("C-c z" . olivetti-mode))
 #+end_src
+
 #+begin_src emacs-lisp
 (use-package dashboard
   :config

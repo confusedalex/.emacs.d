@@ -197,6 +197,10 @@
   :hook (after-init . doom-modeline-mode))
 ;; Appearance:2 ends here
 
+
+
+;; Nerd-icons for all stuff.
+
 ;; [[file:README.org::*Appearance][Appearance:3]]
 (use-package nerd-icons)
 
