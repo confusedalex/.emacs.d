@@ -31,6 +31,7 @@ copying it.
   - [[#tramp][tramp]]
   - [[#language-server-protocol][Language Server Protocol]]
   - [[#agent-shell][Agent Shell]]
+  - [[#apheleia-code-formatter][Apheleia (Code formatter)]]
 - [[#languages][Languages]]
   - [[#dartflutter][Dart/Flutter]]
   - [[#latex][Latex]]
@@ -376,10 +377,7 @@ Marginalia adds annotations like keybinds to the minibuffer results
   (flycheck-annotate-background t)
     )
 
-(use-package apheleia
-  :hook (prog-mode . apheleia-global-mode)
-  :bind
-  ("C-c M-f"))
+
 
 (use-package smartparens
   :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
@@ -567,6 +565,12 @@ Tramp-rpc uses json-rpc which makes tramp way faster for me.
 For the occasional use of LLMs I use agent-shell.
 #+begin_src emacs-lisp
 (use-package agent-shell)
+#+end_src
+** Apheleia (Code formatter)
+Apheleia is a code formatter, which can use many many backends.
+#+begin_src emacs-lisp
+(use-package apheleia
+  :hook (prog-mode . apheleia-global-mode))
 #+end_src
 * Languages
 ** Dart/Flutter

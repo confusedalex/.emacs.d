@@ -305,10 +305,7 @@
   (flycheck-annotate-background t)
     )
 
-(use-package apheleia
-  :hook (prog-mode . apheleia-global-mode)
-  :bind
-  ("C-c M-f"))
+
 
 (use-package smartparens
   :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
@@ -527,6 +524,15 @@
 ;; [[file:README.org::*Agent Shell][Agent Shell:1]]
 (use-package agent-shell)
 ;; Agent Shell:1 ends here
+
+;; Apheleia (Code formatter)
+;; Apheleia is a code formatter, which can use many many backends.
+
+;; [[file:README.org::*Apheleia (Code formatter)][Apheleia (Code formatter):1]]
+(use-package apheleia
+  :hook (prog-mode . apheleia-global-mode))
+;; Apheleia (Code formatter):1 ends here
+
 ;; Dart/Flutter
 ;; First we use dart-mode for dart specific stuff.
 
