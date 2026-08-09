@@ -35,7 +35,7 @@ copying it.
   - [[#language-server-protocol][Language Server Protocol]]
   - [[#flycheck][Flycheck]]
   - [[#agent-shell][Agent Shell]]
-  - [[#apheleia-code-formatter][Apheleia (Code formatter)]]
+  - [[#apheleia][Apheleia]]
 - [[#languages][Languages]]
   - [[#dartflutter][Dart/Flutter]]
   - [[#latex][Latex]]
