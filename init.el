@@ -405,7 +405,11 @@
 ;; Of course I use ~magit~ as my git interface.
 
 ;; [[file:README.org::*git][git:1]]
-(use-package magit :bind ("C-c g" . 'magit-status))
+(use-package magit :bind ("C-c g" . 'magit-status)
+  :config
+  (with-eval-after-load 'magit-commit
+    (transient-replace-suffix 'magit-commit 'magit-commit-autofixup
+      '("x" "Absorb changes" magit-commit-absorb))))
 ;; git:1 ends here
 
 
