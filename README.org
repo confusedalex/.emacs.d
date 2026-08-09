@@ -222,6 +222,11 @@ color things which just looks weird and unreadable.
   (dired-kill-when-opening-new-dired-buffer t)
   )
 #+end_src
+
+Shows preview of files in dired buffer.
+#+begin_src emacs-lisp
+(use-package dired-preview)
+#+end_src
 *** date2name
 #+begin_src emacs-lisp
 (use-package date2name
@@ -375,7 +380,7 @@ Marginalia adds annotations like keybinds to the minibuffer results
   (pdf-loader-install)
   )
 
-(use-package dired-preview)
+
 #+end_src
 ** Completion
 ~Orderless~ reworks the completion ordering by usage and

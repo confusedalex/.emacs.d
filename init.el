@@ -137,6 +137,14 @@
   )
 ;; dired:1 ends here
 
+
+
+;; Shows preview of files in dired buffer.
+
+;; [[file:README.org::*dired][dired:2]]
+(use-package dired-preview)
+;; dired:2 ends here
+
 ;; date2name
 
 ;; [[file:README.org::*date2name][date2name:1]]
@@ -301,7 +309,7 @@
   (pdf-loader-install)
   )
 
-(use-package dired-preview)
+
 ;; Minibuffer:5 ends here
 
 ;; Completion
