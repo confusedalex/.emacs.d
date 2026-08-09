@@ -29,6 +29,7 @@ copying it.
   - [[#no-littering][No littering]]
   - [[#expreg][expreg]]
   - [[#tramp][tramp]]
+  - [[#smartparens][Smartparens]]
   - [[#language-server-protocol][Language Server Protocol]]
   - [[#flycheck][Flycheck]]
   - [[#agent-shell][Agent Shell]]
@@ -368,17 +369,6 @@ Marginalia adds annotations like keybinds to the minibuffer results
   :straight nil
   :hook (after-init . savehist-mode))
 
-
-
-
-
-(use-package smartparens
-  :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
-  :config
-  (require 'smartparens-config)) 
-
-
-
 (use-package pdf-tools
   :init
   (pdf-tools-install)
@@ -503,6 +493,14 @@ Tramp-rpc uses json-rpc which makes tramp way faster for me.
   :straight (tramp-rpc :type git :host github :repo "ArthurHeymans/emacs-tramp-rpc")
   :custom
   (tramp-rpc-deploy-git-build-policy 'release))
+#+end_src
+** Smartparens
+Automatic opening of parens and other brackets, parens stuff.
+#+begin_src emacs-lisp
+(use-package smartparens
+  :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
+  :config
+  (require 'smartparens-config)) 
 #+end_src
 ** Language Server Protocol
 #+begin_src emacs-lisp

@@ -295,17 +295,6 @@
   :straight nil
   :hook (after-init . savehist-mode))
 
-
-
-
-
-(use-package smartparens
-  :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
-  :config
-  (require 'smartparens-config)) 
-
-
-
 (use-package pdf-tools
   :init
   (pdf-tools-install)
@@ -457,6 +446,16 @@
   :custom
   (tramp-rpc-deploy-git-build-policy 'release))
 ;; tramp:2 ends here
+
+;; Smartparens
+;; Automatic opening of parens and other brackets, parens stuff.
+
+;; [[file:README.org::*Smartparens][Smartparens:1]]
+(use-package smartparens
+  :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
+  :config
+  (require 'smartparens-config)) 
+;; Smartparens:1 ends here
 
 ;; Language Server Protocol
 
