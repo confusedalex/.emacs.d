@@ -10,6 +10,7 @@ copying it.
 
 * Table of Contents                                                     :TOC:
 - [[#introduction][Introduction]]
+- [[#early-init][early-init]]
 - [[#package-management][Package Management]]
 - [[#macos][macos]]
   - [[#path-fix][Path fix]]
@@ -43,14 +44,9 @@ copying it.
 - [[#elfeed][elfeed]]
 - [[#email][Email]]
 
-* Package Management
-I use [[https://github.com/radian-software/straight.el][straight.el]] for package managment. Instead of the default
-~package.el~ it allows for creating lockfiles and different
-profiles. So all packages needed for development could go into a dev
-profile and don't pollute or rather slow down emacs on my phone. But
-currently I don't make use of both these features.
-#+begin_src emacs-lisp
-;; Bootstrap Straight.el
+* early-init
+This runs before normal startup and makes sure Org comes from straight.
+#+begin_src emacs-lisp :tangle early-init.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
@@ -67,7 +63,17 @@ currently I don't make use of both these features.
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-;;; Package setup -----
+(straight-use-package 'org)
+(require 'org-macs)
+(require 'org)
+#+end_src
+* Package Management
+I use [[https://github.com/radian-software/straight.el][straight.el]] for package managment. Instead of the default
+~package.el~ it allows for creating lockfiles and different
+profiles. So all packages needed for development could go into a dev
+profile and don't pollute or rather slow down emacs on my phone. But
+currently I don't make use of both these features.
+#+begin_src emacs-lisp
 (straight-use-package 'use-package)
 
 (use-package straight
