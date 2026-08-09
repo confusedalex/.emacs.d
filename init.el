@@ -310,14 +310,6 @@
 
 (use-package envrc
   :hook (after-init . envrc-global-mode))
-
-
-
-(use-package pdf-tools
-  :init
-  (pdf-tools-install)
-  (pdf-loader-install)
-  )
 ;; Minibuffer:5 ends here
 
 ;; Completion
@@ -655,6 +647,17 @@
 ;; [[file:README.org::*Golang][Golang:1]]
 (use-package go-mode)
 ;; Golang:1 ends here
+
+;; PDFs
+;; PDF-tools for viewing and editing PDFs in emacs.
+
+;; [[file:README.org::*PDFs][PDFs:1]]
+(use-package pdf-tools
+  :init
+  (pdf-tools-install)
+  (pdf-loader-install)
+  )
+;; PDFs:1 ends here
 
 ;; Org-Mode
 

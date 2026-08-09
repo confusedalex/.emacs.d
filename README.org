@@ -45,6 +45,7 @@ copying it.
   - [[#fish][fish]]
   - [[#prisma][Prisma]]
   - [[#golang][Golang]]
+  - [[#pdfs][PDFs]]
 - [[#org-mode][Org-Mode]]
 - [[#wordcloud][wordcloud]]
 - [[#elfeed][elfeed]]
@@ -379,14 +380,6 @@ Marginalia adds annotations like keybinds to the minibuffer results
 
 (use-package envrc
   :hook (after-init . envrc-global-mode))
-
-
-
-(use-package pdf-tools
-  :init
-  (pdf-tools-install)
-  (pdf-loader-install)
-  )
 #+end_src
 ** Completion
 ~Orderless~ reworks the completion ordering by usage and
@@ -666,6 +659,15 @@ start the emulator manually I've developed this little wrapper:
 ** Golang
 #+begin_src emacs-lisp
 (use-package go-mode)
+#+end_src
+** PDFs
+PDF-tools for viewing and editing PDFs in emacs.
+#+begin_src emacs-lisp
+(use-package pdf-tools
+  :init
+  (pdf-tools-install)
+  (pdf-loader-install)
+  )
 #+end_src
 * Org-Mode
 #+begin_src emacs-lisp
