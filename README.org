@@ -30,6 +30,7 @@ copying it.
   - [[#expreg][expreg]]
   - [[#tramp][tramp]]
   - [[#language-server-protocol][Language Server Protocol]]
+  - [[#flycheck][Flycheck]]
   - [[#agent-shell][Agent Shell]]
   - [[#apheleia-code-formatter][Apheleia (Code formatter)]]
 - [[#languages][Languages]]
@@ -367,15 +368,7 @@ Marginalia adds annotations like keybinds to the minibuffer results
   :straight nil
   :hook (after-init . savehist-mode))
 
-(use-package flycheck
-  :bind (:map flycheck-mode-map
-              ("M-n" . flycheck-next-error)
-              ("M-p" . flycheck-previous-error))
-  :hook ((after-init . global-flycheck-mode)
-         (after-init . global-flycheck-annotate-mode))
-  :custom
-  (flycheck-annotate-background t)
-    )
+
 
 
 
@@ -559,6 +552,19 @@ Tramp-rpc uses json-rpc which makes tramp way faster for me.
   
   :config
   (add-hook 'lsp-biome-active-hook #'my/lsp-biome-active-hook)
+  )
+#+end_src
+** Flycheck
+Flycheck for using linters and seeing errors.
+#+begin_src emacs-lisp
+(use-package flycheck
+  :bind (:map flycheck-mode-map
+              ("M-n" . flycheck-next-error)
+              ("M-p" . flycheck-previous-error))
+  :hook ((after-init . global-flycheck-mode)
+         (after-init . global-flycheck-annotate-mode))
+  :custom
+  (flycheck-annotate-background t)
   )
 #+end_src
 ** Agent Shell

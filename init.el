@@ -295,15 +295,7 @@
   :straight nil
   :hook (after-init . savehist-mode))
 
-(use-package flycheck
-  :bind (:map flycheck-mode-map
-              ("M-n" . flycheck-next-error)
-              ("M-p" . flycheck-previous-error))
-  :hook ((after-init . global-flycheck-mode)
-         (after-init . global-flycheck-annotate-mode))
-  :custom
-  (flycheck-annotate-background t)
-    )
+
 
 
 
@@ -517,6 +509,21 @@
   (add-hook 'lsp-biome-active-hook #'my/lsp-biome-active-hook)
   )
 ;; Language Server Protocol:1 ends here
+
+;; Flycheck
+;; Flycheck for using linters and seeing errors.
+
+;; [[file:README.org::*Flycheck][Flycheck:1]]
+(use-package flycheck
+  :bind (:map flycheck-mode-map
+              ("M-n" . flycheck-next-error)
+              ("M-p" . flycheck-previous-error))
+  :hook ((after-init . global-flycheck-mode)
+         (after-init . global-flycheck-annotate-mode))
+  :custom
+  (flycheck-annotate-background t)
+  )
+;; Flycheck:1 ends here
 
 ;; Agent Shell
 ;; For the occasional use of LLMs I use agent-shell.
