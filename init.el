@@ -520,7 +520,7 @@
 (use-package lsp-ui
   :custom
   (lsp-ui-sideline-enable t)
-  (lsp-ui-sideline-show-diagnostics t)
+  (lsp-ui-sideline-show-diagnostics nil)
   (lsp-ui-sideline-show-hover nil)
   :commands lsp-ui-mode)
 
