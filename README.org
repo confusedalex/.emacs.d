@@ -22,6 +22,7 @@ copying it.
 - [[#appearance][Appearance]]
 - [[#editor][Editor]]
   - [[#which-key][Which-key]]
+  - [[#savehist][Savehist]]
   - [[#minibuffer][Minibuffer]]
   - [[#completion][Completion]]
   - [[#vundo][vundo]]
@@ -312,6 +313,12 @@ Ignore compile errors
   :hook
   (after-init . which-key-mode))
 #+end_src
+** Savehist
+#+begin_src emacs-lisp
+(use-package savehist
+  :straight nil
+  :hook (after-init . savehist-mode))
+#+end_src
 ** Minibuffer
 #+begin_src emacs-lisp :tangle no :noweb-ref emacs-custom
   (enable-recursive-minibuffers t)
@@ -373,9 +380,7 @@ Marginalia adds annotations like keybinds to the minibuffer results
 (use-package envrc
   :hook (after-init . envrc-global-mode))
 
-(use-package savehist
-  :straight nil
-  :hook (after-init . savehist-mode))
+
 
 (use-package pdf-tools
   :init

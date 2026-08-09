@@ -245,6 +245,14 @@
   (after-init . which-key-mode))
 ;; Which-key:1 ends here
 
+;; Savehist
+
+;; [[file:README.org::*Savehist][Savehist:1]]
+(use-package savehist
+  :straight nil
+  :hook (after-init . savehist-mode))
+;; Savehist:1 ends here
+
 
 ;; Vertico enables vertical completiton in the minibuffer, which makes
 ;; the minibuffer easier to use and more pleasent to view.
@@ -303,9 +311,7 @@
 (use-package envrc
   :hook (after-init . envrc-global-mode))
 
-(use-package savehist
-  :straight nil
-  :hook (after-init . savehist-mode))
+
 
 (use-package pdf-tools
   :init
