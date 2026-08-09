@@ -1,11 +1,3 @@
-;; Package Management
-;; I use [[https://github.com/radian-software/straight.el][straight.el]] for package managment. Instead of the default
-;; ~package.el~ it allows for creating lockfiles and different
-;; profiles. So all packages needed for development could go into a dev
-;; profile and don't pollute or rather slow down emacs on my phone. But
-;; currently I don't make use of both these features.
-
-;; [[file:README.org::*Package Management][Package Management:1]]
 (straight-use-package 'use-package)
 
 (use-package straight
@@ -13,12 +5,7 @@
   (straight-use-package-by-default t)
   (straight-current-profile 'base)
   )
-;; Package Management:1 ends here
 
-;; macos
-;; These are some macos specific settings, which change the meta-key do the command-key on macos and disables the option key in Emacs.
-
-;; [[file:README.org::*macos][macos:1]]
 (when (memq system-type '(darwin))
   (set-fontset-font t nil "SF Pro Display" nil 'append)
 
@@ -31,19 +18,11 @@
   (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e")
   (setq mu4e-mu-binary "/opt/homebrew/bin/mu")
   )
-;; macos:1 ends here
 
-;; Path fix
-
-;; [[file:README.org::*Path fix][Path fix:1]]
 (use-package exec-path-from-shell
   :config
   (exec-path-from-shell-initialize))
-;; Path fix:1 ends here
 
-;; emacs
-
-;; [[file:README.org::*emacs][emacs:1]]
 (use-package emacs
   :init
   (tool-bar-mode -1)
@@ -99,20 +78,12 @@
   (prog-mode . display-line-numbers-mode)
   (text-mode . display-line-numbers-mode)
   )
-;; emacs:1 ends here
 
-;; Theme
-
-;; [[file:README.org::*Theme][Theme:1]]
 (use-package ef-themes
   :config
   (load-theme 'ef-dream t)
   )
-;; Theme:1 ends here
 
-;; dired
-
-;; [[file:README.org::*dired][dired:1]]
 (use-package dired
   :straight nil
   :init
@@ -135,34 +106,16 @@
   (dired-mouse-drag-files t)
   (dired-kill-when-opening-new-dired-buffer t)
   )
-;; dired:1 ends here
 
-
-
-;; Shows preview of files in dired buffer.
-
-;; [[file:README.org::*dired][dired:2]]
 (use-package dired-preview)
-;; dired:2 ends here
 
-;; date2name
-
-;; [[file:README.org::*date2name][date2name:1]]
 (use-package date2name
   :after org
   :custom
   (date2name-default-separation-character " "))
-;; date2name:1 ends here
 
-;; filetags
-
-;; [[file:README.org::*filetags][filetags:1]]
 (use-package filetags)
-;; filetags:1 ends here
 
-;; Snake
-
-;; [[file:README.org::*Snake][Snake:1]]
 (use-package snake
   :straight nil
   :bind
@@ -173,35 +126,18 @@
    ("d" . snake-move-right)
    )
   )
-;; Snake:1 ends here
 
-;; Font
-
-;; [[file:README.org::*Font][Font:1]]
 (set-face-attribute 'default nil :family "AporeticSerifMonoNerdFont" :height 160)
 (set-face-attribute 'variable-pitch nil :family "Aporetic Sans" :height 1.5)
-;; Font:1 ends here
 
-;; Appearance
-;; Ignore compile errors and warnings when starting Emacs.
-
-;; [[file:README.org::*Appearance][Appearance:1]]
 (add-to-list 'display-buffer-alist                                                      
              '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"                               
                (display-buffer-no-window)                                               
                (allow-no-window . t)))                                                  
-;; Appearance:1 ends here
 
-;; [[file:README.org::*Appearance][Appearance:2]]
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))
-;; Appearance:2 ends here
 
-
-
-;; Nerd-icons for all stuff.
-
-;; [[file:README.org::*Appearance][Appearance:3]]
 (use-package nerd-icons)
 
 (use-package nerd-icons-completion
@@ -217,72 +153,40 @@
 (use-package nerd-icons-dired
   :hook
   (dired-mode . nerd-icons-dired-mode))
-;; Appearance:3 ends here
 
-;; [[file:README.org::*Appearance][Appearance:4]]
 (use-package rainbow-delimiters
   :defer t
   :hook
   (prog-mode . rainbow-delimiters-mode))
-;; Appearance:4 ends here
 
-;; [[file:README.org::*Appearance][Appearance:5]]
 (use-package olivetti
   :custom
   (olivetti-body-width 82)
   (olivetti-style nil)
   :bind ("C-c z" . olivetti-mode))
-;; Appearance:5 ends here
 
-;; [[file:README.org::*Appearance][Appearance:6]]
 (use-package dashboard
   :config
   (dashboard-setup-startup-hook))
-;; Appearance:6 ends here
 
-;; Which-key
-
-;; [[file:README.org::*Which-key][Which-key:1]]
 (use-package which-key
   :straight nil
   :hook
   (after-init . which-key-mode))
-;; Which-key:1 ends here
 
-;; Savehist
-
-;; [[file:README.org::*Savehist][Savehist:1]]
 (use-package savehist
   :straight nil
   :hook (after-init . savehist-mode))
-;; Savehist:1 ends here
 
-
-;; Vertico enables vertical completiton in the minibuffer, which makes
-;; the minibuffer easier to use and more pleasent to view.
-
-;; [[file:README.org::*Minibuffer][Minibuffer:2]]
 (use-package vertico
   :defer t
   :commands vertico-mode
   :hook (after-init . vertico-mode))
-;; Minibuffer:2 ends here
 
-
-
-;; Marginalia adds annotations like keybinds to the minibuffer results
-
-;; [[file:README.org::*Minibuffer][Minibuffer:3]]
 (use-package marginalia
   :commands (marginalia-mode marginalia-cycle)
   :hook (after-init . marginalia-mode))
-;; Minibuffer:3 ends here
 
-
-
-;; ~Consult~ adds more completion interfaces to work with.
-
-;; [[file:README.org::*Minibuffer][Minibuffer:4]]
 (use-package consult
   :defer t
   :hook (completion-list-mode . consult-preview-at-point-mode)
@@ -306,32 +210,19 @@
   ;; Use Consult for xref locations with a preview feature.
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref))
-;; Minibuffer:4 ends here
 
-;; [[file:README.org::*Minibuffer][Minibuffer:5]]
 (use-package disproject
   :bind (("C-c p" . disproject-dispatch)))
 
 (use-package envrc
   :hook (after-init . envrc-global-mode))
-;; Minibuffer:5 ends here
 
-;; Completion
-;; ~Orderless~ reworks the completion ordering by usage and
-;; mark-at-point.
-
-;; [[file:README.org::*Completion][Completion:1]]
 (use-package orderless
   :custom
   (completion-styles '(orderless partial-completion basic))
   (completion-category-defaults nil)
   (completion-category-overrides nil))
-;; Completion:1 ends here
 
-
-;; ~Cape~ adds more completetion providers.
-
-;; [[file:README.org::*Completion][Completion:2]]
 (use-package cape
   :init
   (advice-add #'lsp-completion-at-point :around #'cape-wrap-noninterruptible)
@@ -339,9 +230,7 @@
   (add-to-list 'completion-at-point-functions #'cape-file) ;; Path completion
   (add-to-list 'completion-at-point-functions #'cape-elisp-block) ;; Complete elisp in Org or Markdown mode
   )
-;; Completion:2 ends here
 
-;; [[file:README.org::*Completion][Completion:3]]
 (use-package corfu
   :after orderless
   :hook
@@ -359,36 +248,17 @@
 
   (text-mode-ispell-word-completion nil) ;; Disable Ispell completion
 )  
-;; Completion:3 ends here
 
-;; vundo
-;; visual-undo allows traversing a undo-timeline and deciding between
-;; branching points. Makes undo way more powerful and easier to
-;; understand.
-
-;; [[file:README.org::*vundo][vundo:1]]
 (use-package vundo
   :custom
   (vundo-glyph-alist vundo-unicode-symbols))
-;; vundo:1 ends here
 
-;; git
-;; Of course I use ~magit~ as my git interface.
-
-;; [[file:README.org::*git][git:1]]
 (use-package magit :bind ("C-c g" . 'magit-status)
   :config
   (with-eval-after-load 'magit-commit
     (transient-replace-suffix 'magit-commit 'magit-commit-autofixup
       '("x" "Absorb changes" magit-commit-absorb))))
-;; git:1 ends here
 
-
-;; To see which lines are changed, delete or added I use ~diff-hl~ to
-;; visualize these changes in the fringe. ~diff-hl-flydiff-mode~ redraws
-;; the fringe on every change, not every file save as otherwise.
-
-;; [[file:README.org::*git][git:2]]
 (use-package diff-hl
   :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)
          (magit-pre-refresh  . diff-hl-magit-pre-refresh)
@@ -397,37 +267,16 @@
   (global-diff-hl-mode 1)
   (diff-hl-flydiff-mode 1)
   )
-;; git:2 ends here
 
-
-;; ~forge~ allows me to use interact with Github or Gitlab in magit. I
-;; can open, close or participate in Issues and even merge pull requests.
-
-;; [[file:README.org::*git][git:3]]
 (use-package forge
   :after magit)
-;; git:3 ends here
 
-;; Code commenting
-;; ~comment-dwin-2~ makes commenting a nicer experience. It supports comments in front and at the end of a line.
-
-;; [[file:README.org::*Code commenting][Code commenting:1]]
 (use-package comment-dwim-2
   :bind
   ("M-;" . comment-dwim-2))
-;; Code commenting:1 ends here
 
-;; No littering
-
-;; [[file:README.org::*No littering][No littering:1]]
 (use-package no-littering)
-;; No littering:1 ends here
 
-;; expreg
-;; Expand region allow for simple region increase and decrease with
-;; treesitter objects.
-
-;; [[file:README.org::*expreg][expreg:1]]
 (use-package expreg
   :ensure t
   :bind (("C-=" . expreg-expand)
@@ -436,42 +285,23 @@
                       ("=" .  expreg-expand)
                       ("-" .  expreg-contract)))
   )
-;; expreg:1 ends here
 
-;; tramp
-;; Tramp allow to connect with emacs to other servers.
-
-;; [[file:README.org::*tramp][tramp:1]]
 (use-package tramp
   :custom
   (remote-file-name-inhibit-locks t)
   (tramp-use-scp-direct-remote-copying t)
   (remote-file-name-inhibit-auto-save-visited t))
-;; tramp:1 ends here
 
-
-;; Tramp-rpc uses json-rpc which makes tramp way faster for me.
-
-;; [[file:README.org::*tramp][tramp:2]]
 (use-package tramp-rpc
   :straight (tramp-rpc :type git :host github :repo "ArthurHeymans/emacs-tramp-rpc")
   :custom
   (tramp-rpc-deploy-git-build-policy 'release))
-;; tramp:2 ends here
 
-;; Smartparens
-;; Automatic opening of parens and other brackets, parens stuff.
-
-;; [[file:README.org::*Smartparens][Smartparens:1]]
 (use-package smartparens
   :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
   :config
   (require 'smartparens-config)) 
-;; Smartparens:1 ends here
 
-;; Language Server Protocol
-
-;; [[file:README.org::*Language Server Protocol][Language Server Protocol:1]]
 (use-package lsp-mode
   :commands lsp lsp-deferred
   :defer t
@@ -519,12 +349,7 @@
   :config
   (add-hook 'lsp-biome-active-hook #'my/lsp-biome-active-hook)
   )
-;; Language Server Protocol:1 ends here
 
-;; Flycheck
-;; Flycheck for using linters and seeing errors.
-
-;; [[file:README.org::*Flycheck][Flycheck:1]]
 (use-package flycheck
   :bind (:map flycheck-mode-map
               ("M-n" . flycheck-next-error)
@@ -534,48 +359,22 @@
   :custom
   (flycheck-annotate-background t)
   )
-;; Flycheck:1 ends here
 
-;; Agent Shell
-;; For the occasional use of LLMs I use agent-shell.
-
-;; [[file:README.org::*Agent Shell][Agent Shell:1]]
 (use-package agent-shell)
-;; Agent Shell:1 ends here
 
-;; Apheleia (Code formatter)
-;; Apheleia is a code formatter, which can use many many backends.
-
-;; [[file:README.org::*Apheleia (Code formatter)][Apheleia (Code formatter):1]]
 (use-package apheleia
   :hook (prog-mode . apheleia-global-mode))
-;; Apheleia (Code formatter):1 ends here
 
-;; Dart/Flutter
-;; First we use dart-mode for dart specific stuff.
-
-;; [[file:README.org::*Dart/Flutter][Dart/Flutter:1]]
 (use-package dart-mode
   :defer t
   :hook (dart-mode . flutter-test-mode))
-;; Dart/Flutter:1 ends here
 
-
-;; For running flutter apps and tests I use flutter mode
-
-;; [[file:README.org::*Dart/Flutter][Dart/Flutter:2]]
 (use-package flutter
   :after dart-mode
   :bind (:map dart-mode-map
               ("C-M-x" . #'flutter-run-or-hot-reload))
   )
-;; Dart/Flutter:2 ends here
 
-
-;; Flutter can only run on started emulators. Because I don't want to
-;; start the emulator manually I've developed this little wrapper:
-
-;; [[file:README.org::*Dart/Flutter][Dart/Flutter:3]]
  (defun flutter-launch-emulator (emulator-id)
   "Launches the emulator with the given ID."
   (interactive
@@ -587,11 +386,7 @@
   "Return an list of emulators."
   (string-lines (shell-command-to-string "emulator -list-avds") t)
   )
-;; Dart/Flutter:3 ends here
 
-;; Latex
-
-;; [[file:README.org::*Latex][Latex:1]]
 (use-package auctex
   :hook
   (LaTeX-mode . TeX-source-correlate-mode) ;; jump between source and preview
@@ -603,69 +398,36 @@
   )
 (use-package cdlatex)
 (use-package reftex)
-;; Latex:1 ends here
 
-;; Nix
-
-;; [[file:README.org::*Nix][Nix:1]]
 (use-package nix-mode
   :mode "\\.nix$")
-;; Nix:1 ends here
 
-;; Kdl
-
-;; [[file:README.org::*Kdl][Kdl:1]]
 (use-package kdl-mode
   :mode ("\\.kdl\\'"))
-;; Kdl:1 ends here
 
-;; Yaml
-
-;; [[file:README.org::*Yaml][Yaml:1]]
 (use-package yaml-mode
   :defer t
   :mode (
          ("\\.yml\\'" . yaml-mode))
   )
-;; Yaml:1 ends here
 
-;; fish
-
-;; [[file:README.org::*fish][fish:1]]
 (use-package fish-mode
   :defer t
   :mode (
          ("\\.fish\\'" . fish-mode))
   )
-;; fish:1 ends here
 
-;; Prisma
-
-;; [[file:README.org::*Prisma][Prisma:1]]
 (use-package prisma-mode
   :straight (prisma-mode :type git :host github :repo "pimeys/emacs-prisma-mode"))
-;; Prisma:1 ends here
 
-;; Golang
-
-;; [[file:README.org::*Golang][Golang:1]]
 (use-package go-mode)
-;; Golang:1 ends here
 
-;; PDFs
-;; PDF-tools for viewing and editing PDFs in emacs.
-
-;; [[file:README.org::*PDFs][PDFs:1]]
 (use-package pdf-tools
   :init
   (pdf-tools-install)
   (pdf-loader-install)
   )
-;; PDFs:1 ends here
 
-;; Org-Mode
-
-;; [[file:README.org::*Org-Mode][Org-Mode:1]]
 (use-package org
   :hook
   ((org-mode . org-indent-mode)
@@ -923,86 +685,41 @@
    'org-babel-load-languages
    '((plantuml . t)))
   )
-;; Org-Mode:1 ends here
 
-
-
-;; Fetches the title of the url in clipboard and pastes org link at point.
-
-;; [[file:README.org::*Org-Mode][Org-Mode:2]]
 (use-package org-cliplink
   :defer t
   :commands (org-cliplink-capture))
-;; Org-Mode:2 ends here
 
-;; [[file:README.org::*Org-Mode][Org-Mode:3]]
 ;; Nicer list creation
 (use-package org-autolist
   :hook (org-mode . org-autolist-mode))
-;; Org-Mode:3 ends here
 
-
-
-;; Would allows for syncing org-mode with a caldav server. I just use it
-;; to import ics files into my inbox.
-
-;; [[file:README.org::*Org-Mode][Org-Mode:4]]
 (use-package org-caldav
   :custom
   (org-caldav-inbox "/Users/alex/persist/org/inbox.org")
   )
-;; Org-Mode:4 ends here
 
-
-
-;; Allows for faster creation of source blocks.
-
-;; [[file:README.org::*Org-Mode][Org-Mode:5]]
 (use-package org-tempo
   :straight nil
   :after org
   :config
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   )
-;; Org-Mode:5 ends here
 
-
-
-;; Package for automatic creation of table of contents for org documents.
-
-;; [[file:README.org::*Org-Mode][Org-Mode:6]]
 (use-package toc-org
   :commands toc-org-enable
   :hook (org-mode . toc-org-mode))
-;; Org-Mode:6 ends here
 
-;; wordcloud
-;; Builts a worldcloud of the current buffer. Can be sortet
-;; alphabetically or by frequency.
-
-;; [[file:README.org::*wordcloud][wordcloud:1]]
 (use-package wordcloud
   :straight (wordcloud :type git :host github :repo "davep/wordcloud.el"))
-;; wordcloud:1 ends here
 
-;; elfeed
-;; For reading rss feeds I use elfeed. I set "g" to update my feeds when
-;; in the elfeed buffer. For a nicer reading experience I enter
-;; olivetti-mode on opening an entry.
-
-;; [[file:README.org::*elfeed][elfeed:1]]
 (use-package elfeed
   :bind (("C-x e" . elfeed)
          :map elfeed-search-mode-map
          ("g" . 'elfeed-update)
          )
   :hook (elfeed-show-mode . olivetti-mode))
-;; elfeed:1 ends here
 
-
-;; To use elfeed with my rss reader, I need to use elfeed protocol. 
-
-;; [[file:README.org::*elfeed][elfeed:2]]
 (use-package elfeed-protocol
   :custom
   (elfeed-protocol-fever-update-unread-only nil)
@@ -1012,12 +729,7 @@
                             :use-authinfo t)))
   :config
   (elfeed-protocol-enable))
-;; elfeed:2 ends here
 
-;; Email
-;; I want to read my emails via Emacs. For this I use mu4e:
-
-;; [[file:README.org::*Email][Email:1]]
 (use-package mu4e
   :straight nil
   :bind (("C-x m" . mu4e))
@@ -1062,4 +774,3 @@
     (mu4e-headers-mark-for-delete)
     )
   )
-;; Email:1 ends here

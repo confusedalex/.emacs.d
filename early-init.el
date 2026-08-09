@@ -1,7 +1,3 @@
-;; early-init
-;; This runs before normal startup and makes sure Org comes from straight.
-
-;; [[file:README.org::*early-init][early-init:1]]
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
@@ -21,4 +17,3 @@
 (straight-use-package 'org)
 (require 'org-macs)
 (require 'org)
-;; early-init:1 ends here
