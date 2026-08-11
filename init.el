@@ -449,6 +449,10 @@
   (pdf-loader-install)
   )
 
+(use-package treesit-auto
+  :config
+  (global-treesit-auto-mode))
+
 (use-package org
   :hook
   ((org-mode . org-indent-mode)

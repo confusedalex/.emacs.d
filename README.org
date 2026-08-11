@@ -45,6 +45,7 @@ copying it.
   - [[#prisma][Prisma]]
   - [[#golang][Golang]]
   - [[#pdfs][PDFs]]
+  - [[#treesitter][Treesitter]]
 - [[#org-mode][Org-Mode]]
 - [[#wordcloud][wordcloud]]
 - [[#elfeed][elfeed]]
@@ -701,6 +702,12 @@ PDF-tools for viewing and editing PDFs in emacs.
   (pdf-tools-install)
   (pdf-loader-install)
   )
+#+end_src
+** Treesitter
+#+begin_src emacs-lisp
+(use-package treesit-auto
+  :config
+  (global-treesit-auto-mode))
 #+end_src
 * Org-Mode
 #+begin_src emacs-lisp
