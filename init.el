@@ -379,6 +379,7 @@
          (after-init . global-flycheck-annotate-mode))
   :custom
   (flycheck-annotate-background t)
+  (flycheck-annotate-other-lines-style nil)
   )
 
 (use-package agent-shell)

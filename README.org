@@ -602,6 +602,7 @@ Flycheck for using linters and seeing errors.
          (after-init . global-flycheck-annotate-mode))
   :custom
   (flycheck-annotate-background t)
+  (flycheck-annotate-other-lines-style nil)
   )
 #+end_src
 ** Agent Shell
