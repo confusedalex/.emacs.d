@@ -799,3 +799,10 @@
     (mu4e-headers-mark-for-delete)
     )
   )
+
+(when is-work
+  (use-package jira
+    :custom
+    (jira-base-url "https://dhl.atlassian.net")
+    (jira-token-is-personal-access-token nil)
+    (jira-api-version 3)))

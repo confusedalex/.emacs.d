@@ -50,6 +50,7 @@ copying it.
 - [[#wordcloud][wordcloud]]
 - [[#elfeed][elfeed]]
 - [[#email][Email]]
+- [[#jira][jira]]
 
 * early-init
 This runs before normal startup and makes sure Org comes from straight.
@@ -1126,4 +1127,13 @@ this file is not public.
             ))
   (mu4e-headers-mark-for-delete)
   )
+#+end_src
+* jira
+#+begin_src emacs-lisp
+(when is-work
+  (use-package jira
+    :custom
+    (jira-base-url "https://dhl.atlassian.net")
+    (jira-token-is-personal-access-token nil)
+    (jira-api-version 3)))
 #+end_src
