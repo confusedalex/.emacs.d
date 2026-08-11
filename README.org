@@ -765,7 +765,7 @@ PDF-tools for viewing and editing PDFs in emacs.
    )
   (org-todo-keyword-faces
    '(("DELEGATED" . (:foreground "orange" :weight bold))
-     ("WAITING" . (:foreground "yellow" :weight bold))))
+     ("WAIT" . (:foreground "yellow" :weight bold))))
 
   (org-log-done 'time) ; Add timestamp when a task is closed
   (org-log-into-drawer t) ;; Log changes into a drawer, so it wont clutter up my entry
@@ -776,7 +776,7 @@ PDF-tools for viewing and editing PDFs in emacs.
 
   (org-agenda-skip-deadline-prewarning-if-scheduled t) ;; don't show deadlined when it's schedules on the same date
   (org-agenda-tags-todo-honor-ignore-options t) ;; Always honor options
-  (org-agenda-skip-schedulded-if-done t) ;; Don't show schedulded items, if done
+  (org-agenda-skip-scheduled-if-done t) ;; Don't show schedulded items, if done
   (org-agenda-skip-scheduled-if-deadline-is-shown t) ;; don't show scheduled if deadlined on the same day
   (org-agenda-skip-deadline-if-done t) ;; Don't show deadlined items, if done
   (org-agenda-todo-ignore-scheduled 'all) ;; Don't show schedulded dates in global TODO list
