@@ -480,6 +480,10 @@ the fringe on every change, not every file save as otherwise.
   (global-diff-hl-mode 1)
   (diff-hl-flydiff-mode 1)
   )
+
+(use-package mise
+  :hook (after-init . global-mise-mode)
+  )
 #+end_src
 ~forge~ allows me to use interact with Github or Gitlab in magit. I
 can open, close or participate in Issues and even merge pull requests.

@@ -285,6 +285,10 @@
   (diff-hl-flydiff-mode 1)
   )
 
+(use-package mise
+  :hook (after-init . global-mise-mode)
+  )
+
 (use-package forge
   :after magit)
 
