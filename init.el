@@ -145,7 +145,7 @@
 
 (add-to-list 'display-buffer-alist                                                      
              '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"                               
-               ``(display-buffer-no-window)                                               
+               (display-buffer-no-window)                                               
                (allow-no-window . t)))                                                  
 
 (use-package doom-modeline
@@ -724,7 +724,7 @@
 
 (use-package org-caldav
   :custom
-  (org-caldav-inbox "/Users/alex/persist/org/inbox.org")
+  (org-caldav-inbox (expand-file-name "inbox.org" org-directory))
   )
 
 (use-package org-tempo
