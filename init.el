@@ -58,7 +58,7 @@
   (display-line-numbers-type 'visual)             ;; Use relative line numbering in programming modes.
   (use-short-answers t)                           ;; y/n instead of yes/no
   
-  (auth-sources '("~/.emacs.d/.authinfo.gpg"))
+  (auth-sources '("~/.emacs.d/.authinfo.gpg" "~/.authinfo"))
   
   (scroll-conservatively 101)
   (pixel-scroll-precision-mode t) 
