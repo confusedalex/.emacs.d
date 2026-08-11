@@ -483,7 +483,9 @@
    )
   :custom
   (org-directory "~/persist/org/")
-  (org-agenda-files (list org-directory))
+  (org-agenda-files
+   (mapcar (lambda (f) (expand-file-name f org-directory))
+           '("notes.org" "inbox.org" "work.org")))
   (org-ellipsis "⤵")
   
   (org-fold-catch-invisible-edits 'error) ;; error when editing in not folded area
