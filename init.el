@@ -270,11 +270,11 @@
   :custom
   (vundo-glyph-alist vundo-unicode-symbols))
 
-(use-package magit :bind ("C-c g" . 'magit-status)
+(use-package magit
+  :bind ("C-c g" . 'magit-status)
   :config
-  (with-eval-after-load 'magit-commit
-    (transient-replace-suffix 'magit-commit 'magit-commit-autofixup
-      '("x" "Absorb changes" magit-commit-absorb))))
+  (transient-replace-suffix 'magit-commit 'magit-commit-autofixup
+    '("x" "Absorb changes" magit-commit-absorb)))
 
 (use-package diff-hl
   :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)
