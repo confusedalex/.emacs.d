@@ -227,6 +227,10 @@
 (use-package disproject
   :bind (("C-c p" . disproject-dispatch)))
 
+(use-package project
+  :custom
+  (project-vc-extra-root-markers '("package.json")))
+
 (use-package envrc
   :hook (after-init . envrc-global-mode))
 
