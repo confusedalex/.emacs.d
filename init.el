@@ -451,6 +451,7 @@
   )
 
 (use-package treesit-auto
+  :unless os-macos
   :config
   (global-treesit-auto-mode))
 

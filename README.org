@@ -708,6 +708,7 @@ PDF-tools for viewing and editing PDFs in emacs.
 ** Treesitter
 #+begin_src emacs-lisp
 (use-package treesit-auto
+  :unless os-macos
   :config
   (global-treesit-auto-mode))
 #+end_src
