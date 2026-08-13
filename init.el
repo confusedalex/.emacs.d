@@ -286,6 +286,7 @@
   )
 
 (use-package mise
+  :if (executable-find "mise")
   :hook (after-init . global-mise-mode)
   )
 

@@ -484,6 +484,7 @@ the fringe on every change, not every file save as otherwise.
   )
 
 (use-package mise
+  :if (executable-find "mise")
   :hook (after-init . global-mise-mode)
   )
 #+end_src
