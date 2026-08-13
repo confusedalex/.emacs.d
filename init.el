@@ -376,7 +376,7 @@
   :bind (:map flycheck-mode-map
               ("M-n" . flycheck-next-error)
               ("M-p" . flycheck-previous-error))
-  :hook ((after-init . global-flycheck-mode)
+  :hook ((prog-mode  . flycheck-mode)
          (after-init . global-flycheck-annotate-mode))
   :custom
   (flycheck-annotate-background t)
