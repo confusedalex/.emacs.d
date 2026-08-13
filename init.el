@@ -410,6 +410,22 @@
   (string-lines (shell-command-to-string "emulator -list-avds") t)
   )
 
+(use-package fish-mode
+  :defer t
+  :mode (
+         ("\\.fish\\'" . fish-mode))
+  )
+
+(use-package go-mode)
+
+(use-package kdl-mode
+  :mode ("\\.kdl\\'"))
+
+(use-package kotlin-ts-mode
+  :straight (:host gitlab :repo "bricka/emacs-kotlin-ts-mode")
+  :mode "\\.kt\\'"
+  )
+
 (use-package auctex
   :hook
   (LaTeX-mode . TeX-source-correlate-mode) ;; jump between source and preview
@@ -425,41 +441,25 @@
 (use-package nix-mode
   :mode "\\.nix$")
 
-(use-package kdl-mode
-  :mode ("\\.kdl\\'"))
-
-(use-package kotlin-ts-mode
-  :straight (:host gitlab :repo "bricka/emacs-kotlin-ts-mode")
-  :mode "\\.kt\\'"
-  )
-
-(use-package yaml-mode
-  :defer t
-  :mode (
-         ("\\.yml\\'" . yaml-mode))
-  )
-
-(use-package fish-mode
-  :defer t
-  :mode (
-         ("\\.fish\\'" . fish-mode))
-  )
-
-(use-package prisma-mode
-  :straight (prisma-mode :type git :host github :repo "pimeys/emacs-prisma-mode"))
-
-(use-package go-mode)
-
 (use-package pdf-tools
   :init
   (pdf-tools-install)
   (pdf-loader-install)
   )
 
+(use-package prisma-mode
+  :straight (prisma-mode :type git :host github :repo "pimeys/emacs-prisma-mode"))
+
 (use-package treesit-auto
   :unless os-macos
   :config
   (global-treesit-auto-mode))
+
+(use-package yaml-mode
+  :defer t
+  :mode (
+         ("\\.yml\\'" . yaml-mode))
+  )
 
 (use-package org
   :hook

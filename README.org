@@ -37,16 +37,16 @@ copying it.
   - [[#apheleia][Apheleia]]
 - [[#languages][Languages]]
   - [[#dartflutter][Dart/Flutter]]
-  - [[#latex][Latex]]
-  - [[#nix][Nix]]
+  - [[#fish][fish]]
+  - [[#golang][Golang]]
   - [[#kdl][Kdl]]
   - [[#kotlin][Kotlin]]
-  - [[#yaml][Yaml]]
-  - [[#fish][fish]]
-  - [[#prisma][Prisma]]
-  - [[#golang][Golang]]
+  - [[#latex][Latex]]
+  - [[#nix][Nix]]
   - [[#pdfs][PDFs]]
+  - [[#prisma][Prisma]]
   - [[#treesitter][Treesitter]]
+  - [[#yaml][Yaml]]
 - [[#org-mode][Org-Mode]]
 - [[#wordcloud][wordcloud]]
 - [[#elfeed][elfeed]]
@@ -649,6 +649,30 @@ start the emulator manually I've developed this little wrapper:
   (string-lines (shell-command-to-string "emulator -list-avds") t)
   )
 #+end_src
+** fish
+#+begin_src emacs-lisp
+(use-package fish-mode
+  :defer t
+  :mode (
+         ("\\.fish\\'" . fish-mode))
+  )
+#+end_src
+** Golang
+#+begin_src emacs-lisp
+(use-package go-mode)
+#+end_src
+** Kdl
+#+begin_src emacs-lisp
+(use-package kdl-mode
+  :mode ("\\.kdl\\'"))
+#+end_src
+** Kotlin
+#+begin_src emacs-lisp
+(use-package kotlin-ts-mode
+  :straight (:host gitlab :repo "bricka/emacs-kotlin-ts-mode")
+  :mode "\\.kt\\'"
+  )
+#+end_src
 ** Latex
 #+begin_src emacs-lisp
 (use-package auctex
@@ -668,43 +692,6 @@ start the emulator manually I've developed this little wrapper:
 (use-package nix-mode
   :mode "\\.nix$")
 #+end_src
-** Kdl
-#+begin_src emacs-lisp
-(use-package kdl-mode
-  :mode ("\\.kdl\\'"))
-#+end_src
-** Kotlin
-#+begin_src emacs-lisp
-(use-package kotlin-ts-mode
-  :straight (:host gitlab :repo "bricka/emacs-kotlin-ts-mode")
-  :mode "\\.kt\\'"
-  )
-#+end_src
-** Yaml
-#+begin_src emacs-lisp
-(use-package yaml-mode
-  :defer t
-  :mode (
-         ("\\.yml\\'" . yaml-mode))
-  )
-#+end_src
-** fish
-#+begin_src emacs-lisp
-(use-package fish-mode
-  :defer t
-  :mode (
-         ("\\.fish\\'" . fish-mode))
-  )
-#+end_src
-** Prisma
-#+begin_src emacs-lisp
-(use-package prisma-mode
-  :straight (prisma-mode :type git :host github :repo "pimeys/emacs-prisma-mode"))
-#+end_src
-** Golang
-#+begin_src emacs-lisp
-(use-package go-mode)
-#+end_src
 ** PDFs
 PDF-tools for viewing and editing PDFs in emacs.
 #+begin_src emacs-lisp
@@ -714,12 +701,25 @@ PDF-tools for viewing and editing PDFs in emacs.
   (pdf-loader-install)
   )
 #+end_src
+** Prisma
+#+begin_src emacs-lisp
+(use-package prisma-mode
+  :straight (prisma-mode :type git :host github :repo "pimeys/emacs-prisma-mode"))
+#+end_src
 ** Treesitter
 #+begin_src emacs-lisp
 (use-package treesit-auto
   :unless os-macos
   :config
   (global-treesit-auto-mode))
+#+end_src
+** Yaml
+#+begin_src emacs-lisp
+(use-package yaml-mode
+  :defer t
+  :mode (
+         ("\\.yml\\'" . yaml-mode))
+  )
 #+end_src
 * Org-Mode
 #+begin_src emacs-lisp
