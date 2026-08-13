@@ -766,6 +766,7 @@
   (elfeed-protocol-enable))
 
 (use-package mu4e
+  :unless is-work
   :straight nil
   :bind (("C-x m" . mu4e))
   :custom
@@ -810,9 +811,9 @@
     )
   )
 
-(when is-work
-  (use-package jira
-    :custom
-    (jira-base-url "https://dhl.atlassian.net")
-    (jira-token-is-personal-access-token nil)
-    (jira-api-version 3)))
+(use-package jira
+  :if is-work
+  :custom
+  (jira-base-url "https://dhl.atlassian.net")
+  (jira-token-is-personal-access-token nil)
+  (jira-api-version 3))

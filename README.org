@@ -1057,6 +1057,7 @@ To use elfeed with my rss reader, I need to use elfeed protocol.
 I want to read my emails via Emacs. For this I use mu4e:
 #+begin_src emacs-lisp
 (use-package mu4e
+  :unless is-work
   :straight nil
   :bind (("C-x m" . mu4e))
   :custom
@@ -1143,10 +1144,10 @@ this file is not public.
 #+end_src
 * jira
 #+begin_src emacs-lisp
-(when is-work
-  (use-package jira
-    :custom
-    (jira-base-url "https://dhl.atlassian.net")
-    (jira-token-is-personal-access-token nil)
-    (jira-api-version 3)))
+(use-package jira
+  :if is-work
+  :custom
+  (jira-base-url "https://dhl.atlassian.net")
+  (jira-token-is-personal-access-token nil)
+  (jira-api-version 3))
 #+end_src
