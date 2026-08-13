@@ -40,6 +40,7 @@ copying it.
   - [[#latex][Latex]]
   - [[#nix][Nix]]
   - [[#kdl][Kdl]]
+  - [[#kotlin][Kotlin]]
   - [[#yaml][Yaml]]
   - [[#fish][fish]]
   - [[#prisma][Prisma]]
@@ -671,6 +672,13 @@ start the emulator manually I've developed this little wrapper:
 #+begin_src emacs-lisp
 (use-package kdl-mode
   :mode ("\\.kdl\\'"))
+#+end_src
+** Kotlin
+#+begin_src emacs-lisp
+(use-package kotlin-ts-mode
+  :straight (:host gitlab :repo "bricka/emacs-kotlin-ts-mode")
+  :mode "\\.kt\\'"
+  )
 #+end_src
 ** Yaml
 #+begin_src emacs-lisp

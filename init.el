@@ -428,6 +428,11 @@
 (use-package kdl-mode
   :mode ("\\.kdl\\'"))
 
+(use-package kotlin-ts-mode
+  :straight (:host gitlab :repo "bricka/emacs-kotlin-ts-mode")
+  :mode "\\.kt\\'"
+  )
+
 (use-package yaml-mode
   :defer t
   :mode (
