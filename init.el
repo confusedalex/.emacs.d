@@ -513,7 +513,7 @@
    )
   (org-todo-keyword-faces
    '(("DELEGATED" . (:foreground "orange" :weight bold))
-     ("WAIT" . (:foreground "yellow" :weight bold))))
+     ("WAIT" . (:foreground "orange" :weight bold))))
 
   (org-log-done 'time) ; Add timestamp when a task is closed
   (org-log-into-drawer t) ;; Log changes into a drawer, so it wont clutter up my entry
