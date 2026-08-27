@@ -474,7 +474,9 @@
 (use-package treesit-auto
   :unless os-macos
   :config
-  (global-treesit-auto-mode))
+  (global-treesit-auto-mode)
+  :mode (("\\.tsx\\'" . tsx-ts-mode)
+         ("\\.ts\\'" . typescript-ts-mode)))
 
 (use-package yaml-mode
   :defer t

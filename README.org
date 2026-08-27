@@ -740,7 +740,9 @@ PDF-tools for viewing and editing PDFs in emacs.
 (use-package treesit-auto
   :unless os-macos
   :config
-  (global-treesit-auto-mode))
+  (global-treesit-auto-mode)
+  :mode (("\\.tsx\\'" . tsx-ts-mode)
+         ("\\.ts\\'" . typescript-ts-mode)))
 #+end_src
 ** Yaml
 #+begin_src emacs-lisp
