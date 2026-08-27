@@ -467,6 +467,31 @@ understand.
   (vundo-glyph-alist vundo-unicode-symbols))
 #+end_src
 ** git
+For merging conflicts emacs already bundles smerge-mode. But the
+default keybind is very cumbersome
+#+begin_src emacs-lisp
+(use-package smerge-mode
+  :bind
+  (:repeat-map smerge-repeat-map
+               ("[" . smerge-prev)
+               ("]" . smerge-next)
+               ("n" . smerge-next)
+               ("p" . smerge-prev)
+
+               ("RET" . smerge-keep-current)
+               ("a" . smerge-keep-all)
+               ("b" . smerge-keep-base)
+               ("l" . smerge-keep-lower)
+               ("u" . smerge-keep-upper)
+
+               ("E" . smerge-ediff)
+               ("r" . smerge-resolve)
+               ("R" . smerge-refine))
+  :init
+  (setq smerge-command-prefix (kbd "C-c v"))
+  )
+#+end_src
+
 Of course I use ~magit~ as my git interface.
 #+begin_src emacs-lisp
 (use-package magit

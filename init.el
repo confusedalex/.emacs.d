@@ -270,6 +270,27 @@
   :custom
   (vundo-glyph-alist vundo-unicode-symbols))
 
+(use-package smerge-mode
+  :bind
+  (:repeat-map smerge-repeat-map
+               ("[" . smerge-prev)
+               ("]" . smerge-next)
+               ("n" . smerge-next)
+               ("p" . smerge-prev)
+
+               ("RET" . smerge-keep-current)
+               ("a" . smerge-keep-all)
+               ("b" . smerge-keep-base)
+               ("l" . smerge-keep-lower)
+               ("u" . smerge-keep-upper)
+
+               ("E" . smerge-ediff)
+               ("r" . smerge-resolve)
+               ("R" . smerge-refine))
+  :init
+  (setq smerge-command-prefix (kbd "C-c v"))
+  )
+
 (use-package magit
   :bind ("C-c g" . 'magit-status)
   :config
