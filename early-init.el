@@ -17,3 +17,7 @@
 (straight-use-package 'org)
 (require 'org-macs)
 (require 'org)
+
+(setq gc-cons-threshold 10000000) ;; 10MB
+(setq read-process-output-max (* 1024 1024 4))
+(setq native-comp-jit-compilation t)
