@@ -50,6 +50,8 @@
   (help-window-keep-selected t)
   (shr-use-colors nil)
   (shr-use-fonts nil )
+  (save-interprogram-paste-before-kill t)
+  (kill-do-not-save-duplicates t) 
   (delete-by-moving-to-trash t)                   ;; Move deleted files to the trash instead of permanently deleting them.
   (delete-selection-mode 1)                       ;; Enable replacing selected text with typed text.
   (inhibit-startup-message t)                     ;; Disable the startup message when Emacs launches.
@@ -181,6 +183,20 @@
 (use-package dashboard
   :config
   (dashboard-setup-startup-hook))
+
+(use-package isearch
+	:ensure nil
+	:bind
+	(:map isearch-mode-map
+	      ("C-." . isearch-forward-thing-at-point))
+	:custom
+	(lazy-count-prefix-format "(%s/%s) ")
+	(isearch-lazy-count t)
+	(isearch-allow-motion t)
+	(isearch-allow-scroll t)
+	(isearch-repeat-on-direction-change t)
+	(isearch-wrap-pause 'no-ding)
+	) 
 
 (use-package which-key
   :straight nil

@@ -13,13 +13,14 @@ copying it.
 - [[#system-tweaks][System tweaks]]
   - [[#macos][macos]]
   - [[#work-notebook][Work notebook]]
-- [[#emacs][emacs]]
+- [[#emacs][Emacs]]
   - [[#theme][Theme]]
   - [[#dired][dired]]
   - [[#snake][Snake]]
   - [[#font][Font]]
 - [[#appearance][Appearance]]
 - [[#editor][Editor]]
+  - [[#isearch][isearch]]
   - [[#which-key][Which-key]]
   - [[#savehist][Savehist]]
   - [[#minibuffer][Minibuffer]]
@@ -79,6 +80,10 @@ This runs before normal startup and makes sure Org comes from straight.
 (setq gc-cons-threshold 10000000) ;; 10MB
 (setq read-process-output-max (* 1024 1024 4))
 (setq native-comp-jit-compilation t)
+
+;; Always assume left-to-right
+(setq-default bidi-paragraph-direction 'left-to-right)
+(setq bidi-inhibit-bpa t) 
 #+end_src
 * Package Management
 I use [[https://github.com/radian-software/straight.el][straight.el]] for package managment. Instead of the default
@@ -137,7 +142,7 @@ These are some macos specific settings, which change the meta-key do the command
   (add-to-list 'default-frame-alist '(undecorated . t))
   )
 #+end_src
-* emacs
+* Emacs
 #+begin_src emacs-lisp
 (use-package emacs
   :init
@@ -192,6 +197,12 @@ color things which just looks weird and unreadable.
 #+begin_src emacs-lisp :tangle no :noweb-ref emacs-custom
 (shr-use-colors nil)
 (shr-use-fonts nil )
+#+end_src
+
+Save existing clipboard content to kill ring.
+#+begin_src emacs-lisp :tangle no :noweb-ref emacs-custom
+(save-interprogram-paste-before-kill t)
+(kill-do-not-save-duplicates t) 
 #+end_src
 
 #+begin_src emacs-lisp :tangle no :noweb-ref emacs-custom
@@ -339,6 +350,22 @@ Nerd-icons for all stuff.
   (dashboard-setup-startup-hook))
 #+end_src
 * Editor
+** isearch
+#+begin_src emacs-lisp
+(use-package isearch
+	:ensure nil
+	:bind
+	(:map isearch-mode-map
+	      ("C-." . isearch-forward-thing-at-point))
+	:custom
+	(lazy-count-prefix-format "(%s/%s) ")
+	(isearch-lazy-count t)
+	(isearch-allow-motion t)
+	(isearch-allow-scroll t)
+	(isearch-repeat-on-direction-change t)
+	(isearch-wrap-pause 'no-ding)
+	) 
+#+end_src
 ** Which-key
 #+begin_src emacs-lisp
 (use-package which-key

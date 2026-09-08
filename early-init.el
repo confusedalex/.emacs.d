@@ -21,3 +21,7 @@
 (setq gc-cons-threshold 10000000) ;; 10MB
 (setq read-process-output-max (* 1024 1024 4))
 (setq native-comp-jit-compilation t)
+
+;; Always assume left-to-right
+(setq-default bidi-paragraph-direction 'left-to-right)
+(setq bidi-inhibit-bpa t) 
