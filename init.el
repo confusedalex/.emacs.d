@@ -185,7 +185,7 @@
   (dashboard-setup-startup-hook))
 
 (use-package isearch
-	:ensure nil
+	:straight nil
 	:bind
 	(:map isearch-mode-map
 	      ("C-." . isearch-forward-thing-at-point))
@@ -337,7 +337,6 @@
 (use-package no-littering)
 
 (use-package expreg
-  :ensure t
   :bind (("C-=" . expreg-expand)
          ("C--" . expreg-contract)
          (:repeat-map expreg-repeat-map

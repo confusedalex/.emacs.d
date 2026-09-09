@@ -353,7 +353,7 @@ Nerd-icons for all stuff.
 ** isearch
 #+begin_src emacs-lisp
 (use-package isearch
-	:ensure nil
+	:straight nil
 	:bind
 	(:map isearch-mode-map
 	      ("C-." . isearch-forward-thing-at-point))
@@ -567,7 +567,6 @@ Expand region allow for simple region increase and decrease with
 treesitter objects.
 #+begin_src emacs-lisp
 (use-package expreg
-  :ensure t
   :bind (("C-=" . expreg-expand)
          ("C--" . expreg-contract)
          (:repeat-map expreg-repeat-map
