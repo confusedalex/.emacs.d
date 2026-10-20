@@ -56,31 +56,15 @@ copying it.
 - [[#verb][verb]]
 
 * early-init
-This runs before normal startup and makes sure Org comes from straight.
 #+begin_src emacs-lisp :tangle early-init.el
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name
-        "straight/repos/straight.el/bootstrap.el"
-        (or (bound-and-true-p straight-base-dir)
-            user-emacs-directory)))
-      (bootstrap-version 7))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-(straight-use-package 'org)
-(require 'org-macs)
-(require 'org)
+;;; -*- lexical-binding: t; -*-
 
 (setq gc-cons-threshold 10000000) ;; 10MB
 (setq read-process-output-max (* 1024 1024 4))
 (setq native-comp-jit-compilation t)
+;; libgccjit maps Darwin 27 to macOS "18.0", which clang rejects.
+(when (eq system-type 'darwin)
+  (setq native-comp-driver-options '("-mmacosx-version-min=27.0")))
 
 ;; Always assume left-to-right
 (setq-default bidi-paragraph-direction 'left-to-right)
@@ -93,13 +77,12 @@ profiles. So all packages needed for development could go into a dev
 profile and don't pollute or rather slow down emacs on my phone. But
 currently I don't make use of both these features.
 #+begin_src emacs-lisp
-(straight-use-package 'use-package)
+;;; -*- lexical-binding: t; -*-
 
-(use-package straight
-  :custom
-  (straight-use-package-by-default t)
-  (straight-current-profile 'base)
-  )
+(setq use-package-always-ensure t)
+
+(with-eval-after-load 'package
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
 #+end_src
 * System tweaks
 Because I run emacs on linux and macos machines, I want to make some system specific tweaks.
@@ -241,7 +224,7 @@ Save existing clipboard content to kill ring.
 ** dired
 #+begin_src emacs-lisp
 (use-package dired
-  :straight nil
+  :ensure nil
   :init
   (require 'dired-x)
   :bind
@@ -282,7 +265,7 @@ Shows preview of files in dired buffer.
 ** Snake
 #+begin_src emacs-lisp
 (use-package snake
-  :straight nil
+  :ensure nil
   :bind
   (:map snake-mode-map
    ("w" . snake-move-up)
@@ -354,7 +337,7 @@ Nerd-icons for all stuff.
 ** isearch
 #+begin_src emacs-lisp
 (use-package isearch
-	:straight nil
+	:ensure nil
 	:bind
 	(:map isearch-mode-map
 	      ("C-." . isearch-forward-thing-at-point))
@@ -370,14 +353,14 @@ Nerd-icons for all stuff.
 ** Which-key
 #+begin_src emacs-lisp
 (use-package which-key
-  :straight nil
+  :ensure nil
   :hook
   (after-init . which-key-mode))
 #+end_src
 ** Savehist
 #+begin_src emacs-lisp
 (use-package savehist
-  :straight nil
+  :ensure nil
   :hook (after-init . savehist-mode))
 #+end_src
 ** Minibuffer
@@ -587,7 +570,7 @@ Tramp allow to connect with emacs to other servers.
 Tramp-rpc uses json-rpc which makes tramp way faster for me.
 #+begin_src emacs-lisp
 (use-package tramp-rpc
-  :straight (tramp-rpc :type git :host github :repo "ArthurHeymans/emacs-tramp-rpc")
+  :vc (:url "https://github.com/ArthurHeymans/emacs-tramp-rpc" :rev :newest :lisp-dir "lisp")
   :custom
   (tramp-rpc-deploy-git-build-policy 'release))
 #+end_src
@@ -639,7 +622,7 @@ Automatic opening of parens and other brackets, parens stuff.
   (lsp-dart-flutter-widget-guides nil))
 
 (use-package lsp-biome
-  :straight (lsp-biome :type git :host github :repo "cxa/lsp-biome")
+  :vc (:url "https://github.com/cxa/lsp-biome" :rev :newest)
 
   :preface
   (defun my/lsp-biome-active-hook ()
@@ -725,7 +708,7 @@ start the emulator manually I've developed this little wrapper:
 ** Kotlin
 #+begin_src emacs-lisp
 (use-package kotlin-ts-mode
-  :straight (:host gitlab :repo "bricka/emacs-kotlin-ts-mode")
+  :vc (:url "https://gitlab.com/bricka/emacs-kotlin-ts-mode" :rev :newest)
   :mode "\\.kt\\'"
   )
 #+end_src
@@ -760,7 +743,7 @@ PDF-tools for viewing and editing PDFs in emacs.
 ** Prisma
 #+begin_src emacs-lisp
 (use-package prisma-mode
-  :straight (prisma-mode :type git :host github :repo "pimeys/emacs-prisma-mode"))
+  :vc (:url "https://github.com/pimeys/emacs-prisma-mode" :rev :newest))
 #+end_src
 ** Treesitter
 #+begin_src emacs-lisp
@@ -1024,7 +1007,7 @@ PDF-tools for viewing and editing PDFs in emacs.
    )
   )
 
-(use-package ob-python :straight nil)
+(use-package ob-python :ensure nil)
 
 (use-package org
   :custom
@@ -1067,7 +1050,7 @@ to import ics files into my inbox.
 Allows for faster creation of source blocks.
 #+begin_src emacs-lisp
 (use-package org-tempo
-  :straight nil
+  :ensure nil
   :after org
   :config
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
@@ -1081,18 +1064,109 @@ Package for automatic creation of table of contents for org documents.
   :hook (org-mode . toc-org-mode))
 #+end_src
 
+
 Use ~htmlize~ for syntax-highlighting
 #+begin_src emacs-lisp
 (use-package htmlize
   :custom
   (org-html-htmlize-output-type 'inline-css))
 #+end_src
+
+#+begin_src emacs-lisp
+(use-package ox-html
+  :ensure nil
+  :after org
+  :config
+  (defvar my/weasyprint-stylesheet (expand-file-name "css/org.css" org-directory))
+  (defvar my/weasyprint-python "/opt/homebrew/opt/weasyprint/libexec/bin/python")
+  (defvar my/weasyprint-script (expand-file-name "css/weasyprint-pdf.py" org-directory))
+
+  ;; Author and date line under the title, for HTML and PDF export
+  (defun my/org-html-meta-line (output backend info)
+    (if (not (and (org-export-derived-backend-p backend 'html)
+                  (string-match "<h1 class=\"title\">\\(?:.\\|\n\\)*?</h1>" output)))
+        output
+      (let* ((end (match-end 0))
+             (parts (seq-filter
+                     #'org-string-nw-p
+                     (list (and (plist-get info :with-author)
+                                (org-export-data (plist-get info :author) info))
+                           (and (plist-get info :with-date)
+                                (org-export-data (org-export-get-date info) info))))))
+        (if parts
+            (concat (substring output 0 end)
+                    (format "\n<p class=\"meta\">%s</p>" (string-join parts " · "))
+                    (substring output end))
+          output))))
+  (add-hook 'org-export-filter-final-output-functions #'my/org-html-meta-line)
+
+  (defun my/weasyprint-css-string (s)
+    (concat "\"" (replace-regexp-in-string "[\\\"<]" (lambda (c) (format "\\%x " (aref c 0))) s nil t) "\""))
+
+  ;; #+PDF_HEADER: text replaces the title in the top left of the page header
+  (defun my/weasyprint-options (info _backend)
+    (let ((header (plist-get info :pdf-header)))
+      (plist-put info :html-head
+                 (concat
+                  (format "<link rel=\"stylesheet\" type=\"text/css\" href=\"file://%s\"/>"
+                          my/weasyprint-stylesheet)
+                  (when header
+                    (format "\n<style>@page { @top-left { content: %s } }</style>"
+                            (my/weasyprint-css-string header)))
+                  ;; #+OPTIONS: linenum:t, read by weasyprint-pdf.py
+                  (when (plist-get info :pdf-line-numbers)
+                    "\n<meta name=\"pdf-line-numbers\"/>"))))
+    ;; Footnotes go to the page bottom, so no footnote section at the end
+    (plist-put info :html-footnotes-section "")
+    (plist-put info :html-head-include-scripts nil))
+
+  ;; Footnote text inline, WeasyPrint moves it to the bottom of the page
+  (defun my/weasyprint-footnote-reference (ref _contents info)
+    (if (org-export-footnote-first-reference-p ref info)
+        (format "<span class=\"pdf-footnote\">%s</span>"
+                ;; ponytail: drops <p> tags, footnotes with lists or tables lose their layout
+                (replace-regexp-in-string
+                 "</?p\\(?: [^>]*\\)?>" ""
+                 (org-trim (org-export-data
+                            (org-export-get-footnote-definition ref info) info))))
+      (format "<sup>%d</sup>" (org-export-get-footnote-number ref info))))
+
+  (defun my/weasyprint-compile (html)
+    (let ((pdf (concat (string-remove-suffix ".weasyprint.html" html) ".pdf"))
+          (log (get-buffer-create "*WeasyPrint Output*")))
+      (with-current-buffer log (erase-buffer))
+      (if (zerop (call-process my/weasyprint-python nil log nil
+                               my/weasyprint-script html pdf))
+          (progn (delete-file html) pdf)
+        (display-buffer log)
+        (user-error "WeasyPrint failed, HTML kept: %s" html))))
+
+  (defun my/org-export-to-weasyprint-pdf (&optional async subtreep visible-only body-only ext-plist)
+    (interactive)
+    (org-export-to-file 'weasyprint
+        (org-export-output-file-name ".weasyprint.html" subtreep)
+      async subtreep visible-only body-only ext-plist
+      #'my/weasyprint-compile))
+
+  (org-export-define-derived-backend 'weasyprint 'html
+    :options-alist '((:pdf-header "PDF_HEADER" nil nil space)
+                     (:pdf-line-numbers nil "linenum" nil))
+    :translate-alist '((footnote-reference . my/weasyprint-footnote-reference))
+    :filters-alist '((:filter-options . my/weasyprint-options))
+    :menu-entry
+    '(?h 1
+         ((?w "As PDF file (WeasyPrint)" my/org-export-to-weasyprint-pdf)
+          (?W "As PDF file and open (WeasyPrint)"
+              (lambda (a s v b)
+                (if a (my/org-export-to-weasyprint-pdf t s v b)
+                  (org-open-file (my/org-export-to-weasyprint-pdf nil s v b)))))))))
+#+end_src
 * wordcloud
 Builts a worldcloud of the current buffer. Can be sortet
 alphabetically or by frequency.
 #+begin_src emacs-lisp
 (use-package wordcloud
-  :straight (wordcloud :type git :host github :repo "davep/wordcloud.el"))
+  :vc (:url "https://github.com/davep/wordcloud.el" :rev :newest))
 #+end_src
 * elfeed
 For reading rss feeds I use elfeed. I set "g" to update my feeds when
@@ -1115,15 +1189,31 @@ To use elfeed with my rss reader, I need to use elfeed protocol.
   (elfeed-feeds '(("fever+https://alex@rss.mytbu.de"
                             :api-url "https://rss.mytbu.de/fever/"
                             :use-authinfo t)))
+  (elfeed-protocol-enabled-protocols '(fever))
   :config
-  (elfeed-protocol-enable))
+  (elfeed-protocol-enable)
+  (remove-hook 'elfeed-untag-hook #'elfeed-protocol-on-tag-remove))
+
+  (defun my/elfeed-protocol-pull-read-from-fever (&rest _)
+    "Mark every local entry read, then re-fetch unread state from Fever."
+    (interactive)
+    (let (entries)
+      (elfeed-db-visit (entry)
+        (when (elfeed-tagged-p 'unread entry)
+          (push entry entries)))
+      (when entries
+        (elfeed-untag entries 'unread)))
+    (elfeed-search-update :force)
+    (elfeed-protocol-fever-reinit "https://alex@rss.mytbu.de"))
+
+(advice-add 'elfeed-update :after 'my/elfeed-protocol-pull-read-from-fever)
 #+end_src
 * Email
 I want to read my emails via Emacs. For this I use mu4e:
 #+begin_src emacs-lisp
 (use-package mu4e
   :unless is-work
-  :straight nil
+  :ensure nil
   :bind (("C-x m" . mu4e))
   :custom
   <<mu4e-custom>>
@@ -1191,6 +1281,30 @@ this file is not public.
 
 #+begin_src emacs-lisp :tangle no :noweb-ref mu4e-custom
 (mml-secure-openpgp-encrypt-to-self t)
+#+end_src
+
+[[https://www.bounga.org/emacs/2026/06/30/sign-always-encrypt-when-possible-in-mu4e/]]
+#+begin_src emacs-lisp
+(defun my/message-recipients ()
+  "Return the email addresses in the To, Cc and Bcc headers."
+  (mapcan (lambda (header)
+            (when-let* ((value (message-fetch-field header)))
+              (delq nil (mapcar #'cadr (mail-extract-address-components value t)))))
+          '("To" "Cc" "Bcc")))
+
+(defun my/message-encrypt-or-confirm ()
+  "Encrypt if every recipient has a public key, otherwise ask before sending."
+  (require 'epa)
+  (let* ((context (epg-make-context epa-protocol))
+         (missing (seq-remove (lambda (addr) (epg-list-keys context addr))
+                              (my/message-recipients))))
+    (if (null missing)
+        (mml-secure-message-sign-encrypt)
+      (unless (yes-or-no-p (format "No key for %s. Send UNENCRYPTED? "
+                                   (string-join missing ", ")))
+        (user-error "Sending aborted")))))
+
+(add-hook 'message-send-hook #'my/message-encrypt-or-confirm)
 #+end_src
 
 #+begin_src emacs-lisp :tangle no :noweb-ref mu4e-config

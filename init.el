@@ -1,10 +1,9 @@
-(straight-use-package 'use-package)
+;;; -*- lexical-binding: t; -*-
 
-(use-package straight
-  :custom
-  (straight-use-package-by-default t)
-  (straight-current-profile 'base)
-  )
+(setq use-package-always-ensure t)
+
+(with-eval-after-load 'package
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
 
 (defvar os-linux (string-equal system-type "gnu/linux") "Running on Linux.")
 (defvar os-macos (string-equal system-type "darwin") "Running on macOS.")
@@ -75,14 +74,14 @@
   
   (indent-tabs-mode nil)
   (tab-width 2)
-    (enable-recursive-minibuffers t)
-    ;; Hide commands in M-x which do not work in the current mode.  Vertico
-    ;; commands are hidden in normal buffers. This setting is useful beyond
-    ;; Vertico.
-    (read-extended-command-predicate #'command-completion-default-include-p)
-    ;; Do not allow the cursor in the minibuffer prompt
-    (minibuffer-prompt-properties
-     '(read-only t cursor-intangible t face minibuffer-prompt))
+  (enable-recursive-minibuffers t)
+  ;; Hide commands in M-x which do not work in the current mode.  Vertico
+  ;; commands are hidden in normal buffers. This setting is useful beyond
+  ;; Vertico.
+  (read-extended-command-predicate #'command-completion-default-include-p)
+  ;; Do not allow the cursor in the minibuffer prompt
+  (minibuffer-prompt-properties
+   '(read-only t cursor-intangible t face minibuffer-prompt))
   :bind
   ("C-+" . text-scale-increase)
   ("C-_" . text-scale-decrease)
@@ -100,18 +99,18 @@
   )
 
 (use-package dired
-  :straight nil
+  :ensure nil
   :init
   (require 'dired-x)
   :bind
   (:map dired-mode-map
-	("M-." . dired-omit-mode)) ;; toggle using Command-Shift-.  same as macOS Finder
+	      ("M-." . dired-omit-mode)) ;; toggle using Command-Shift-.  same as macOS Finder
   :hook
   (dired-mode . dired-omit-mode)
   (dired-mode . dired-hide-details-mode)
   :config
   (setq dired-omit-files
-      (concat dired-omit-files "\\|^\\..+$"))
+        (concat dired-omit-files "\\|^\\..+$"))
   :custom
   (dired-dwim-target t)
   (dired-recursive-copies 'always)
@@ -132,14 +131,14 @@
 (use-package filetags)
 
 (use-package snake
-  :straight nil
+  :ensure nil
   :bind
   (:map snake-mode-map
-   ("w" . snake-move-up)
-   ("a" . snake-move-left)
-   ("s" . snake-move-down)
-   ("d" . snake-move-right)
-   )
+        ("w" . snake-move-up)
+        ("a" . snake-move-left)
+        ("s" . snake-move-down)
+        ("d" . snake-move-right)
+        )
   )
 
 (set-face-attribute 'default nil :family "AporeticSerifMonoNerdFont" :height my/font-height)
@@ -148,7 +147,7 @@
 (add-to-list 'display-buffer-alist                                                      
              '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"                               
                (display-buffer-no-window)                                               
-               (allow-no-window . t)))                                                  
+               (allow-no-window . t)))
 
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))
@@ -185,7 +184,7 @@
   (dashboard-setup-startup-hook))
 
 (use-package isearch
-	:straight nil
+	:ensure nil
 	:bind
 	(:map isearch-mode-map
 	      ("C-." . isearch-forward-thing-at-point))
@@ -196,15 +195,15 @@
 	(isearch-allow-scroll t)
 	(isearch-repeat-on-direction-change t)
 	(isearch-wrap-pause 'no-ding)
-	) 
+	)
 
 (use-package which-key
-  :straight nil
+  :ensure nil
   :hook
   (after-init . which-key-mode))
 
 (use-package savehist
-  :straight nil
+  :ensure nil
   :hook (after-init . savehist-mode))
 
 (use-package vertico
@@ -280,7 +279,7 @@
   (completion-ignore-case t)
 
   (text-mode-ispell-word-completion nil) ;; Disable Ispell completion
-)  
+  )
 
 (use-package vundo
   :custom
@@ -351,14 +350,14 @@
   (remote-file-name-inhibit-auto-save-visited t))
 
 (use-package tramp-rpc
-  :straight (tramp-rpc :type git :host github :repo "ArthurHeymans/emacs-tramp-rpc")
+  :vc (:url "https://github.com/ArthurHeymans/emacs-tramp-rpc" :rev :newest :lisp-dir "lisp")
   :custom
   (tramp-rpc-deploy-git-build-policy 'release))
 
 (use-package smartparens
   :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
   :config
-  (require 'smartparens-config)) 
+  (require 'smartparens-config))
 
 (use-package lsp-mode
   :commands lsp lsp-deferred
@@ -398,7 +397,7 @@
   (lsp-dart-flutter-widget-guides nil))
 
 (use-package lsp-biome
-  :straight (lsp-biome :type git :host github :repo "cxa/lsp-biome")
+  :vc (:url "https://github.com/cxa/lsp-biome" :rev :newest)
 
   :preface
   (defun my/lsp-biome-active-hook ()
@@ -434,7 +433,7 @@
               ("C-M-x" . #'flutter-run-or-hot-reload))
   )
 
- (defun flutter-launch-emulator (emulator-id)
+(defun flutter-launch-emulator (emulator-id)
   "Launches the emulator with the given ID."
   (interactive
    (list (completing-read "Emulator: " (flutter--emulators))))
@@ -458,7 +457,7 @@
   :mode ("\\.kdl\\'"))
 
 (use-package kotlin-ts-mode
-  :straight (:host gitlab :repo "bricka/emacs-kotlin-ts-mode")
+  :vc (:url "https://gitlab.com/bricka/emacs-kotlin-ts-mode" :rev :newest)
   :mode "\\.kt\\'"
   )
 
@@ -484,7 +483,7 @@
   )
 
 (use-package prisma-mode
-  :straight (prisma-mode :type git :host github :repo "pimeys/emacs-prisma-mode"))
+  :vc (:url "https://github.com/pimeys/emacs-prisma-mode" :rev :newest))
 
 (use-package treesit-auto
   :unless os-macos
@@ -727,8 +726,8 @@
 			                       :todo "WAIT")
                       (:name "Inbox"
                              :and (
-                             :todo "TODO"
-                             :tag "inbox"))
+                                   :todo "TODO"
+                                   :tag "inbox"))
                       (:name "Tasks"
                              :todo "TODO")
                       (:name "Someday"
@@ -742,7 +741,7 @@
    )
   )
 
-(use-package ob-python :straight nil)
+(use-package ob-python :ensure nil)
 
 (use-package org
   :custom
@@ -773,7 +772,7 @@
   )
 
 (use-package org-tempo
-  :straight nil
+  :ensure nil
   :after org
   :config
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
@@ -783,12 +782,123 @@
   :commands toc-org-enable
   :hook (org-mode . toc-org-mode))
 
+
 (use-package htmlize
   :custom
   (org-html-htmlize-output-type 'inline-css))
 
+(use-package ox-html
+  :ensure nil
+  :after org
+  :config
+  (defvar my/weasyprint-stylesheet (expand-file-name "css/org.css" org-directory))
+  (defvar my/weasyprint-python "/opt/homebrew/opt/weasyprint/libexec/bin/python")
+  (defvar my/weasyprint-script (expand-file-name "css/weasyprint-pdf.py" org-directory))
+
+  ;; Author and date line under the title, for HTML and PDF export
+  (defun my/org-html-meta-line (output backend info)
+    (if (not (and (org-export-derived-backend-p backend 'html)
+                  (string-match "<h1 class=\"title\">\\(?:.\\|\n\\)*?</h1>" output)))
+        output
+      (let* ((end (match-end 0))
+             (parts (seq-filter
+                     #'org-string-nw-p
+                     (list (and (plist-get info :with-author)
+                                (org-export-data (plist-get info :author) info))
+                           (and (plist-get info :with-date)
+                                (org-export-data (org-export-get-date info) info))))))
+        (if parts
+            (concat (substring output 0 end)
+                    (format "\n<p class=\"meta\">%s</p>" (string-join parts " · "))
+                    (substring output end))
+          output))))
+  (add-hook 'org-export-filter-final-output-functions #'my/org-html-meta-line)
+
+  (defun my/weasyprint-css-string (s)
+    (concat "\"" (replace-regexp-in-string "[\\\"<]" (lambda (c) (format "\\%x " (aref c 0))) s nil t) "\""))
+
+  ;; #+PDF_HEADER: text replaces the title in the top left of the page header
+  (defun my/weasyprint-options (info _backend)
+    (let ((header (plist-get info :pdf-header)))
+      (plist-put info :html-head
+                 (concat
+                  (format "<link rel=\"stylesheet\" type=\"text/css\" href=\"file://%s\"/>"
+                          my/weasyprint-stylesheet)
+                  (when header
+                    (format "\n<style>@page { @top-left { content: %s } }</style>"
+                            (my/weasyprint-css-string header)))
+                  ;; #+OPTIONS: linenum:t, read by weasyprint-pdf.py
+                  (when (plist-get info :pdf-line-numbers)
+                    "\n<meta name=\"pdf-line-numbers\"/>"))))
+    ;; Footnotes go to the page bottom, so no footnote section at the end
+    (plist-put info :html-footnotes-section "")
+    (plist-put info :html-head-include-scripts nil))
+
+  ;; Footnote text inline, WeasyPrint moves it to the bottom of the page
+  (defun my/weasyprint-footnote-reference (ref _contents info)
+    (if (org-export-footnote-first-reference-p ref info)
+        (format "<span class=\"pdf-footnote\">%s</span>"
+                ;; ponytail: drops <p> tags, footnotes with lists or tables lose their layout
+                (replace-regexp-in-string
+                 "</?p\\(?: [^>]*\\)?>" ""
+                 (org-trim (org-export-data
+                            (org-export-get-footnote-definition ref info) info))))
+      (format "<sup>%d</sup>" (org-export-get-footnote-number ref info))))
+
+  (defun my/weasyprint-compile (html)
+    (let ((pdf (concat (string-remove-suffix ".weasyprint.html" html) ".pdf"))
+          (log (get-buffer-create "*WeasyPrint Output*")))
+      (with-current-buffer log (erase-buffer))
+      (if (zerop (call-process my/weasyprint-python nil log nil
+                               my/weasyprint-script html pdf))
+          (progn (delete-file html) pdf)
+        (display-buffer log)
+        (user-error "WeasyPrint failed, HTML kept: %s" html))))
+
+  (defun my/org-export-to-weasyprint-pdf (&optional async subtreep visible-only body-only ext-plist)
+    (interactive)
+    (org-export-to-file 'weasyprint
+        (org-export-output-file-name ".weasyprint.html" subtreep)
+      async subtreep visible-only body-only ext-plist
+      #'my/weasyprint-compile))
+
+  (org-export-define-derived-backend 'weasyprint 'html
+    :options-alist '((:pdf-header "PDF_HEADER" nil nil space)
+                     (:pdf-line-numbers nil "linenum" nil))
+    :translate-alist '((footnote-reference . my/weasyprint-footnote-reference))
+    :filters-alist '((:filter-options . my/weasyprint-options))
+    :menu-entry
+    '(?h 1
+         ((?w "As PDF file (WeasyPrint)" my/org-export-to-weasyprint-pdf)
+          (?W "As PDF file and open (WeasyPrint)"
+              (lambda (a s v b)
+                (if a (my/org-export-to-weasyprint-pdf t s v b)
+                  (org-open-file (my/org-export-to-weasyprint-pdf nil s v b)))))))))
+
+(defun my/org-next-broken-list-line ()
+  "Jump to the next line that splits a plain list by mistake.
+This is a line right after a list item that is indented less than the
+item text, for example a refilled line at column 0.  Org exports such
+a line as a separate paragraph and starts a new list after it."
+  (interactive)
+  (let* ((start (point))
+         (hits (org-element-map (org-element-parse-buffer) 'plain-list
+                 (lambda (list)
+                   (let ((end (org-element-property :end list)))
+                     (and (> end start)
+                          (zerop (org-element-property :post-blank list))
+                          (save-excursion
+                            (goto-char end)
+                            (and (not (eobp))
+                                 (eq (org-element-type (org-element-at-point))
+                                     'paragraph)))
+                          end))))))
+    (if hits
+        (goto-char (apply #'min hits))
+      (message "No broken list lines after point"))))
+
 (use-package wordcloud
-  :straight (wordcloud :type git :host github :repo "davep/wordcloud.el"))
+  :vc (:url "https://github.com/davep/wordcloud.el" :rev :newest))
 
 (use-package elfeed
   :bind (("C-x e" . elfeed)
@@ -802,14 +912,30 @@
   (elfeed-protocol-fever-update-unread-only nil)
   (elfeed-protocol-fever-fetch-category-as-tag t)
   (elfeed-feeds '(("fever+https://alex@rss.mytbu.de"
-                            :api-url "https://rss.mytbu.de/fever/"
-                            :use-authinfo t)))
+                   :api-url "https://rss.mytbu.de/fever/"
+                   :use-authinfo t)))
+  (elfeed-protocol-enabled-protocols '(fever))
   :config
-  (elfeed-protocol-enable))
+  (elfeed-protocol-enable)
+  (remove-hook 'elfeed-untag-hook #'elfeed-protocol-on-tag-remove))
+
+(defun my/elfeed-protocol-pull-read-from-fever (&rest _)
+  "Mark every local entry read, then re-fetch unread state from Fever."
+  (interactive)
+  (let (entries)
+    (elfeed-db-visit (entry)
+      (when (elfeed-tagged-p 'unread entry)
+        (push entry entries)))
+    (when entries
+      (elfeed-untag entries 'unread)))
+  (elfeed-search-update :force)
+  (elfeed-protocol-fever-reinit "https://alex@rss.mytbu.de"))
+
+(advice-add 'elfeed-update :after 'my/elfeed-protocol-pull-read-from-fever)
 
 (use-package mu4e
   :unless is-work
-  :straight nil
+  :ensure nil
   :bind (("C-x m" . mu4e))
   :custom
   (user-mail-address "alex@loll.be")
@@ -843,15 +969,36 @@
     "A quick and dirty function to unsubscribe from mails"
     (interactive)
     (browse-url
-             (concat
-              (cdr
-               (butlast
-                (string-to-list
-                 (mu4e-fetch-field (mu4e-message-at-point) "List-Unsubscribe"))))
-              ))
+     (concat
+      (cdr
+       (butlast
+        (string-to-list
+         (mu4e-fetch-field (mu4e-message-at-point) "List-Unsubscribe"))))
+      ))
     (mu4e-headers-mark-for-delete)
     )
   )
+
+(defun my/message-recipients ()
+  "Return the email addresses in the To, Cc and Bcc headers."
+  (mapcan (lambda (header)
+            (when-let* ((value (message-fetch-field header)))
+              (delq nil (mapcar #'cadr (mail-extract-address-components value t)))))
+          '("To" "Cc" "Bcc")))
+
+(defun my/message-encrypt-or-confirm ()
+  "Encrypt if every recipient has a public key, otherwise ask before sending."
+  (require 'epa)
+  (let* ((context (epg-make-context epa-protocol))
+         (missing (seq-remove (lambda (addr) (epg-list-keys context addr))
+                              (my/message-recipients))))
+    (if (null missing)
+        (mml-secure-message-sign-encrypt)
+      (unless (yes-or-no-p (format "No key for %s. Send UNENCRYPTED? "
+                                   (string-join missing ", ")))
+        (user-error "Sending aborted")))))
+
+(add-hook 'message-send-hook #'my/message-encrypt-or-confirm)
 
 (use-package jira
   :if is-work
