@@ -877,39 +877,6 @@
 (use-package wordcloud
   :vc (:url "https://github.com/davep/wordcloud.el" :rev :newest))
 
-(use-package elfeed
-  :bind (("C-x e" . elfeed)
-         :map elfeed-search-mode-map
-         ("g" . 'elfeed-update)
-         )
-  :hook (elfeed-show-mode . olivetti-mode))
-
-(use-package elfeed-protocol
-  :custom
-  (elfeed-protocol-fever-update-unread-only nil)
-  (elfeed-protocol-fever-fetch-category-as-tag t)
-  (elfeed-feeds '(("fever+https://alex@rss.mytbu.de"
-                            :api-url "https://rss.mytbu.de/fever/"
-                            :use-authinfo t)))
-  (elfeed-protocol-enabled-protocols '(fever))
-  :config
-  (elfeed-protocol-enable)
-  (remove-hook 'elfeed-untag-hook #'elfeed-protocol-on-tag-remove))
-
-  (defun my/elfeed-protocol-pull-read-from-fever (&rest _)
-    "Mark every local entry read, then re-fetch unread state from Fever."
-    (interactive)
-    (let (entries)
-      (elfeed-db-visit (entry)
-        (when (elfeed-tagged-p 'unread entry)
-          (push entry entries)))
-      (when entries
-        (elfeed-untag entries 'unread)))
-    (elfeed-search-update :force)
-    (elfeed-protocol-fever-reinit "https://alex@rss.mytbu.de"))
-
-(advice-add 'elfeed-update :after 'my/elfeed-protocol-pull-read-from-fever)
-
 (use-package mu4e
   :unless is-work
   :ensure nil
