@@ -74,14 +74,14 @@
   
   (indent-tabs-mode nil)
   (tab-width 2)
-  (enable-recursive-minibuffers t)
-  ;; Hide commands in M-x which do not work in the current mode.  Vertico
-  ;; commands are hidden in normal buffers. This setting is useful beyond
-  ;; Vertico.
-  (read-extended-command-predicate #'command-completion-default-include-p)
-  ;; Do not allow the cursor in the minibuffer prompt
-  (minibuffer-prompt-properties
-   '(read-only t cursor-intangible t face minibuffer-prompt))
+    (enable-recursive-minibuffers t)
+    ;; Hide commands in M-x which do not work in the current mode.  Vertico
+    ;; commands are hidden in normal buffers. This setting is useful beyond
+    ;; Vertico.
+    (read-extended-command-predicate #'command-completion-default-include-p)
+    ;; Do not allow the cursor in the minibuffer prompt
+    (minibuffer-prompt-properties
+     '(read-only t cursor-intangible t face minibuffer-prompt))
   :bind
   ("C-+" . text-scale-increase)
   ("C-_" . text-scale-decrease)
@@ -104,13 +104,13 @@
   (require 'dired-x)
   :bind
   (:map dired-mode-map
-	      ("M-." . dired-omit-mode)) ;; toggle using Command-Shift-.  same as macOS Finder
+	("M-." . dired-omit-mode)) ;; toggle using Command-Shift-.  same as macOS Finder
   :hook
   (dired-mode . dired-omit-mode)
   (dired-mode . dired-hide-details-mode)
   :config
   (setq dired-omit-files
-        (concat dired-omit-files "\\|^\\..+$"))
+      (concat dired-omit-files "\\|^\\..+$"))
   :custom
   (dired-dwim-target t)
   (dired-recursive-copies 'always)
@@ -134,11 +134,11 @@
   :ensure nil
   :bind
   (:map snake-mode-map
-        ("w" . snake-move-up)
-        ("a" . snake-move-left)
-        ("s" . snake-move-down)
-        ("d" . snake-move-right)
-        )
+   ("w" . snake-move-up)
+   ("a" . snake-move-left)
+   ("s" . snake-move-down)
+   ("d" . snake-move-right)
+   )
   )
 
 (set-face-attribute 'default nil :family "AporeticSerifMonoNerdFont" :height my/font-height)
@@ -279,7 +279,7 @@
   (completion-ignore-case t)
 
   (text-mode-ispell-word-completion nil) ;; Disable Ispell completion
-  )
+)
 
 (use-package vundo
   :custom
@@ -433,7 +433,7 @@
               ("C-M-x" . #'flutter-run-or-hot-reload))
   )
 
-(defun flutter-launch-emulator (emulator-id)
+ (defun flutter-launch-emulator (emulator-id)
   "Launches the emulator with the given ID."
   (interactive
    (list (completing-read "Emulator: " (flutter--emulators))))
@@ -726,8 +726,8 @@
 			                       :todo "WAIT")
                       (:name "Inbox"
                              :and (
-                                   :todo "TODO"
-                                   :tag "inbox"))
+                             :todo "TODO"
+                             :tag "inbox"))
                       (:name "Tasks"
                              :todo "TODO")
                       (:name "Someday"
@@ -781,7 +781,6 @@
 (use-package toc-org
   :commands toc-org-enable
   :hook (org-mode . toc-org-mode))
-
 
 (use-package htmlize
   :custom
@@ -875,28 +874,6 @@
                 (if a (my/org-export-to-weasyprint-pdf t s v b)
                   (org-open-file (my/org-export-to-weasyprint-pdf nil s v b)))))))))
 
-(defun my/org-next-broken-list-line ()
-  "Jump to the next line that splits a plain list by mistake.
-This is a line right after a list item that is indented less than the
-item text, for example a refilled line at column 0.  Org exports such
-a line as a separate paragraph and starts a new list after it."
-  (interactive)
-  (let* ((start (point))
-         (hits (org-element-map (org-element-parse-buffer) 'plain-list
-                 (lambda (list)
-                   (let ((end (org-element-property :end list)))
-                     (and (> end start)
-                          (zerop (org-element-property :post-blank list))
-                          (save-excursion
-                            (goto-char end)
-                            (and (not (eobp))
-                                 (eq (org-element-type (org-element-at-point))
-                                     'paragraph)))
-                          end))))))
-    (if hits
-        (goto-char (apply #'min hits))
-      (message "No broken list lines after point"))))
-
 (use-package wordcloud
   :vc (:url "https://github.com/davep/wordcloud.el" :rev :newest))
 
@@ -912,24 +889,24 @@ a line as a separate paragraph and starts a new list after it."
   (elfeed-protocol-fever-update-unread-only nil)
   (elfeed-protocol-fever-fetch-category-as-tag t)
   (elfeed-feeds '(("fever+https://alex@rss.mytbu.de"
-                   :api-url "https://rss.mytbu.de/fever/"
-                   :use-authinfo t)))
+                            :api-url "https://rss.mytbu.de/fever/"
+                            :use-authinfo t)))
   (elfeed-protocol-enabled-protocols '(fever))
   :config
   (elfeed-protocol-enable)
   (remove-hook 'elfeed-untag-hook #'elfeed-protocol-on-tag-remove))
 
-(defun my/elfeed-protocol-pull-read-from-fever (&rest _)
-  "Mark every local entry read, then re-fetch unread state from Fever."
-  (interactive)
-  (let (entries)
-    (elfeed-db-visit (entry)
-      (when (elfeed-tagged-p 'unread entry)
-        (push entry entries)))
-    (when entries
-      (elfeed-untag entries 'unread)))
-  (elfeed-search-update :force)
-  (elfeed-protocol-fever-reinit "https://alex@rss.mytbu.de"))
+  (defun my/elfeed-protocol-pull-read-from-fever (&rest _)
+    "Mark every local entry read, then re-fetch unread state from Fever."
+    (interactive)
+    (let (entries)
+      (elfeed-db-visit (entry)
+        (when (elfeed-tagged-p 'unread entry)
+          (push entry entries)))
+      (when entries
+        (elfeed-untag entries 'unread)))
+    (elfeed-search-update :force)
+    (elfeed-protocol-fever-reinit "https://alex@rss.mytbu.de"))
 
 (advice-add 'elfeed-update :after 'my/elfeed-protocol-pull-read-from-fever)
 
@@ -969,12 +946,12 @@ a line as a separate paragraph and starts a new list after it."
     "A quick and dirty function to unsubscribe from mails"
     (interactive)
     (browse-url
-     (concat
-      (cdr
-       (butlast
-        (string-to-list
-         (mu4e-fetch-field (mu4e-message-at-point) "List-Unsubscribe"))))
-      ))
+             (concat
+              (cdr
+               (butlast
+                (string-to-list
+                 (mu4e-fetch-field (mu4e-message-at-point) "List-Unsubscribe"))))
+              ))
     (mu4e-headers-mark-for-delete)
     )
   )
