@@ -1080,6 +1080,13 @@ Package for automatic creation of table of contents for org documents.
   :commands toc-org-enable
   :hook (org-mode . toc-org-mode))
 #+end_src
+
+Use ~htmlize~ for syntax-highlighting
+#+begin_src emacs-lisp
+(use-package htmlize
+  :custom
+  (org-html-htmlize-output-type 'inline-css))
+#+end_src
 * wordcloud
 Builts a worldcloud of the current buffer. Can be sortet
 alphabetically or by frequency.

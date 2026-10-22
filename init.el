@@ -783,6 +783,10 @@
   :commands toc-org-enable
   :hook (org-mode . toc-org-mode))
 
+(use-package htmlize
+  :custom
+  (org-html-htmlize-output-type 'inline-css))
+
 (use-package wordcloud
   :straight (wordcloud :type git :host github :repo "davep/wordcloud.el"))
 
