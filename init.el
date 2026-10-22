@@ -855,3 +855,10 @@
   (jira-base-url "https://dhl.atlassian.net")
   (jira-token-is-personal-access-token nil)
   (jira-api-version 3))
+
+(use-package verb
+  :config
+  (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
+  :custom
+  (network-stream-use-client-certificates t)
+  )

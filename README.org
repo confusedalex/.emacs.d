@@ -53,6 +53,7 @@ copying it.
 - [[#elfeed][elfeed]]
 - [[#email][Email]]
 - [[#jira][jira]]
+- [[#verb][verb]]
 
 * early-init
 This runs before normal startup and makes sure Org comes from straight.
@@ -1207,4 +1208,13 @@ this file is not public.
   (jira-base-url "https://dhl.atlassian.net")
   (jira-token-is-personal-access-token nil)
   (jira-api-version 3))
+#+end_src
+* verb
+#+begin_src emacs-lisp
+(use-package verb
+  :config
+  (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
+  :custom
+  (network-stream-use-client-certificates t)
+  )
 #+end_src
