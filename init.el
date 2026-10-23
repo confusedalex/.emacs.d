@@ -51,6 +51,7 @@
   (shr-use-fonts nil )
   (save-interprogram-paste-before-kill t)
   (kill-do-not-save-duplicates t) 
+  (show-paren-delay 0.05)
   (delete-by-moving-to-trash t)                   ;; Move deleted files to the trash instead of permanently deleting them.
   (delete-selection-mode 1)                       ;; Enable replacing selected text with typed text.
   (inhibit-startup-message t)                     ;; Disable the startup message when Emacs launches.
@@ -237,7 +238,12 @@
 
   ;; Use Consult for xref locations with a preview feature.
   (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref))
+        xref-show-definitions-function #'consult-xref)
+  ;; reduce some delays so it feels faster
+  (setq consult-async-input-debounce 0.05)
+  (setq consult-async-input-throttle 0.1)
+  (setq consult-async-refresh-delay 0.05)
+  )
 
 (use-package disproject
   :bind (("C-c p" . disproject-dispatch)))

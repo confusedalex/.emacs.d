@@ -188,6 +188,11 @@ Save existing clipboard content to kill ring.
 (kill-do-not-save-duplicates t) 
 #+end_src
 
+Reduce the delay for matching parens to highlight.
+#+begin_src emacs-lisp :tangle no :noweb-ref emacs-custom
+(show-paren-delay 0.05)
+#+end_src
+
 #+begin_src emacs-lisp :tangle no :noweb-ref emacs-custom
 (delete-by-moving-to-trash t)                   ;; Move deleted files to the trash instead of permanently deleting them.
 (delete-selection-mode 1)                       ;; Enable replacing selected text with typed text.
@@ -413,7 +418,12 @@ Marginalia adds annotations like keybinds to the minibuffer results
 
   ;; Use Consult for xref locations with a preview feature.
   (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref))
+        xref-show-definitions-function #'consult-xref)
+  ;; reduce some delays so it feels faster
+  (setq consult-async-input-debounce 0.05)
+  (setq consult-async-input-throttle 0.1)
+  (setq consult-async-refresh-delay 0.05)
+  )
 #+end_src
 
 #+begin_src emacs-lisp
