@@ -474,7 +474,13 @@
 (use-package reftex)
 
 (use-package nix-mode
-  :mode "\\.nix$")
+  :mode "\\.nix$"
+  :hook (nix-mode . lsp-deferred))
+
+(use-package lsp-nix
+  :after (lsp-mode)
+  :custom
+  (lsp-nix-nil-formatter ["nixfmt"]))
 
 (use-package pdf-tools
   :init

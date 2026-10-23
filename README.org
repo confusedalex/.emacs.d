@@ -728,7 +728,15 @@ start the emulator manually I've developed this little wrapper:
 ** Nix
 #+begin_src emacs-lisp
 (use-package nix-mode
-  :mode "\\.nix$")
+  :mode "\\.nix$"
+  :hook (nix-mode . lsp-deferred))
+#+end_src
+
+#+begin_src emacs-lisp
+(use-package lsp-nix
+  :after (lsp-mode)
+  :custom
+  (lsp-nix-nil-formatter ["nixfmt"]))
 #+end_src
 ** PDFs
 PDF-tools for viewing and editing PDFs in emacs.
