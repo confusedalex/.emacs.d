@@ -887,6 +887,8 @@
   :unless is-work
   :ensure nil
   :bind (("C-x m" . mu4e))
+  :init
+  (setq mu4e-notification-support t)
   :custom
   (user-mail-address "alex@loll.be")
   (user-full-name "Alexander Loll")
@@ -913,6 +915,8 @@
   (mail-user-agent 'mu4e-user-agent)
   (read-mail-command 'mu4e)
   (mml-secure-openpgp-encrypt-to-self t)
+  (mu4e-view-prefer-plain-text t)
+  (mu4e-view-html-renderer 'xwidget)
   :config
   (load-file (expand-file-name "refile.el" user-emacs-directory))
   (defun my/mu4e-unsubscribe ()

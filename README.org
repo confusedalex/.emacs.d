@@ -1182,6 +1182,8 @@ I want to read my emails via Emacs. For this I use mu4e:
   :unless is-work
   :ensure nil
   :bind (("C-x m" . mu4e))
+  :init
+  (setq mu4e-notification-support t)
   :custom
   <<mu4e-custom>>
   :config
@@ -1248,6 +1250,12 @@ this file is not public.
 
 #+begin_src emacs-lisp :tangle no :noweb-ref mu4e-custom
 (mml-secure-openpgp-encrypt-to-self t)
+#+end_src
+
+This views html email with a webkit browser
+#+begin_src emacs-lisp :tangle no :noweb-ref mu4e-custom
+(mu4e-view-prefer-plain-text t)
+(mu4e-view-html-renderer 'xwidget)
 #+end_src
 
 [[https://www.bounga.org/emacs/2026/06/30/sign-always-encrypt-when-possible-in-mu4e/]]
